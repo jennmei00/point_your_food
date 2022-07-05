@@ -14,6 +14,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "calendar_timeline",
+      "rootUri": "file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/calendar_timeline-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "characters",
       "rootUri": "file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/characters-1.2.0",
       "packageUri": "lib/",
@@ -90,6 +96,18 @@
       "rootUri": "file:///C:/flutter_new/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "font_awesome_flutter",
+      "rootUri": "file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/font_awesome_flutter-10.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "js",
@@ -172,6 +190,12 @@
     {
       "name": "provider",
       "rootUri": "file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/provider-6.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "scrollable_positioned_list",
+      "rootUri": "file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/scrollable_positioned_list-0.2.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -266,6 +290,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "validators",
+      "rootUri": "file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/validators-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.2",
       "packageUri": "lib/",
@@ -290,7 +320,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-07-04T15:58:05.060387Z",
+  "generated": "2022-07-05T14:54:27.745002Z",
   "generator": "pub",
   "generatorVersion": "2.17.5"
 }

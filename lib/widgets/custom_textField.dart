@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:validators/validators.dart';
 
 class CustomTextField extends StatelessWidget {
   final String labelText;
@@ -7,6 +8,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final TextEditingController controller;
+  final Function onChanged;
   final bool mandatory; //check for mandatory field
   // final String fieldname; //substitute for an id
   // final bool noDecimal;
@@ -17,6 +19,7 @@ class CustomTextField extends StatelessWidget {
     this.hintText = '',
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.done,
+    required this.onChanged,
     required this.controller,
     required this.mandatory,
     // required this.fieldname,
@@ -24,37 +27,33 @@ class CustomTextField extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // print(onChanged);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: TextFormField(
+        onChanged: (val) => onChanged(val),
         keyboardType: keyboardType,
         textInputAction: textInputAction,
         controller: controller,
-        // inputFormatters: noDecimal
-        //     ? [
-        //         FilteringTextInputFormatter.allow(RegExp(r'^([0-9]*)?')),
-        //       ]
-        //     : this.keyboardType == TextInputType.number
-        //         // ? this.keyboardType.decimal == true
-        //         ? [
-        //             FilteringTextInputFormatter.allow(RegExp(Localizations
-        //                             .localeOf(context)
-        //                         .countryCode ==
-        //                     'US'
-        //                 ? r'^(?:-?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?'
-        //                 : r'^(?:-?(?:[0-9]+))?(?:\,[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?')),
-        //           ]
-        //         // : [
-        //         //     FilteringTextInputFormatter.allow(RegExp(r'^([0-9]*)?')),
-        //         //   ]
-        //         : null,
+        inputFormatters: 
+        // keyboardType == TextInputType.number
+        //     ? 
+            [
+                FilteringTextInputFormatter.allow(RegExp(
+                    r'^(?:-?(?:[0-9]+))?(?:\,[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?')),
+              ]
+            // : [
+            //     FilteringTextInputFormatter.allow(RegExp(r'^([0-9]*)?')),
+            //   ]
+            // : null,
+            ,
         validator: (value) {
           if ((value == null || value.isEmpty) && mandatory) {
             return 'Das ist ein Pflichtfeld';
           } else if (keyboardType == TextInputType.number) {
-            // if (!(isFloat(value!.replaceAll(',', '.')))) {
-            //   return 'Nur Nummern sind erlaubt';
-            // }
+            if (!(isFloat(value!.replaceAll(',', '.')))) {
+              return 'Nur Nummern sind erlaubt';
+            }
           }
 
           return null;

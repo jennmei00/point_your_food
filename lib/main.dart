@@ -10,7 +10,8 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.getInstance().then((prefs) {
     var brightness = SchedulerBinding.instance.window.platformBrightness;
-    var darkModeOn = prefs.getBool('darkMode') ?? brightness == Brightness.dark;
+    // var darkModeOn = prefs.getBool('darkMode') ?? brightness == Brightness.dark;
+    var darkModeOn = false;
     runApp(ChangeNotifierProvider(
       create: (_) => ThemeNotifier(darkModeOn ? darkTheme : lightTheme),
       child: const MyApp(),

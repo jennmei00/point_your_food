@@ -10,6 +10,10 @@ boolean_selector
 2.12
 file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.0/
 file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.0/lib/
+calendar_timeline
+2.12
+file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/calendar_timeline-1.0.4/
+file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/calendar_timeline-1.0.4/lib/
 characters
 2.12
 file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/characters-1.2.0/
@@ -50,6 +54,14 @@ flutter_lints
 2.17
 file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-2.0.1/
 file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-2.0.1/lib/
+font_awesome_flutter
+2.12
+file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/font_awesome_flutter-10.1.0/
+file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/font_awesome_flutter-10.1.0/lib/
+intl
+2.12
+file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0/
+file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0/lib/
 js
 2.16
 file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.4/
@@ -106,6 +118,10 @@ provider
 2.12
 file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/provider-6.0.3/
 file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/provider-6.0.3/lib/
+scrollable_positioned_list
+2.12
+file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/scrollable_positioned_list-0.2.3/
+file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/scrollable_positioned_list-0.2.3/lib/
 shared_preferences
 2.14
 file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-2.0.15/
@@ -162,6 +178,10 @@ test_api
 2.12
 file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.9/
 file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.9/lib/
+validators
+2.12
+file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/validators-3.0.0/
+file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/validators-3.0.0/lib/
 vector_math
 2.14
 file:///C:/flutter_new/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.2/

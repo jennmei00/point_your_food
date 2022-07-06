@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:punkte_zaehler/fodd_diary.dart';
 import 'package:punkte_zaehler/home.dart';
 import 'package:punkte_zaehler/point_calculator.dart';
+import 'package:punkte_zaehler/settings.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class NavigationState extends State<Navigation> {
     const Home(),
     const PointCalculator(),
     const FoodDiary(),
-    const Home(),
+    const Settings(),
   ];
   final List<Widget> _navTitles = [
     const Text('Home'),

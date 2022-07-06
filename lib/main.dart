@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import 'package:punkte_zaehler/navigation.dart';
+import 'package:punkte_zaehler/screens/navigation.dart';
 import 'package:punkte_zaehler/services/theme.dart';
 import 'package:punkte_zaehler/services/theme_notifier.dart';
 import 'package:shared_preferences/shared_preferences.dart';

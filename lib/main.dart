@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
+import 'package:punkte_zaehler/screens/diary/edit_diary.dart';
 import 'package:punkte_zaehler/screens/navigation.dart';
+import 'package:punkte_zaehler/screens/start_screen.dart';
 import 'package:punkte_zaehler/services/theme.dart';
 import 'package:punkte_zaehler/services/theme_notifier.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,12 +35,26 @@ class _MyAppState extends State<MyApp> {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
 
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: themeNotifier.getTheme(),
-      home: const Navigation(),
-      // routes: {
-      //   // PointCalculatorScreen.routeName: (context) => const PointCalculatorScreen(),
-      // },
-    );
+        title: 'Flutter Demo',
+        theme: themeNotifier.getTheme(),
+        home: const StartScreen(),
+        // routes: {
+        //   // PointCalculatorScreen.routeName: (context) => const PointCalculatorScreen(),
+        // },
+        onGenerateRoute: (settings) {
+          if (settings.name == EditDiary.routeName) {
+            final args = settings.arguments as List<dynamic>;
+
+            return MaterialPageRoute(
+              builder: (context) {
+                return EditDiary(
+                  type: args[0].toString(),
+                  date: args[1],
+                );
+              },
+            );
+          }
+          return null;
+        });
   }
 }

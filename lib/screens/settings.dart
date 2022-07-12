@@ -8,13 +8,13 @@ class Settings extends StatelessWidget {
     return ListView(
       children: [
         SwitchListTile(
-          secondary: Icon(Icons.lightbulb),
+          secondary: const Icon(Icons.lightbulb),
           title: const Text('Darkmode'),
           onChanged: (val) {},
           value: true,
         ),
         GestureDetector(
-          child: ListTile(
+          child: const ListTile(
             leading: Icon(Icons.my_library_books),
             title: Text(
               'Credits',
@@ -25,7 +25,7 @@ class Settings extends StatelessWidget {
           },
         ),
         GestureDetector(
-            child: ListTile(
+            child: const ListTile(
               leading: Icon(
                 Icons.description,
               ),
@@ -33,8 +33,8 @@ class Settings extends StatelessWidget {
             ),
             onTap: () => showLicensePage(
                   context: context,
-                  applicationIcon: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  applicationIcon: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     // child: Image.asset(
                     //   // 'assets/images/logo2.png',
                     //   width: 48,

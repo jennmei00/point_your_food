@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
-import 'package:punkte_zaehler/widgets/custom_textField.dart';
+import 'package:punkte_zaehler/widgets/custom_textfield.dart';
 
 class PointCalculator extends StatefulWidget {
   const PointCalculator({Key? key}) : super(key: key);
@@ -14,10 +14,10 @@ class _PointCalculatorState extends State<PointCalculator> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _fettController = TextEditingController();
   final TextEditingController _kalorienController = TextEditingController();
-  final TextEditingController _bezogenAufController =
-      TextEditingController(text: '100');
+  // final TextEditingController _bezogenAufController =
+  //     TextEditingController(text: '100');
   final TextEditingController _berechnungFuerController =
-      TextEditingController(text: '100');
+      TextEditingController();
   double foodPoints = 0;
   // final TextEditingController _punkteController = TextEditingController();
 
@@ -30,32 +30,34 @@ class _PointCalculatorState extends State<PointCalculator> {
         children: [
           CustomTextField(
               onChanged: (val) => _calculatePoints(),
-              // keyboardType: TextInputType.,
-              controller: _fettController,
-              mandatory: true,
-              hintText: 'in gramm',
-              labelText: 'Fett'),
-          CustomTextField(
-              onChanged: (val) => _calculatePoints(),
-              keyboardType: TextInputType.number,
+              // keyboardType: TextInputType.number,
               controller: _kalorienController,
               mandatory: true,
               hintText: 'in kcal',
               labelText: 'Kalorien'),
           CustomTextField(
               onChanged: (val) => _calculatePoints(),
-              keyboardType: TextInputType.number,
-              controller: _bezogenAufController,
+              // keyboardType: TextInputType.,
+              controller: _fettController,
               mandatory: true,
               hintText: 'in gramm',
-              labelText: 'Bezogen auf'),
+              labelText: 'Fett'),
+              const ListTile(
+            title: Text('Bezogen auf'),
+            subtitle: Text('in gramm'),
+            trailing: Text(
+              '100',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
           CustomTextField(
               onChanged: (val) => _calculatePoints(),
-              keyboardType: TextInputType.number,
+              // keyboardType: TextInputType.number,
               controller: _berechnungFuerController,
               mandatory: true,
               hintText: 'in gramm',
               labelText: 'Berechnung für'),
+          const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -84,13 +86,11 @@ class _PointCalculatorState extends State<PointCalculator> {
     double points = 0;
     if (_fettController.text != '' &&
         _kalorienController.text != '' &&
-        _bezogenAufController.text != '' &&
         _berechnungFuerController.text != '') {
       double fett = double.tryParse(_fettController.text.replaceAll(',', '.'))!;
       double kalorien =
           double.tryParse(_kalorienController.text.replaceAll(',', '.'))!;
-      double bezogenAuf =
-          double.tryParse(_bezogenAufController.text.replaceAll(',', '.'))!;
+      double bezogenAuf = 100;
       double berechnungFuer =
           double.tryParse(_berechnungFuerController.text.replaceAll(',', '.'))!;
 

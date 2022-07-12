@@ -22,7 +22,7 @@
 19-->[androidx.core:core:1.6.0] C:\Users\jennm\.gradle\caches\transforms-3\acbce933e4b464a5224ed377a62db1f5\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
 20        android:debuggable="true"
 21        android:icon="@mipmap/ic_launcher"
-22        android:label="punkte_zaehler" >
+22        android:label="PointYourFood" >
 23        <activity
 24            android:name="com.example.punkte_zaehler.MainActivity"
 25            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

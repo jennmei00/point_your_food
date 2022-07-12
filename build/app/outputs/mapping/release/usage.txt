@@ -1640,6 +1640,45 @@ com.example.punkte_zaehler.R$string
 com.example.punkte_zaehler.R$style
 com.example.punkte_zaehler.R$styleable
 com.example.punkte_zaehler.R
+com.tekartik.sqflite.BuildConfig
+com.tekartik.sqflite.Constant
+com.tekartik.sqflite.Database:
+    public boolean enableWriteAheadLogging()
+com.tekartik.sqflite.LogLevel:
+    static final int none
+    static final int sql
+    static final int verbose
+    public void <init>()
+com.tekartik.sqflite.R$attr
+com.tekartik.sqflite.R$color
+com.tekartik.sqflite.R$dimen
+com.tekartik.sqflite.R$drawable
+com.tekartik.sqflite.R$id
+com.tekartik.sqflite.R$integer
+com.tekartik.sqflite.R$layout
+com.tekartik.sqflite.R$string
+com.tekartik.sqflite.R$style
+com.tekartik.sqflite.R$styleable
+com.tekartik.sqflite.R
+com.tekartik.sqflite.SqflitePlugin:
+    public void <init>(android.content.Context)
+    private android.content.Context getContext()
+    public static void registerWith(io.flutter.plugin.common.PluginRegistry$Registrar)
+com.tekartik.sqflite.dev.Debug:
+    public void <init>()
+    public static void devLog(java.lang.String,java.lang.String)
+com.tekartik.sqflite.operation.BaseReadOperation:
+    protected abstract com.tekartik.sqflite.operation.OperationResult getOperationResult()
+com.tekartik.sqflite.operation.ExecuteOperation:
+    public java.lang.String getMethod()
+    protected com.tekartik.sqflite.operation.OperationResult getOperationResult()
+com.tekartik.sqflite.operation.MethodCallOperation:
+    public java.lang.String getMethod()
+com.tekartik.sqflite.operation.Operation:
+    public abstract boolean getContinueOnError()
+    public abstract java.lang.String getMethod()
+com.tekartik.sqflite.operation.SqlErrorInfo:
+    public void <init>()
 io.flutter.BuildConfig
 io.flutter.FlutterInjector$Builder:
     public io.flutter.FlutterInjector$Builder setDeferredComponentManager(io.flutter.embedding.engine.deferredcomponents.DeferredComponentManager)
@@ -1697,7 +1736,6 @@ io.flutter.embedding.android.FlutterActivityAndFragmentDelegate:
     private static final java.lang.String FRAMEWORK_RESTORATION_BUNDLE_KEY
     private static final java.lang.String PLUGINS_RESTORATION_BUNDLE_KEY
     private static final java.lang.String TAG
-    void onLowMemory()
 io.flutter.embedding.android.FlutterActivityLaunchConfigs
 io.flutter.embedding.android.FlutterEngineConfigurator
 io.flutter.embedding.android.FlutterEngineProvider
@@ -1854,7 +1892,6 @@ io.flutter.embedding.engine.dart.DartExecutor$DartEntrypoint:
 io.flutter.embedding.engine.dart.DartExecutor$DefaultBinaryMessenger:
     public void disableBufferingIncomingMessages()
     public void enableBufferingIncomingMessages()
-    public io.flutter.plugin.common.BinaryMessenger$TaskQueue makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions)
     public void send(java.lang.String,java.nio.ByteBuffer)
 io.flutter.embedding.engine.dart.DartExecutor:
     private static final java.lang.String TAG
@@ -1864,23 +1901,13 @@ io.flutter.embedding.engine.dart.DartExecutor:
     public void executeDartEntrypoint(io.flutter.embedding.engine.dart.DartExecutor$DartEntrypoint)
     public io.flutter.plugin.common.BinaryMessenger getBinaryMessenger()
     public int getPendingChannelResponseCount()
-    public io.flutter.plugin.common.BinaryMessenger$TaskQueue makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions)
     public void send(java.lang.String,java.nio.ByteBuffer)
     public void setIsolateServiceIdListener(io.flutter.embedding.engine.dart.DartExecutor$IsolateServiceIdListener)
-io.flutter.embedding.engine.dart.DartMessenger$1
-io.flutter.embedding.engine.dart.DartMessenger$ConcurrentTaskQueue
-io.flutter.embedding.engine.dart.DartMessenger$DefaultTaskQueueFactory:
-    public io.flutter.embedding.engine.dart.DartMessenger$DartMessengerTaskQueue makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions)
-io.flutter.embedding.engine.dart.DartMessenger$SerialTaskQueue
-io.flutter.embedding.engine.dart.DartMessenger$TaskQueueFactory:
-    public abstract io.flutter.embedding.engine.dart.DartMessenger$DartMessengerTaskQueue makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions)
-io.flutter.embedding.engine.dart.DartMessenger$TaskQueueToken
 io.flutter.embedding.engine.dart.DartMessenger:
     private static final java.lang.String TAG
     public void disableBufferingIncomingMessages()
     public void enableBufferingIncomingMessages()
     public int getPendingChannelResponseCount()
-    public io.flutter.plugin.common.BinaryMessenger$TaskQueue makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions)
     public void send(java.lang.String,java.nio.ByteBuffer)
 io.flutter.embedding.engine.deferredcomponents.DeferredComponentManager:
     public abstract void loadAssets(int,java.lang.String)
@@ -2008,6 +2035,7 @@ io.flutter.embedding.engine.plugins.util.GeneratedPluginRegister:
     public void <init>()
 io.flutter.embedding.engine.renderer.FlutterRenderer$SurfaceTextureRegistryEntry:
     public void release()
+    private void removeListener()
 io.flutter.embedding.engine.renderer.FlutterRenderer$ViewportMetrics:
     public static final int unsetValue
 io.flutter.embedding.engine.renderer.FlutterRenderer:
@@ -2015,6 +2043,7 @@ io.flutter.embedding.engine.renderer.FlutterRenderer:
     static synthetic void access$600(io.flutter.embedding.engine.renderer.FlutterRenderer,long)
     public void dispatchSemanticsAction(int,int,java.nio.ByteBuffer,int)
     public android.graphics.Bitmap getBitmap()
+    void removeOnTrimMemoryListener(io.flutter.view.TextureRegistry$OnTrimMemoryListener)
     public void setAccessibilityFeatures(int)
     private void unregisterTexture(long)
 io.flutter.embedding.engine.systemchannels.AccessibilityChannel:
@@ -2064,14 +2093,11 @@ io.flutter.plugin.common.BinaryCodec
 io.flutter.plugin.common.BinaryMessenger$-CC:
     public static void $default$disableBufferingIncomingMessages(io.flutter.plugin.common.BinaryMessenger)
     public static void $default$enableBufferingIncomingMessages(io.flutter.plugin.common.BinaryMessenger)
-    public static io.flutter.plugin.common.BinaryMessenger$TaskQueue $default$makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger)
-    public static io.flutter.plugin.common.BinaryMessenger$TaskQueue $default$makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger,io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions)
-io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions
+io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions:
+    public io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions setIsSerial(boolean)
 io.flutter.plugin.common.BinaryMessenger:
     public void disableBufferingIncomingMessages()
     public void enableBufferingIncomingMessages()
-    public io.flutter.plugin.common.BinaryMessenger$TaskQueue makeBackgroundTaskQueue()
-    public io.flutter.plugin.common.BinaryMessenger$TaskQueue makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions)
     public abstract void send(java.lang.String,java.nio.ByteBuffer)
 io.flutter.plugin.common.ErrorLogResult
 io.flutter.plugin.common.EventChannel$1
@@ -2220,9 +2246,11 @@ io.flutter.view.FlutterView$SurfaceTextureRegistryEntry
 io.flutter.view.FlutterView$ViewportMetrics
 io.flutter.view.FlutterView$ZeroSides
 io.flutter.view.FlutterView
+io.flutter.view.TextureRegistry$-CC
 io.flutter.view.TextureRegistry$SurfaceTextureEntry:
     public abstract void release()
 io.flutter.view.TextureRegistry:
+    public void onTrimMemory(int)
     public abstract io.flutter.view.TextureRegistry$SurfaceTextureEntry registerSurfaceTexture(android.graphics.SurfaceTexture)
 io.flutter.view.VsyncWaiter:
     public static void reset()
@@ -8469,7 +8497,9 @@ io.flutter.Log:
     private static int logLevel
 io.flutter.embedding.engine.loader.ResourceExtractor:
     void waitForCompletion()
-io.flutter.plugin.common.BinaryMessenger$-CC
+io.flutter.plugin.common.BinaryMessenger$-CC:
+    public static io.flutter.plugin.common.BinaryMessenger$TaskQueue $default$makeBackgroundTaskQueue(io.flutter.plugin.common.BinaryMessenger,io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions)
+    public static void $default$setMessageHandler(io.flutter.plugin.common.BinaryMessenger,java.lang.String,io.flutter.plugin.common.BinaryMessenger$BinaryMessageHandler,io.flutter.plugin.common.BinaryMessenger$TaskQueue)
 io.flutter.plugin.platform.PlatformView$-CC
 io.flutter.view.TextureRegistry$SurfaceTextureEntry$-CC
 kotlin.random.AbstractPlatformRandom:

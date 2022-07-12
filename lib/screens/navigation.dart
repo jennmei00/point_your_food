@@ -1,6 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:punkte_zaehler/screens/fodd_diary.dart';
+import 'package:punkte_zaehler/screens/diary/fodd_diary.dart';
 import 'package:punkte_zaehler/screens/home.dart';
 import 'package:punkte_zaehler/screens/point_calculator.dart';
 import 'package:punkte_zaehler/screens/settings.dart';
@@ -30,18 +30,36 @@ class NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _page == 0 ? null : AppBar(
-        title: _navTitles[_page],
-      ),
+      appBar: _page == 0
+          ? null
+          : AppBar(
+              title: _navTitles[_page],
+            ),
       body: _navScreens[_page],
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Theme.of(context).backgroundColor,
         color: Theme.of(context).primaryColor,
         items: <Widget>[
-          Icon(Icons.home, size: 30, color: Theme.of(context).colorScheme.onPrimary,),
-          Icon(Icons.calculate, size: 30, color: Theme.of(context).colorScheme.onPrimary,),
-          Icon(Icons.calendar_month, size: 30, color: Theme.of(context).colorScheme.onPrimary,),
-          Icon(Icons.settings, size: 30, color: Theme.of(context).colorScheme.onPrimary,),
+          Icon(
+            Icons.home,
+            size: 30,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+          Icon(
+            Icons.calculate,
+            size: 30,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+          Icon(
+            Icons.calendar_month,
+            size: 30,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+          Icon(
+            Icons.settings,
+            size: 30,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
         ],
         index: _page,
         onTap: (index) {

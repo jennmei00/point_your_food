@@ -5,10 +5,10 @@ library {
   maven_library {
     groupId: "io.flutter"
     artifactId: "flutter_embedding_release"
-    version: "1.0.0-ffe7b86a1e5b5cb63c8385ae1adc759e372ee8f4"
+    version: "1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b"
   }
   digests {
-    sha256: "\316l\031\262\273\035RN\023\311\266\240$\362\334\315h\026\f9\336\026\305a{!\030\365\344\220\210\231"
+    sha256: "\353\314^\260\346S$s\274\262\312\374\260i\335+\370l-!v\321%\037\216c\bX\235\315\371\373"
   }
   repo_index {
     value: 2
@@ -383,10 +383,10 @@ library {
   maven_library {
     groupId: "io.flutter"
     artifactId: "armeabi_v7a_release"
-    version: "1.0.0-ffe7b86a1e5b5cb63c8385ae1adc759e372ee8f4"
+    version: "1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b"
   }
   digests {
-    sha256: "g\221\022d\336\3525C\343\000\310V7XpZ\364\336\252ZC(\275\367\223\3566\365\212r\t/"
+    sha256: "DJu]\305X\374\f\037\022\237\373\355\325\2265e\321\214\023\265!\376i\361\245A\314\372\377\002\355"
   }
   repo_index {
     value: 2
@@ -396,10 +396,10 @@ library {
   maven_library {
     groupId: "io.flutter"
     artifactId: "arm64_v8a_release"
-    version: "1.0.0-ffe7b86a1e5b5cb63c8385ae1adc759e372ee8f4"
+    version: "1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b"
   }
   digests {
-    sha256: "c$\374\033\200\027\255\370\236\213\363\357w\353\351\317\221Ky\304\336s\320\315\205\036\266\365\360\253\t\302"
+    sha256: "y\267}\016%\274AL\244]\220\177\334\220\233\367+=\266\340\022\241\324R\370]\005\354\320\177\324\335"
   }
   repo_index {
     value: 2
@@ -409,10 +409,10 @@ library {
   maven_library {
     groupId: "io.flutter"
     artifactId: "x86_64_release"
-    version: "1.0.0-ffe7b86a1e5b5cb63c8385ae1adc759e372ee8f4"
+    version: "1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b"
   }
   digests {
-    sha256: "<\230QY\334`\337\237;q\206\236Y\337\327\307\370\365\350\300\271}\370^\303\250*\225\324\361a\212"
+    sha256: "\216\266\375\257:8\237\354\271\320\215\341\375#mP\341\021\266Q\326\362\257c\2676\024\225\2334\230\253"
   }
   repo_index {
     value: 2
@@ -420,7 +420,7 @@ library {
 }
 library {
   digests {
-    sha256: "\246\f\036\236\224\357L\276\243\023J\220\341\211\337`\262\355\255w\324Gc\'Eg^\263*\355M\f"
+    sha256: "7\217\177N\314Q6\f\215\266\247W\037~G\262y\250t\222\237\266D\344$\251<\234\320\035\340\347"
   }
 }
 library_dependencies {
@@ -601,6 +601,16 @@ repositories {
 repositories {
   maven_repo {
     url: "https://storage.googleapis.com/download.flutter.io"
+  }
+}
+repositories {
+  maven_repo {
+    url: "https://dl.google.com/dl/android/maven2/"
+  }
+}
+repositories {
+  maven_repo {
+    url: "https://repo.maven.apache.org/maven2/"
   }
 }
 repositories {

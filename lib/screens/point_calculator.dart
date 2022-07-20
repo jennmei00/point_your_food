@@ -3,8 +3,9 @@ import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/custom_textfield.dart';
 
 class PointCalculator extends StatefulWidget {
-  const PointCalculator({Key? key}) : super(key: key);
+  const PointCalculator({Key? key, required this.fromSheet}) : super(key: key);
   static const routeName = '/point_calculator';
+  final fromSheet;
 
   @override
   State<PointCalculator> createState() => _PointCalculatorState();
@@ -23,6 +24,15 @@ class _PointCalculatorState extends State<PointCalculator> {
 
   @override
   Widget build(BuildContext context) {
+    return widget.fromSheet
+        ? Scaffold(
+            appBar: AppBar(title: const Text('Punkte berechnen')),
+            body: form(),
+          )
+        : form();
+  }
+
+  Form form() {
     return Form(
       key: _formKey,
       child: ListView(
@@ -42,7 +52,7 @@ class _PointCalculatorState extends State<PointCalculator> {
               mandatory: true,
               hintText: 'in gramm',
               labelText: 'Fett'),
-              const ListTile(
+          const ListTile(
             title: Text('Bezogen auf'),
             subtitle: Text('in gramm'),
             trailing: Text(
@@ -69,14 +79,13 @@ class _PointCalculatorState extends State<PointCalculator> {
               const Text('Punkte'),
             ],
           ),
-          // const SizedBox(height: 10),
-          // ElevatedButton(
-          //     onPressed: () {
-          //       if (_formKey.currentState!.validate()) {
-          //         _calculatePoints();
-          //       }
-          //     },
-          //     child: const Text('Punkte berechnen')),
+          widget.fromSheet
+              ? OutlinedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(foodPoints);
+                  },
+                  child: const Text('Punkte übernehmen'))
+              : const SizedBox(),
         ],
       ),
     );

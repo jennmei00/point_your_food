@@ -16,7 +16,7 @@ class NavigationState extends State<Navigation> {
   int _page = 1;
   final List<Widget> _navScreens = [
     const Home(),
-    const PointCalculator(),
+    const PointCalculator(fromSheet: false),
     const FoodDiary(),
     const Settings(),
   ];

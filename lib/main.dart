@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:punkte_zaehler/screens/diary/edit_diary.dart';
-import 'package:punkte_zaehler/screens/navigation.dart';
+import 'package:punkte_zaehler/screens/point_calculator.dart';
 import 'package:punkte_zaehler/screens/start_screen.dart';
 import 'package:punkte_zaehler/services/theme.dart';
 import 'package:punkte_zaehler/services/theme_notifier.dart';
@@ -48,12 +48,24 @@ class _MyAppState extends State<MyApp> {
             return MaterialPageRoute(
               builder: (context) {
                 return EditDiary(
-                  type: args[0].toString(),
-                  date: args[1],
+                  // type: PointType.values[args[0] as int],
+                  date: args[0],
+                  diaryID: args[1],
+                );
+              },
+            );
+          } else if (settings.name == PointCalculator.routeName) {
+            final args = settings.arguments as bool;
+
+            return MaterialPageRoute(
+              builder: (context) {
+                return PointCalculator(
+                  fromSheet: args,
                 );
               },
             );
           }
+
           return null;
         });
   }

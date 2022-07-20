@@ -30,7 +30,8 @@ import 'package:flutter/material.dart';
 // );
 
 const ColorScheme colorSchemeLight = ColorScheme.light(
-  primary: Color.fromARGB(255, 114, 10, 10), //I think this is the mainColor, for example the backgroundcolor of the appbar or the color of the progressindicator
+  primary: Color.fromRGBO(66, 2, 2,
+      1), //I think this is the mainColor, for example the backgroundcolor of the appbar or the color of the progressindicator
   // secondary: Color(
   //     0xff757575), //Color(0xff0097a7), //for example background of floatingActionButton of the AppBAr
   // secondaryVariant: Color(0xffeeeeee), //Color(0xffb2ebf2),//56c8d8),
@@ -46,8 +47,8 @@ final lightTheme = ThemeData(
   //textTheme: textTheme,
   colorScheme: colorSchemeLight,
   primaryColor: colorSchemeLight.primary,
-  primaryColorLight: const Color.fromARGB(255, 114, 10, 10),
-  primaryColorDark: const Color(0xff560027),
+  primaryColorLight: const Color.fromRGBO(66, 2, 2, 1),
+  primaryColorDark: const Color.fromRGBO(66, 2, 2, 1),
   primarySwatch: Colors.grey,
   brightness: colorSchemeLight.brightness,
   scaffoldBackgroundColor: colorSchemeLight.background,
@@ -64,7 +65,7 @@ final lightTheme = ThemeData(
 );
 
 const ColorScheme colorSchemeDark = ColorScheme.dark(
-  primary: Color(0xff7cc0d8),//Color(0xffc5e1a5),
+  primary: Color(0xff7cc0d8), //Color(0xffc5e1a5),
   secondary: Color(0xff3ba1c5),
   onPrimary: Colors.black,
   onSecondary: Colors.black,
@@ -75,18 +76,17 @@ const ColorScheme colorSchemeDark = ColorScheme.dark(
 );
 
 final darkTheme = ThemeData(
-  primaryColor: colorSchemeDark.secondary,
-  primaryColorDark: const Color(0xff1a6985),//Color(0xff94af76),
-  //textTheme: textTheme,
-  colorScheme: colorSchemeDark,
-  scaffoldBackgroundColor: Colors.grey.shade900,
-  iconTheme: IconThemeData(
-    color: Colors.grey.shade500,
-  ),
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: colorSchemeDark.secondary,
-  ),
-  toggleableActiveColor: colorSchemeDark.secondary,
-  // inputDecorationTheme: InputTheme().theme(colorSchemeDark),
-  indicatorColor: colorSchemeDark.secondary
-);
+    primaryColor: colorSchemeDark.secondary,
+    primaryColorDark: const Color(0xff1a6985), //Color(0xff94af76),
+    //textTheme: textTheme,
+    colorScheme: colorSchemeDark,
+    scaffoldBackgroundColor: Colors.grey.shade900,
+    iconTheme: IconThemeData(
+      color: Colors.grey.shade500,
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: colorSchemeDark.secondary,
+    ),
+    toggleableActiveColor: colorSchemeDark.secondary,
+    // inputDecorationTheme: InputTheme().theme(colorSchemeDark),
+    indicatorColor: colorSchemeDark.secondary);

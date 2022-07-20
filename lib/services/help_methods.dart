@@ -1,3 +1,8 @@
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
+import 'package:punkte_zaehler/models/all_data.dart';
+import 'package:punkte_zaehler/services/db_helper.dart';
+
 double roundPoints(double points) {
   double result = 0;
   double decimalNumbers =
@@ -14,7 +19,24 @@ double roundPoints(double points) {
   return result;
 }
 
-int calculateDailypoints({
+String dateFormat(DateTime date) {
+  initializeDateFormatting();
+
+  String d = '';
+  DateFormat f = DateFormat('dd.MM.yyyy', 'de');
+  d = f.format(date);
+
+  return d;
+}
+
+String decimalFormat(double num) {
+  String d = '';
+  NumberFormat f = NumberFormat.decimalPattern('de');
+  d = f.format(num);
+  return d;
+}
+
+double calculateDailypoints({
   required int gender,
   required int age,
   required double weight,
@@ -22,7 +44,7 @@ int calculateDailypoints({
   required int move,
   required int purpose,
 }) {
-  int points = 0;
+  double points = 0;
 
   //Male or Female
   if (gender == 0) {
@@ -81,4 +103,9 @@ int calculateDailypoints({
   }
 
   return points;
+}
+
+Future<void> resestPointsafe() async {
+  AllData.profiledata.pointSafe = 0;
+  await DBHelper.update('Profiledata', AllData.profiledata.toMap());
 }

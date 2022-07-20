@@ -80,17 +80,22 @@ class Diary {
     Diary diary = Diary(
       id: data['ID'],
       date: DateTime.parse(data['Date']),
-      dailyRestPoints: double.parse(data['Dailyrestpoints']),
-      breakfast: _getFood(
-          AllData.breakfast.where((element) => element.diaryId == id).toList()),
-      lunch: _getFood(
-          AllData.lunch.where((element) => element.diaryId == id).toList()),
-      dinner: _getFood(
-          AllData.dinner.where((element) => element.diaryId == id).toList()),
-      snack: _getFood(
-          AllData.snack.where((element) => element.diaryId == id).toList()),
-      fitpoints: _getActivity(
-          AllData.fitpoints.where((element) => element.diaryId == id).toList()),
+      dailyRestPoints: data['Dailyrestpoints'],
+      breakfast: _getFood(AllData.breakfast
+          .where((element) => element.diaryId == data['ID'])
+          .toList()),
+      lunch: _getFood(AllData.lunch
+          .where((element) => element.diaryId == data['ID'])
+          .toList()),
+      dinner: _getFood(AllData.dinner
+          .where((element) => element.diaryId == data['ID'])
+          .toList()),
+      snack: _getFood(AllData.snack
+          .where((element) => element.diaryId == data['ID'])
+          .toList()),
+      fitpoints: _getActivity(AllData.fitpoints
+          .where((element) => element.diaryId == data['ID'])
+          .toList()),
     );
     return diary;
   }

@@ -8,7 +8,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final TextEditingController controller;
-  final Function onChanged;
+  final Function? onChanged;
   final bool mandatory; //check for mandatory field
   // final String fieldname; //substitute for an id
   // final bool noDecimal;
@@ -31,22 +31,22 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: TextFormField(
-        onChanged: (val) => onChanged(val),
+        onChanged: onChanged == null ? null : (val) => onChanged!(val),
         keyboardType: keyboardType,
         textInputAction: textInputAction,
         controller: controller,
-        inputFormatters: 
+        // inputFormatters: 
         // keyboardType == TextInputType.number
         //     ? 
-            [
-                FilteringTextInputFormatter.allow(RegExp(
-                    r'^(?:-?(?:[0-9]+))?(?:\,[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?')),
-              ]
+            // [
+            //     FilteringTextInputFormatter.allow(RegExp(
+            //         r'^(?:-?(?:[0-9]+))?(?:\,[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?')),
+            //   ]
             // : [
             //     FilteringTextInputFormatter.allow(RegExp(r'^([0-9]*)?')),
             //   ]
             // : null,
-            ,
+            // ,
         validator: (value) {
           if ((value == null || value.isEmpty) && mandatory) {
             return 'Das ist ein Pflichtfeld';

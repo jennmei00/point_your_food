@@ -12,6 +12,7 @@ import 'package:punkte_zaehler/models/weigh.dart';
 import 'package:punkte_zaehler/models/weight.dart';
 import 'package:punkte_zaehler/screens/navigation.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
+import 'package:uuid/uuid.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({Key? key}) : super(key: key);
@@ -24,17 +25,74 @@ class _StartScreenState extends State<StartScreen> {
   late Future<bool> dataLoaded;
 
   Future<bool> loadAllData() async {
-    AllData.fitpoints = FitPoint.forDB().listFromDB(await DBHelper.getData('Fitpoint'));
+    // DBHelper.deleteDatabse();
+    // DBHelper.insert(
+    //     'Weight',
+    //     Weight(
+    //             id: 'Startweight',
+    //             date: DateTime(2022, 06, 16),
+    //             title: 'Startgewicht',
+    //             weight: 70)
+    //         .toMap());
+    // DBHelper.insert(
+    //     'Weight',
+    //     Weight(
+    //             id: 'Targetweight',
+    //             date: DateTime(2022, 08, 18),
+    //             title: 'Zielgewicht',
+    //             weight: 60)
+    //         .toMap());
+
+    // DBHelper.insert(
+    //     'Weight',
+    //     Weight(
+    //             id: 'Currentweight',
+    //             date: DateTime(2022, 07, 01),
+    //             title: 'Aktuelles Gewicht',
+    //             weight: 65)
+    //         .toMap());
+
+    // DBHelper.insert(
+    //     'Profiledata',
+    //     ProfileData(
+    //             id: Uuid().v1(),
+    //             name: 'Jenny',
+    //             email: 'jennmei00@yahoo.de',
+    //             dailyPoints: 22,
+    //             pointSafe: 0,
+    //             startWeight: Weight(
+    //                 id: 'Startweight',
+    //                 date: DateTime(2022, 06, 16),
+    //                 title: 'Startgewicht',
+    //                 weight: 70),
+    //             targetWeight: Weight(
+    //                 id: 'Targetweight',
+    //                 date: DateTime(2022, 08, 18),
+    //                 title: 'Zielgewicht',
+    //                 weight: 60),
+    //             currentWeight: Weight(
+    //                 id: 'Currentweight',
+    //                 date: DateTime(2022, 07, 01),
+    //                 title: 'Aktuelles Gewicht',
+    //                 weight: 65))
+    //         .toMap());
+
+    AllData.fitpoints =
+        FitPoint.forDB().listFromDB(await DBHelper.getData('Fitpoint'));
     AllData.breakfast =
         Breakfast.forDB().listFromDB(await DBHelper.getData('Breakfast'));
     AllData.lunch = Lunch.forDB().listFromDB(await DBHelper.getData('Lunch'));
-    AllData.dinner = Dinner.forDB().listFromDB(await DBHelper.getData('Dinner'));
+    AllData.dinner =
+        Dinner.forDB().listFromDB(await DBHelper.getData('Dinner'));
     AllData.snack = Snack.forDB().listFromDB(await DBHelper.getData('Snack'));
-    AllData.activities = Activity.forDB().listFromDB(await DBHelper.getData('Activity'));
+    AllData.activities =
+        Activity.forDB().listFromDB(await DBHelper.getData('Activity'));
     AllData.foods = Food.forDB().listFromDB(await DBHelper.getData('Food'));
     AllData.weighs = Weigh.forDB().listFromDB(await DBHelper.getData('Weigh'));
-    AllData.weights = Weight.forDB().listFromDB(await DBHelper.getData('Weight'));
-    AllData.profiledata = ProfileData.forDB().fromDB(await DBHelper.getOneData('Profiledata'));
+    AllData.weights =
+        Weight.forDB().listFromDB(await DBHelper.getData('Weight'));
+    AllData.profiledata =
+        ProfileData.forDB().fromDB(await DBHelper.getOneData('Profiledata'));
     AllData.diaries = Diary.forDB().listFromDB(await DBHelper.getData('Diary'));
 
     return Future.value(true);

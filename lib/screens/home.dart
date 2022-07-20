@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/models/profiledata.dart';
+import 'package:punkte_zaehler/services/db_helper.dart';
+import 'package:punkte_zaehler/services/help_methods.dart';
+import 'package:punkte_zaehler/widgets/home/calc_dailypoints_sheet.dart';
 import 'package:punkte_zaehler/widgets/custom_textfield.dart';
+import 'package:punkte_zaehler/widgets/home/edit_weights_sheet.dart';
+import 'package:punkte_zaehler/widgets/home/home_card.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -11,330 +17,211 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  ProfileData profileData = ProfileData.getDummyData();
+  // ProfileData profileData = ProfileData.getDummyData();
+  TextEditingController startController = TextEditingController();
+  TextEditingController targetController = TextEditingController();
+  TextEditingController currentController = TextEditingController();
+
+  @override
+  void initState() {
+    startController.text = '${AllData.profiledata.startWeight!.weight}';
+    targetController.text = '${AllData.profiledata.targetWeight!.weight}';
+    currentController.text = '${AllData.profiledata.currentWeight!.weight}';
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Container(
-        decoration: BoxDecoration(
-          borderRadius:
-              const BorderRadius.only(bottomLeft: Radius.circular(150)),
-          color: Theme.of(context).primaryColor,
-        ),
-        // color: Theme.of(context).primaryColor,
-        width: double.infinity,
-        height: 200,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 50,
-              child: Icon(
-                Icons.emoji_people,
-                size: 50,
-              ),
+    return Stack(
+      children: [
+        Column(children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.elliptical(300, 200),
+                  bottomRight: Radius.elliptical(190, 60)),
+              color: Theme.of(context).primaryColor,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text(
-                  // profileData.name,
-                  'NAME',
-                  style: TextStyle(color: Colors.white),
+            // color: Theme.of(context).primaryColor,
+            width: double.infinity,
+            height: 200,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 40,
+                  child: Icon(
+                    Icons.account_circle_rounded,
+                    size: 80,
+                  ),
                 ),
-                Text(
-                  // profileData.email,
-                  '',
-                  style: TextStyle(color: Colors.white),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${AllData.profiledata.name}',
+                      // 'NAME',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      '${AllData.profiledata.email}',
+                      // '',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      '${decimalFormat(AllData.profiledata.dailyPoints!)} Tagespunkte',
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    )
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
-      ),
-      Expanded(
-        child: ListView(
-          children: [
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     SizedBox(
-            //       width: MediaQuery.of(context).size.width / 2 * 0.9,
-            //       height: 200,
-            //       child:
-            Card(
-              elevation: 5,
-              // shape: const RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.only(
-              //   topRight: Radius.circular(50),
-              //   topLeft: Radius.circular(10),
-              //   bottomLeft: Radius.circular(10),
-              //   bottomRight: Radius.circular(10),
-              // )),
-              color: Theme.of(context).primaryColor,
-              child:
-                  // Column(
-                  //   children: [
-                  //     FaIcon(Icons.start, color: Colors.white, size: 70,),
-                  //     Text('Startgewicht', textAlign: TextAlign.left,),
-                  //     Text('${profileData.startWeight!.weight}'),
-                  //   ],
-                  // )
-                  ListTile(
-                textColor: Colors.white,
-                title: Row(
-                  children: const [
-                    FaIcon(Icons.start, color: Colors.white),
-                    Text('  Startgewicht'),
-                  ],
-                ),
-                trailing: Text('${profileData.startWeight!.weight}'),
-              ),
+          ),
+          Expanded(
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                HomeCard(
+                    date: AllData.profiledata.startWeight!.date!,
+                    onDateChanged: (val) => dateChanged(0, val),
+                    onWeightChanged: () => weightChanged(0),
+                    title: 'Startgewicht',
+                    weightController: startController),
+                HomeCard(
+                    date: AllData.profiledata.targetWeight!.date!,
+                    onDateChanged: (val) => dateChanged(1, val),
+                    onWeightChanged: () => weightChanged(1),
+                    title: 'Zielgewicht',
+                    weightController: targetController),
+                HomeCard(
+                    date: AllData.profiledata.currentWeight!.date!,
+                    onDateChanged: (val) => dateChanged(2, val),
+                    onWeightChanged: () => weightChanged(2),
+                    title: 'Aktuelles Gewicht',
+                    weightController: currentController),
+                const SizedBox(height: 40),
+              ],
             ),
-            // ),
-            // SizedBox(
-            //     width: MediaQuery.of(context).size.width / 2 * 0.9,
-            //     height: 200,
-            //     child:
-            //  Card(
-            //     elevation: 5,
-            //     shape: const RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.only(
-            //       topRight: Radius.circular(50),
-            //       topLeft: Radius.circular(10),
-            //       bottomLeft: Radius.circular(10),
-            //       bottomRight: Radius.circular(10),
-            //     )),
-            //     color: Theme.of(context).primaryColor,
-            //     child: Column(
-            //       children: [],
-            //     ))),
-            // ],
-            // ),
-            Card(
-              elevation: 5,
-              color: Theme.of(context).primaryColor,
-              child: ListTile(
-                textColor: Colors.white,
-                title: Row(
-                  children: const [
-                    FaIcon(Icons.start, color: Colors.white),
-                    Text(' Zielgewicht'),
-                  ],
+          )
+        ]),
+        Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: OutlinedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        // Theme.of(context).primaryColor.withOpacity(0.5)),
+                        Colors.white),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)))),
+                onPressed: () => calcDailypointsPressed(),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text('Tagespunkte berechnen'),
                 ),
-                trailing: Text('${profileData.targetWeight!.weight}'),
               ),
-            ),
-            Card(
-              elevation: 5,
-              color: Theme.of(context).primaryColor,
-              child: ListTile(
-                textColor: Colors.white,
-                title: Row(
-                  children: const [
-                    FaIcon(FontAwesomeIcons.weightScale, color: Colors.white),
-                    Text(' Aktuelles Gewicht'),
-                  ],
-                ),
-                trailing: Text('${profileData.currentWeight!.weight}'),
-              ),
-            ),
-            Card(
-              elevation: 5,
-              color: Theme.of(context).primaryColor,
-              child: ListTile(
-                textColor: Colors.white,
-                title: Row(
-                  children: const [
-                    FaIcon(
-                      Icons.today,
-                      color: Colors.white,
-                    ),
-                    Text(' Tagespunkte'),
-                  ],
-                ),
-                trailing: Text('${profileData.dailyPoints}'),
-              ),
-            ),
-            OutlinedButton(
-                onPressed: () => calcDailypointsPressed(context),
-                child: const Text('Tagespunkte berechnen'))
-          ],
-        ),
-      )
-    ]);
+            )),
+      ],
+    );
   }
 
-  void calcDailypointsPressed(BuildContext ctx) {
-    TextEditingController ageController = TextEditingController();
-    TextEditingController weightController = TextEditingController();
-    TextEditingController heightController = TextEditingController();
-    int genderValue = 0;
-    int moveDropdown = 0;
-    int purposeDropdown = 0;
-
+  void calcDailypointsPressed() {
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
-        builder: (ctx) {
-          return SingleChildScrollView(
-            child: StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) => Padding(
-                padding: EdgeInsets.only(
-                    top: 10,
-                    left: 10,
-                    right: 10,
-                    bottom: MediaQuery.of(ctx).viewInsets.bottom),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          children: [
-                            Radio(
-                              value: 0,
-                              groupValue: genderValue,
-                              onChanged: (val) {
-                                setState(() {
-                                  genderValue = val as int;
-                                });
-                              },
-                            ),
-                            GestureDetector(
-                              child: const Text('Männlich'),
-                              onTap: () {
-                                setState(() {
-                                  genderValue = 0;
-                                });
-                              },
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: 1,
-                              groupValue: genderValue,
-                              onChanged: (val) {
-                                setState(() {
-                                  genderValue = val as int;
-                                });
-                              },
-                            ),
-                            GestureDetector(
-                              child: const Text('Weiblich'),
-                              onTap: () {
-                                setState(() {
-                                  genderValue = 1;
-                                });
-                              },
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    CustomTextField(
-                      onChanged: () {},
-                      controller: ageController,
-                      mandatory: false,
-                      labelText: 'Alter',
-                      hintText: '',
-                    ),
-                    CustomTextField(
-                      onChanged: () {},
-                      controller: weightController,
-                      mandatory: false,
-                      labelText: 'Gewicht',
-                      hintText: 'in kg',
-                    ),
-                    CustomTextField(
-                      onChanged: () {},
-                      controller: heightController,
-                      mandatory: false,
-                      labelText: 'Größe',
-                      hintText: 'in cm',
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Bewegung'),
-                        DropdownButton(
-                            value: moveDropdown,
-                            items: const [
-                              DropdownMenuItem(
-                                value: 0,
-                                child: Text('Keine Bewegung'),
-                              ),
-                              DropdownMenuItem(
-                                value: 1,
-                                child: Text('Etwas Bewegung'),
-                              ),
-                              DropdownMenuItem(
-                                value: 2,
-                                child: Text('Viel Bewegung'),
-                              ),
-                              DropdownMenuItem(
-                                value: 3,
-                                child: Text('Täglich viel Bewegung'),
-                              ),
-                            ],
-                            onChanged: (val) {
-                              setState(() {
-                                moveDropdown = val as int;
-                              });
-                            })
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Ziel'),
-                        DropdownButton(
-                            value: purposeDropdown,
-                            items: const [
-                              DropdownMenuItem(
-                                value: 0,
-                                child: Text('Gewicht halten'),
-                              ),
-                              DropdownMenuItem(
-                                value: 1,
-                                child: Text('Gewicht senken'),
-                              ),
-                            ],
-                            onChanged: (val) {
-                              setState(() {
-                                purposeDropdown = val as int;
-                              });
-                            })
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        OutlinedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Abbrechen')),
-                        OutlinedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Übernehmen')),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
-              ),
-            ),
-          );
+        builder: (context) {
+          return CalcDailypointsSheet(
+              ctx: context,
+              onPressed: () {
+                setState(() {});
+              });
         });
   }
+
+  dateChanged(int i, DateTime date) async {
+    switch (i) {
+      case 0: //Startweight
+        AllData.profiledata.startWeight!.date = date;
+
+        await DBHelper.update(
+            'Weight', AllData.profiledata.startWeight!.toMap(),
+            where: 'ID = "${AllData.profiledata.startWeight!.id}"');
+        break;
+      case 1: //Targetweight
+        AllData.profiledata.targetWeight!.date = date;
+
+        await DBHelper.update(
+            'Weight', AllData.profiledata.targetWeight!.toMap(),
+            where: 'ID = "${AllData.profiledata.targetWeight!.id}"');
+        break;
+      case 2: //Currentweight
+        AllData.profiledata.currentWeight!.date = date;
+
+        await DBHelper.update(
+            'Weight', AllData.profiledata.currentWeight!.toMap(),
+            where: 'ID = "${AllData.profiledata.currentWeight!.id}"');
+        break;
+      default:
+    }
+
+    setState(() {});
+  }
+
+  weightChanged(int i) async {
+    switch (i) {
+      case 0: //Startweight
+        AllData.profiledata.startWeight!.weight =
+            double.tryParse(startController.text);
+
+        await DBHelper.update(
+            'Weight', AllData.profiledata.startWeight!.toMap(),
+            where: 'ID = "${AllData.profiledata.startWeight!.id}"');
+        break;
+      case 1: //Targetweight
+        AllData.profiledata.targetWeight!.weight =
+            double.tryParse(targetController.text);
+
+        await DBHelper.update(
+            'Weight', AllData.profiledata.targetWeight!.toMap(),
+            where: 'ID = "${AllData.profiledata.targetWeight!.id}"');
+        break;
+      case 2: //Currentweight
+        AllData.profiledata.currentWeight!.weight =
+            double.tryParse(currentController.text);
+
+        await DBHelper.update(
+            'Weight', AllData.profiledata.currentWeight!.toMap(),
+            where: 'ID = "${AllData.profiledata.currentWeight!.id}"');
+        break;
+      default:
+    }
+
+    // setState(() {
+    //   startController.text = '${AllData.profiledata.startWeight!.weight}';
+    //   targetController.text = '${AllData.profiledata.targetWeight!.weight}';
+    //   currentController.text = '${AllData.profiledata.currentWeight!.weight}';
+    // });
+  }
+
+  // void editWeightsPressed() {
+  //   showModalBottomSheet(
+  //       context: context,
+  //       builder: (context) {
+  //         return EditWeightsSheet(
+  //             ctx: context,
+  //             onPressed: () {
+  //               setState(() {});
+  //             });
+  //       });
+  // }
 }

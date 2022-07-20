@@ -85,6 +85,14 @@ class DBHelper {
     await batch.commit();
   }
 
+  //DELETE
+  static Future<void> delete(String table, {String? where}) async {
+    final db = await DBHelper.openDatabase();
+    sql.Batch batch = db.batch();
+    batch.delete(table, where: where);
+    await batch.commit();
+  }
+
   //COUNT
   static Future<int> count(String table, {String where = ''}) async {
     final db = await DBHelper.openDatabase();

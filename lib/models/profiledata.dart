@@ -41,36 +41,36 @@ class ProfileData {
     map['ID'] = id;
     map['Name'] = name;
     map['Email'] = email;
-    map['Dialypoints'] = dailyPoints;
+    map['Dailypoints'] = dailyPoints;
     map['Pointsafe'] = pointSafe;
-    map['Startweight'] = startWeight!.id;
-    map['Targetweight'] = targetWeight!.id;
-    map['Currentweight'] = currentWeight!.id;
+    map['StartweightID'] = startWeight!.id;
+    map['TargetweightID'] = targetWeight!.id;
+    map['CurrentweightID'] = currentWeight!.id;
     return map;
   }
 
-  List<ProfileData> listFromDB(List<Map<String, dynamic>> mapList) {
-    List<ProfileData> list = [];
-    for (var element in mapList) {
-      ProfileData profileData = fromDB(element);
-      list.add(profileData);
-    }
-    return list;
-  }
+  // List<ProfileData> listFromDB(List<Map<String, dynamic>> mapList) {
+  //   List<ProfileData> list = [];
+  //   for (var element in mapList) {
+  //     ProfileData profileData = fromDB(element);
+  //     list.add(profileData);
+  //   }
+  //   return list;
+  // }
 
   ProfileData fromDB(Map<String, dynamic> data) {
     ProfileData profileData = ProfileData(
       id: data['ID'],
       name: data['Name'],
       email: data['Email'],
-      dailyPoints: double.parse(data['Dialypoints']),
-      pointSafe: double.parse(data['Pointsafe']),
+      dailyPoints: data['Dailypoints'],
+      pointSafe: data['Pointsafe'],
       startWeight: AllData.weights
-          .firstWhere((element) => element.id == data['Startweight']),
+          .firstWhere((element) => element.id == data['StartweightID']),
       targetWeight: AllData.weights
-          .firstWhere((element) => element.id == data['Targetweight']),
+          .firstWhere((element) => element.id == data['TargetweightID']),
       currentWeight: AllData.weights
-          .firstWhere((element) => element.id == data['Currentweight']),
+          .firstWhere((element) => element.id == data['CurrentweightID']),
     );
     return profileData;
   }

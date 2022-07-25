@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
 
 class HomeCard extends StatelessWidget {
@@ -41,13 +42,14 @@ class HomeCard extends StatelessWidget {
                   trailing: GestureDetector(
                     child: Text(dateFormat(date)),
                     onTap: () {
+                      FocusScope.of(context).requestFocus(FocusNode());
                       showDatePicker(
                               context: context,
                               initialDate: date,
                               firstDate: DateTime.now()
                                   .subtract(const Duration(days: 2000)),
-                              lastDate:
-                                  DateTime.now().add(const Duration(days: 1000)))
+                              lastDate: DateTime.now()
+                                  .add(const Duration(days: 1000)))
                           .then((value) => onDateChanged(value));
                     },
                   ),
@@ -60,6 +62,10 @@ class HomeCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: TextField(
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(
+                                  r'^(?:-?(?:[0-9]+))?(?:\,[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?')),
+                            ],
                             controller: weightController,
                             onChanged: (val) => onWeightChanged(),
                           ),

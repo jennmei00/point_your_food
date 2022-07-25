@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:punkte_zaehler/models/enums.dart';
 import 'package:validators/validators.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -9,6 +11,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final Function? onChanged;
   final bool mandatory; //check for mandatory field
+  final TextFieldType type;
   // final String fieldname; //substitute for an id
   // final bool noDecimal;
 
@@ -21,12 +24,12 @@ class CustomTextField extends StatelessWidget {
     required this.onChanged,
     required this.controller,
     required this.mandatory,
+    required this.type,
     // required this.fieldname,
     // this.noDecimal = false,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // print(onChanged);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: TextFormField(
@@ -34,24 +37,26 @@ class CustomTextField extends StatelessWidget {
         keyboardType: keyboardType,
         textInputAction: textInputAction,
         controller: controller,
-        // inputFormatters: 
-        // keyboardType == TextInputType.number
-        //     ? 
-            // [
-            //     FilteringTextInputFormatter.allow(RegExp(
-            //         r'^(?:-?(?:[0-9]+))?(?:\,[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?')),
-            //   ]
-            // : [
-            //     FilteringTextInputFormatter.allow(RegExp(r'^([0-9]*)?')),
-            //   ]
-            // : null,
-            // ,
+        inputFormatters: type == TextFieldType.decimal
+            ? [
+                FilteringTextInputFormatter.allow(RegExp(
+                    r'^(?:-?(?:[0-9]+))?(?:\,[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?')),
+              ]
+            : type == TextFieldType.integer
+                ? [
+                    FilteringTextInputFormatter.allow(RegExp(r'^([0-9]*)?')),
+                  ]
+                : null,
         validator: (value) {
-          if ((value == null || value.isEmpty) && mandatory) {
+          if ((value == null || value.isEmpty || value == '') && mandatory) {
             return 'Das ist ein Pflichtfeld';
-          } else if (keyboardType == TextInputType.number) {
+          } else if (type == TextFieldType.decimal) {
             if (!(isFloat(value!.replaceAll(',', '.')))) {
               return 'Nur Nummern sind erlaubt';
+            } else if (type == TextFieldType.integer) {
+              if (!isInt(value)) {
+                return 'Nur Zahlen ohne Dezimalstelle sind erlaubt';
+              }
             }
           }
 

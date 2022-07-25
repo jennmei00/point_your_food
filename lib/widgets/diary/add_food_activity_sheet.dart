@@ -7,6 +7,7 @@ import 'package:punkte_zaehler/models/food.dart';
 import 'package:punkte_zaehler/models/foods.dart';
 import 'package:punkte_zaehler/screens/point_calculator.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
+import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/custom_textfield.dart';
 import 'package:punkte_zaehler/widgets/diary/custom_type_ahead_form_field.dart';
 import 'package:uuid/uuid.dart';
@@ -27,6 +28,7 @@ class AddFoodActivitySheet extends StatefulWidget {
 }
 
 class _AddFoodActivitySheetState extends State<AddFoodActivitySheet> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController pointController = TextEditingController();
 
@@ -38,104 +40,117 @@ class _AddFoodActivitySheetState extends State<AddFoodActivitySheet> {
           left: 10,
           right: 10,
           bottom: MediaQuery.of(context).viewInsets.bottom),
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
-        CustomTypeAheadFormField(
-          controller: nameController,
-          labelText: 'Name',
-          hintText: '',
-          onSelected: (val) {
-            nameController.text = val.title!;
-            pointController.text = val.points.toString();
-          },
-        ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
-            Expanded(
-              child: CustomTextField(
-                onChanged: null,
-                controller: pointController,
-                mandatory: false,
-                labelText: 'Punkte',
-                hintText: '',
+      child: Form(
+        key: _formKey,
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          CustomTypeAheadFormField(
+            controller: nameController,
+            labelText: 'Name',
+            hintText: '',
+            onSelected: (val) {
+              nameController.text = val.title!;
+              pointController.text = val.points.toString();
+            },
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: CustomTextField(
+                  type: TextFieldType.decimal,
+                  onChanged: null,
+                  controller: pointController,
+                  mandatory: true,
+                  labelText: 'Punkte',
+                  hintText: '',
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: IconButton(
-                icon: const FaIcon(FontAwesomeIcons.calculator, size: 40),
-                onPressed: () async {
-                  dynamic foodPoints = await Navigator.of(context)
-                      .pushNamed(PointCalculator.routeName, arguments: true);
-                  setState(() {
-                    pointController.text = foodPoints.toString();
-                  });
-                },
-              ),
-            )
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            OutlinedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Abbrechen')),
-            OutlinedButton(
-                onPressed: () {
-                  if (widget.type == PointType.activity) {
-                    String activityId = '';
-                    bool exists = false;
-                    for (var element in AllData.activities) {
-                      if (element.title == nameController.text) {
-                        exists = true;
-                        activityId = element.id!;
+              widget.type == PointType.activity
+                  ? const SizedBox()
+                  : Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: IconButton(
+                        icon:
+                            const FaIcon(FontAwesomeIcons.calculator, size: 40),
+                        onPressed: () async {
+                          dynamic foodPoints = await Navigator.of(context)
+                              .pushNamed(PointCalculator.routeName,
+                                  arguments: true);
+                          setState(() {
+                            pointController.text =
+                                decimalFormat(foodPoints ?? 0);
+                          });
+                        },
+                      ),
+                    )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              OutlinedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Abbrechen')),
+              OutlinedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      if (widget.type == PointType.activity) {
+                        String activityId = '';
+                        bool exists = false;
+                        for (var element in AllData.activities) {
+                          if (element.title == nameController.text) {
+                            exists = true;
+                            activityId = element.id!;
+                          }
+                        }
+
+                        if (!exists) {
+                          activityId = const Uuid().v1();
+                          Activity newActivity = Activity(
+                              id: activityId,
+                              title: nameController.text,
+                              points: roundPoints(
+                                  doubleCommaToPoint(pointController.text)));
+                          AllData.activities.add(newActivity);
+                          DBHelper.insert('Activity', newActivity.toMap());
+                        }
+
+                        addFitpoint(activityId);
+                      } else {
+                        String foodId = '';
+                        bool exists = false;
+                        for (var element in AllData.foods) {
+                          if (element.title == nameController.text) {
+                            exists = true;
+                            foodId = element.id!;
+                          }
+                        }
+
+                        if (!exists) {
+                          foodId = const Uuid().v1();
+                          Food newFood = Food(
+                              id: foodId,
+                              title: nameController.text,
+                              points: roundPoints(
+                                  doubleCommaToPoint(pointController.text)));
+                          AllData.foods.add(newFood);
+                          DBHelper.insert('Food', newFood.toMap());
+                        }
+
+                        addFood(foodId);
                       }
+
+                      widget.onPressed();
                     }
-
-                    if (!exists) {
-                      activityId = const Uuid().v1();
-                      Activity newActivity = Activity(
-                          id: activityId,
-                          title: nameController.text,
-                          points: double.parse(pointController.text));
-                      AllData.activities.add(newActivity);
-                      DBHelper.insert('Activity', newActivity.toMap());
-                    }
-
-                    addFitpoint(activityId);
-                  } else {
-                    String foodId = '';
-                    bool exists = false;
-                    for (var element in AllData.foods) {
-                      if (element.title == nameController.text) {
-                        exists = true;
-                        foodId = element.id!;
-                      }
-                    }
-
-                    if (!exists) {
-                      foodId = const Uuid().v1();
-                      Food newFood = Food(
-                          id: foodId,
-                          title: nameController.text,
-                          points: double.parse(pointController.text));
-                      AllData.foods.add(newFood);
-                      DBHelper.insert('Food', newFood.toMap());
-                    }
-
-                    addFood(foodId);
-                  }
-
-                  widget.onPressed();
-                },
-                child: const Text('Übernehmen')),
-          ],
-        ),
-        const SizedBox(height: 10),
-      ]),
+                  },
+                  child: const Text('Übernehmen')),
+            ],
+          ),
+          const SizedBox(height: 10),
+        ]),
+      ),
     );
   }
 

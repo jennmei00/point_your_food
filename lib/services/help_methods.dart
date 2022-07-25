@@ -36,6 +36,12 @@ String decimalFormat(double num) {
   return d;
 }
 
+double doubleCommaToPoint(String num) {
+  double d = 0;
+  d = double.parse(num.replaceAll(',', '.'));
+  return d;
+}
+
 double calculateDailypoints({
   required int gender,
   required int age,

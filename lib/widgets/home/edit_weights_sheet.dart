@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
+import 'package:punkte_zaehler/models/enums.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
+import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/custom_textfield.dart';
 
 class EditWeightsSheet extends StatefulWidget {
@@ -73,6 +75,7 @@ class _EditWeightsSheetState extends State<EditWeightsSheet> {
                   const SizedBox(width: 10),
                   Expanded(
                     child: CustomTextField(
+                      type: TextFieldType.decimal,
                       onChanged: null,
                       controller: startweightController,
                       mandatory: false,
@@ -87,6 +90,7 @@ class _EditWeightsSheetState extends State<EditWeightsSheet> {
                 children: [
                   Expanded(
                     child: CustomTextField(
+                      type: TextFieldType.decimal,
                       onChanged: null,
                       controller: targetweightController,
                       mandatory: false,
@@ -149,6 +153,7 @@ class _EditWeightsSheetState extends State<EditWeightsSheet> {
                   const SizedBox(width: 10),
                   Expanded(
                     child: CustomTextField(
+                      type: TextFieldType.decimal,
                       onChanged: null,
                       controller: currentweightController,
                       mandatory: false,
@@ -188,17 +193,17 @@ class _EditWeightsSheetState extends State<EditWeightsSheet> {
     AllData.weights.firstWhere((element) => element.id == '1234').date =
         startweightDate;
     AllData.weights.firstWhere((element) => element.id == '1234').weight =
-        double.parse(startweightController.text);
+        doubleCommaToPoint(startweightController.text);
 
     AllData.weights.firstWhere((element) => element.id == '2345').date =
         targetweightDate;
     AllData.weights.firstWhere((element) => element.id == '2345').weight =
-        double.parse(targetweightController.text);
+        doubleCommaToPoint(targetweightController.text);
 
     AllData.weights.firstWhere((element) => element.id == '4567').date =
         currentweightDate;
     AllData.weights.firstWhere((element) => element.id == '4567').weight =
-        double.parse(currentweightController.text);
+        doubleCommaToPoint(currentweightController.text);
 
     for (var element in AllData.weights) {
       await DBHelper.update('Weight', element.toMap(),

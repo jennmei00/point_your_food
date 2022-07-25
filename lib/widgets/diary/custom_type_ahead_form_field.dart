@@ -29,6 +29,13 @@ class CustomTypeAheadFormField extends StatelessWidget {
         return AllData.foods
             .where((Food option) => option.title!.startsWith(textEditingValue));
       },
+      validator: (value) {
+        if ((value == null || value.isEmpty || value == '')) {
+          return 'Das ist ein Pflichtfeld';
+        }
+
+        return null;
+      },
       itemBuilder: (context, Food suggestion) {
         return ListTile(
           title: Text(suggestion.title!),

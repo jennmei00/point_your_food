@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:punkte_zaehler/models/enums.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/custom_textfield.dart';
 
@@ -27,9 +28,13 @@ class _PointCalculatorState extends State<PointCalculator> {
     return widget.fromSheet
         ? Scaffold(
             appBar: AppBar(title: const Text('Punkte berechnen')),
-            body: form(),
+            body: GestureDetector(
+                onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+                child: form()),
           )
-        : form();
+        : GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: form());
   }
 
   Form form() {
@@ -40,14 +45,14 @@ class _PointCalculatorState extends State<PointCalculator> {
         children: [
           CustomTextField(
               onChanged: (val) => _calculatePoints(),
-              // keyboardType: TextInputType.number,
+              type: TextFieldType.decimal,
               controller: _kalorienController,
               mandatory: true,
               hintText: 'in kcal',
               labelText: 'Kalorien'),
           CustomTextField(
               onChanged: (val) => _calculatePoints(),
-              // keyboardType: TextInputType.,
+              type: TextFieldType.decimal,
               controller: _fettController,
               mandatory: true,
               hintText: 'in gramm',
@@ -62,7 +67,7 @@ class _PointCalculatorState extends State<PointCalculator> {
           ),
           CustomTextField(
               onChanged: (val) => _calculatePoints(),
-              // keyboardType: TextInputType.number,
+              type: TextFieldType.decimal,
               controller: _berechnungFuerController,
               mandatory: true,
               hintText: 'in gramm',

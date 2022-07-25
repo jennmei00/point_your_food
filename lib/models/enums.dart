@@ -22,3 +22,9 @@ enum Goal {
   hold,
   reduce,
 }
+
+enum TextFieldType {
+  integer,
+  decimal,
+  text,
+}

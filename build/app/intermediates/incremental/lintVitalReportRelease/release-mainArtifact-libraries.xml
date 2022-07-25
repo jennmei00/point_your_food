@@ -17,6 +17,19 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
+      name="C:\flutter\flutter_projects\punkte_zaehler\android@@:hexcolor::release"
+      jars="C:\flutter\flutter_projects\punkte_zaehler\build\hexcolor\.transforms\39618356d0ff079feb22b169d5c31fa4\transformed\out\jars\classes.jar"
+      resolved="com.ggichure.github.hexcolor:hexcolor:unspecified"
+      folder="C:\flutter\flutter_projects\punkte_zaehler\build\hexcolor\.transforms\39618356d0ff079feb22b169d5c31fa4\transformed\out"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="C:\flutter\flutter_projects\punkte_zaehler\android@@:sqflite::release"
       jars="C:\flutter\flutter_projects\punkte_zaehler\build\sqflite\.transforms\b5ea50b5500d6ad5ad6214f6bc961dd8\transformed\out\jars\classes.jar"
       resolved="com.tekartik.sqflite:sqflite:unspecified"
@@ -30,9 +43,22 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="io.flutter:flutter_embedding_release:1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b@jar"
-      jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\io.flutter\flutter_embedding_release\1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b\bb31df7e3a5b113d8cc77117a4922512e4aedeec\flutter_embedding_release-1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b.jar"
-      resolved="io.flutter:flutter_embedding_release:1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b"/>
+      name="C:\flutter\flutter_projects\punkte_zaehler\android@@:flutter_keyboard_visibility::release"
+      jars="C:\flutter\flutter_projects\punkte_zaehler\build\flutter_keyboard_visibility\.transforms\2101a8eae0387e88e2e6ece461273709\transformed\out\jars\classes.jar"
+      resolved="com.jrai.flutter_keyboard_visibility:flutter_keyboard_visibility:unspecified"
+      folder="C:\flutter\flutter_projects\punkte_zaehler\build\flutter_keyboard_visibility\.transforms\2101a8eae0387e88e2e6ece461273709\transformed\out"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="io.flutter:flutter_embedding_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar"
+      jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\io.flutter\flutter_embedding_release\1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187\b1ef772a67fd82e70fd46706bfaa99a9976a86f0\flutter_embedding_release-1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187.jar"
+      resolved="io.flutter:flutter_embedding_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187"/>
   <library
       name="androidx.window:window-java:1.0.0-beta04@aar"
       jars="C:\Users\jennm\.gradle\caches\transforms-3\246793f755122fe14a5802655438cb75\transformed\jetified-window-java-1.0.0-beta04\jars\classes.jar"
@@ -76,17 +102,17 @@
       jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.6.10\e1c380673654a089c4f0c9f83d0ddfdc1efdb498\kotlin-stdlib-jdk7-1.6.10.jar"
       resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"/>
   <library
-      name="io.flutter:armeabi_v7a_release:1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b@jar"
-      jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\io.flutter\armeabi_v7a_release\1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b\9588d307dff7762efaa460583e432604f5ca8f2a\armeabi_v7a_release-1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b.jar"
-      resolved="io.flutter:armeabi_v7a_release:1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b"/>
+      name="io.flutter:armeabi_v7a_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar"
+      jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\io.flutter\armeabi_v7a_release\1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187\39a18ec879f90bf3c23f37db9a1548040b4284cc\armeabi_v7a_release-1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187.jar"
+      resolved="io.flutter:armeabi_v7a_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187"/>
   <library
-      name="io.flutter:arm64_v8a_release:1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b@jar"
-      jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\io.flutter\arm64_v8a_release\1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b\ebfb6d72cd0b37dfcbd3ab997f3371f310d71a06\arm64_v8a_release-1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b.jar"
-      resolved="io.flutter:arm64_v8a_release:1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b"/>
+      name="io.flutter:arm64_v8a_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar"
+      jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\io.flutter\arm64_v8a_release\1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187\a6567a3dea5b70a6034e5d01e12adeccbf307441\arm64_v8a_release-1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187.jar"
+      resolved="io.flutter:arm64_v8a_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187"/>
   <library
-      name="io.flutter:x86_64_release:1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b@jar"
-      jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\io.flutter\x86_64_release\1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b\6f56d10ee71f1077538ba901177a67caf0137db1\x86_64_release-1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b.jar"
-      resolved="io.flutter:x86_64_release:1.0.0-6ba2af10bb05c88a2731482cedf2cfd11cf5af0b"/>
+      name="io.flutter:x86_64_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar"
+      jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\io.flutter\x86_64_release\1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187\3f8298dbbd697153f25d0ccc78d3948f630cec2e\x86_64_release-1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187.jar"
+      resolved="io.flutter:x86_64_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187"/>
   <library
       name="androidx.lifecycle:lifecycle-common-java8:2.2.0@jar"
       jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\androidx.lifecycle\lifecycle-common-java8\2.2.0\cd3478503da69b1a7e0319bd2d1389943db9b364\lifecycle-common-java8-2.2.0.jar"

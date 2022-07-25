@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/models/diary.dart';
@@ -12,7 +10,6 @@ import 'package:punkte_zaehler/models/weigh.dart';
 import 'package:punkte_zaehler/models/weight.dart';
 import 'package:punkte_zaehler/screens/navigation.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
-import 'package:uuid/uuid.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({Key? key}) : super(key: key);
@@ -74,7 +71,14 @@ class _StartScreenState extends State<StartScreen> {
     //                 id: 'Currentweight',
     //                 date: DateTime(2022, 07, 01),
     //                 title: 'Aktuelles Gewicht',
-    //                 weight: 65))
+    //                 weight: 65),
+    //              pointSafeDate: DateTime.now(),
+    //              gender: Gender.female,
+    //              age: 22,
+    //              height: 170,
+    //              goal: Goal.hold,
+    //              movement: Movement.some,
+    // )
     //         .toMap());
 
     AllData.fitpoints =
@@ -94,6 +98,8 @@ class _StartScreenState extends State<StartScreen> {
     AllData.profiledata =
         ProfileData.forDB().fromDB(await DBHelper.getOneData('Profiledata'));
     AllData.diaries = Diary.forDB().listFromDB(await DBHelper.getData('Diary'));
+
+    await checkPointSafe();
 
     return Future.value(true);
   }
@@ -116,5 +122,24 @@ class _StartScreenState extends State<StartScreen> {
                 body: Center(child: CircularProgressIndicator()));
           }
         });
+  }
+
+  Future<void> checkPointSafe() async {
+    if (Jiffy(AllData.profiledata.pointSafeDate)
+        .isBefore(DateTime.now(), Units.DAY)) {
+      double points = 0;
+      AllData.diaries
+          .where((element) =>
+              Jiffy(element.date).isBefore(DateTime.now(), Units.DAY) &&
+              Jiffy(element.date)
+                  .isSameOrAfter(AllData.profiledata.pointSafeDate, Units.DAY))
+          .forEach((element) {
+        points += element.dailyRestPoints! > 4 ? 4 : element.dailyRestPoints!;
+      });
+      AllData.profiledata.pointSafe = AllData.profiledata.pointSafe! + points;
+      AllData.profiledata.pointSafeDate = DateTime.now();
+
+      await DBHelper.update('Profiledata', AllData.profiledata.toMap());
+    }
   }
 }

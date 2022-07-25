@@ -12,7 +12,7 @@ class FoodCard extends StatelessWidget {
   final IconData icon;
   final List<Food> food;
   final Color color;
-  final Function onAddPressed;
+  final Function? onAddPressed;
   final GlobalKey<FlipCardState> cardKey;
 
   const FoodCard(
@@ -102,7 +102,9 @@ class FoodCard extends StatelessWidget {
                     child: Align(
                         alignment: Alignment.center,
                         child: IconButton(
-                          onPressed: () => onAddPressed(),
+                          onPressed: onAddPressed == null
+                              ? null
+                              : () => onAddPressed!(),
                           icon: const Icon(Icons.add),
                           iconSize: 50,
                         )),

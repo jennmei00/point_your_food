@@ -1640,6 +1640,30 @@ com.example.punkte_zaehler.R$string
 com.example.punkte_zaehler.R$style
 com.example.punkte_zaehler.R$styleable
 com.example.punkte_zaehler.R
+com.ggichure.github.hexcolor.BuildConfig
+com.ggichure.github.hexcolor.R$attr
+com.ggichure.github.hexcolor.R$color
+com.ggichure.github.hexcolor.R$dimen
+com.ggichure.github.hexcolor.R$drawable
+com.ggichure.github.hexcolor.R$id
+com.ggichure.github.hexcolor.R$integer
+com.ggichure.github.hexcolor.R$layout
+com.ggichure.github.hexcolor.R$string
+com.ggichure.github.hexcolor.R$style
+com.ggichure.github.hexcolor.R$styleable
+com.ggichure.github.hexcolor.R
+com.jrai.flutter_keyboard_visibility.BuildConfig
+com.jrai.flutter_keyboard_visibility.R$attr
+com.jrai.flutter_keyboard_visibility.R$color
+com.jrai.flutter_keyboard_visibility.R$dimen
+com.jrai.flutter_keyboard_visibility.R$drawable
+com.jrai.flutter_keyboard_visibility.R$id
+com.jrai.flutter_keyboard_visibility.R$integer
+com.jrai.flutter_keyboard_visibility.R$layout
+com.jrai.flutter_keyboard_visibility.R$string
+com.jrai.flutter_keyboard_visibility.R$style
+com.jrai.flutter_keyboard_visibility.R$styleable
+com.jrai.flutter_keyboard_visibility.R
 com.tekartik.sqflite.BuildConfig
 com.tekartik.sqflite.Constant
 com.tekartik.sqflite.Database:
@@ -1806,7 +1830,6 @@ io.flutter.embedding.engine.FlutterEngineConnectionRegistry$FlutterEngineActivit
     public void addOnSaveStateListener(io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding$OnSaveInstanceStateListener)
     public void addOnUserLeaveHintListener(io.flutter.plugin.common.PluginRegistry$UserLeaveHintListener)
     public void addRequestPermissionsResultListener(io.flutter.plugin.common.PluginRegistry$RequestPermissionsResultListener)
-    public android.app.Activity getActivity()
     public java.lang.Object getLifecycle()
     public void removeActivityResultListener(io.flutter.plugin.common.PluginRegistry$ActivityResultListener)
     public void removeOnNewIntentListener(io.flutter.plugin.common.PluginRegistry$NewIntentListener)
@@ -1892,7 +1915,6 @@ io.flutter.embedding.engine.dart.DartExecutor$DartEntrypoint:
 io.flutter.embedding.engine.dart.DartExecutor$DefaultBinaryMessenger:
     public void disableBufferingIncomingMessages()
     public void enableBufferingIncomingMessages()
-    public void send(java.lang.String,java.nio.ByteBuffer)
 io.flutter.embedding.engine.dart.DartExecutor:
     private static final java.lang.String TAG
     public void disableBufferingIncomingMessages()
@@ -1901,14 +1923,12 @@ io.flutter.embedding.engine.dart.DartExecutor:
     public void executeDartEntrypoint(io.flutter.embedding.engine.dart.DartExecutor$DartEntrypoint)
     public io.flutter.plugin.common.BinaryMessenger getBinaryMessenger()
     public int getPendingChannelResponseCount()
-    public void send(java.lang.String,java.nio.ByteBuffer)
     public void setIsolateServiceIdListener(io.flutter.embedding.engine.dart.DartExecutor$IsolateServiceIdListener)
 io.flutter.embedding.engine.dart.DartMessenger:
     private static final java.lang.String TAG
     public void disableBufferingIncomingMessages()
     public void enableBufferingIncomingMessages()
     public int getPendingChannelResponseCount()
-    public void send(java.lang.String,java.nio.ByteBuffer)
 io.flutter.embedding.engine.deferredcomponents.DeferredComponentManager:
     public abstract void loadAssets(int,java.lang.String)
     public abstract void loadDartLibrary(int,java.lang.String)
@@ -2006,7 +2026,6 @@ io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding:
     public abstract void addOnSaveStateListener(io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding$OnSaveInstanceStateListener)
     public abstract void addOnUserLeaveHintListener(io.flutter.plugin.common.PluginRegistry$UserLeaveHintListener)
     public abstract void addRequestPermissionsResultListener(io.flutter.plugin.common.PluginRegistry$RequestPermissionsResultListener)
-    public abstract android.app.Activity getActivity()
     public abstract java.lang.Object getLifecycle()
     public abstract void removeActivityResultListener(io.flutter.plugin.common.PluginRegistry$ActivityResultListener)
     public abstract void removeOnNewIntentListener(io.flutter.plugin.common.PluginRegistry$NewIntentListener)
@@ -2098,14 +2117,15 @@ io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions:
 io.flutter.plugin.common.BinaryMessenger:
     public void disableBufferingIncomingMessages()
     public void enableBufferingIncomingMessages()
-    public abstract void send(java.lang.String,java.nio.ByteBuffer)
 io.flutter.plugin.common.ErrorLogResult
-io.flutter.plugin.common.EventChannel$1
-io.flutter.plugin.common.EventChannel$EventSink
-io.flutter.plugin.common.EventChannel$IncomingStreamRequestHandler$EventSinkImplementation
-io.flutter.plugin.common.EventChannel$IncomingStreamRequestHandler
-io.flutter.plugin.common.EventChannel$StreamHandler
-io.flutter.plugin.common.EventChannel
+io.flutter.plugin.common.EventChannel$EventSink:
+    public abstract void endOfStream()
+    public abstract void error(java.lang.String,java.lang.String,java.lang.Object)
+io.flutter.plugin.common.EventChannel$IncomingStreamRequestHandler$EventSinkImplementation:
+    public void endOfStream()
+    public void error(java.lang.String,java.lang.String,java.lang.Object)
+io.flutter.plugin.common.EventChannel:
+    private static final java.lang.String TAG
 io.flutter.plugin.common.FlutterException:
     private static final java.lang.String TAG
 io.flutter.plugin.common.JSONUtil:

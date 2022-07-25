@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
-import 'package:punkte_zaehler/models/diary.dart';
 import 'package:punkte_zaehler/models/enums.dart';
 import 'package:punkte_zaehler/models/food.dart';
 import 'package:punkte_zaehler/models/foods.dart';

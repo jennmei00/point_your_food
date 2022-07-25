@@ -1,6 +1,5 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/models/diary.dart';
 import 'package:punkte_zaehler/models/enums.dart';

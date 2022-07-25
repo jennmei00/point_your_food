@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/widgets/custom_textfield.dart';

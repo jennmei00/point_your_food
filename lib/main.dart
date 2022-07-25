@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:punkte_zaehler/screens/diary/edit_diary.dart';
 import 'package:punkte_zaehler/screens/point_calculator.dart';
@@ -11,11 +10,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.getInstance().then((prefs) {
-    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    // var brightness = SchedulerBinding.instance.window.platformBrightness;
     // var darkModeOn = prefs.getBool('darkMode') ?? brightness == Brightness.dark;
-    var darkModeOn = false;
     runApp(ChangeNotifierProvider(
-      create: (_) => ThemeNotifier(darkModeOn ? darkTheme : lightTheme),
+      // create: (_) => ThemeNotifier(darkModeOn ? darkTheme : lightTheme),
+      create: (_) => ThemeNotifier(lightTheme),
       child: const MyApp(),
     ));
   });

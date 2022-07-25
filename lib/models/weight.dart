@@ -60,7 +60,7 @@ class Weight {
       id: data['ID'],
       title: data['Title'],
       date: DateTime.parse(data['Date']),
-      weight: data['Weight'] == null ? 0 : data['Weight'] as double,
+      weight: data['Weight'] == null ? null : data['Weight'] as double,
     );
     return weight;
   }

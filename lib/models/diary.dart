@@ -1,8 +1,6 @@
 import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/models/food.dart';
-import 'package:punkte_zaehler/models/foods.dart';
-import 'package:punkte_zaehler/services/db_helper.dart';
 
 class Diary {
   String? id;

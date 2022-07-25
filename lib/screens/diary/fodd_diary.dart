@@ -1,10 +1,9 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flip_card/flip_card.dart';
-import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/models/diary.dart';
@@ -14,7 +13,6 @@ import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/diary/activity_card.dart';
 import 'package:punkte_zaehler/widgets/diary/add_food_activity_sheet.dart';
-import 'package:punkte_zaehler/widgets/diary/diary_card.dart';
 import 'package:punkte_zaehler/widgets/diary/food_card.dart';
 import 'package:uuid/uuid.dart';
 
@@ -74,8 +72,9 @@ class _FoodDiaryState extends State<FoodDiary> {
                   width: MediaQuery.of(context).size.width / 2,
                   child: Text(
                       'Heute übrig:\n${decimalFormat(diary.dailyRestPoints!)} Punkte')),
-              const Expanded(
-                child: Text('Punktetresor:\n2 Punkte'),
+              Expanded(
+                child: Text(
+                    'Punktetresor:\n${decimalFormat(AllData.profiledata.pointSafe!)} Punkte'),
               )
             ],
           ),
@@ -96,12 +95,23 @@ class _FoodDiaryState extends State<FoodDiary> {
                     style: TextStyle(fontSize: 16),
                   ),
                   GestureDetector(
-                    onTap: () => onEditPressed(0, initDate, context, diary),
+                    onTap: Jiffy(diary.date).isBefore(DateTime.now(), Units.DAY)
+                        ? null
+                        : () => onEditPressed(0, initDate, context, diary),
                     child: Row(
-                      children: const [
+                      children: [
                         Text('Bearbeiten',
-                            style: TextStyle(fontStyle: FontStyle.italic)),
-                        Icon(Icons.arrow_right_alt_outlined)
+                            style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color: Jiffy(diary.date)
+                                        .isBefore(DateTime.now(), Units.DAY)
+                                    ? Colors.grey
+                                    : Colors.black)),
+                        Icon(Icons.arrow_right_alt_outlined,
+                            color: Jiffy(diary.date)
+                                    .isBefore(DateTime.now(), Units.DAY)
+                                ? Colors.grey
+                                : Colors.black)
                       ],
                     ),
                   )
@@ -120,7 +130,10 @@ class _FoodDiaryState extends State<FoodDiary> {
                       icon: CommunityMaterialIcons.coffee,
                       food: diary.breakfast!,
                       color: HexColor('#A60505').withOpacity(0.4),
-                      onAddPressed: () => addCard(PointType.breakfast),
+                      onAddPressed:
+                          Jiffy(diary.date).isBefore(DateTime.now(), Units.DAY)
+                              ? null
+                              : () => addCard(PointType.breakfast),
                       cardKey: cardKeyBreakfast,
                     ),
                     const SizedBox(width: 10),
@@ -131,7 +144,10 @@ class _FoodDiaryState extends State<FoodDiary> {
                       icon: CommunityMaterialIcons.baguette,
                       food: diary.lunch!,
                       color: HexColor('#591D1D').withOpacity(0.5),
-                      onAddPressed: () => addCard(PointType.lunch),
+                      onAddPressed:
+                          Jiffy(diary.date).isBefore(DateTime.now(), Units.DAY)
+                              ? null
+                              : () => addCard(PointType.lunch),
                       cardKey: cardKeyLunch,
                     ),
                     const SizedBox(width: 10),
@@ -142,7 +158,10 @@ class _FoodDiaryState extends State<FoodDiary> {
                       icon: CommunityMaterialIcons.pasta,
                       food: diary.dinner!,
                       color: HexColor('#D90707').withOpacity(0.5),
-                      onAddPressed: () => addCard(PointType.dinner),
+                      onAddPressed:
+                          Jiffy(diary.date).isBefore(DateTime.now(), Units.DAY)
+                              ? null
+                              : () => addCard(PointType.dinner),
                       cardKey: cardKeyDinner,
                     ),
                     const SizedBox(width: 10),
@@ -153,7 +172,10 @@ class _FoodDiaryState extends State<FoodDiary> {
                       icon: CommunityMaterialIcons.cake_layered,
                       food: diary.snack!,
                       color: HexColor('##EE4F4F').withOpacity(0.2),
-                      onAddPressed: () => addCard(PointType.snack),
+                      onAddPressed:
+                          Jiffy(diary.date).isBefore(DateTime.now(), Units.DAY)
+                              ? null
+                              : () => addCard(PointType.snack),
                       cardKey: cardKeySnack,
                     ),
                   ],
@@ -180,7 +202,10 @@ class _FoodDiaryState extends State<FoodDiary> {
                                 points: e.points!,
                                 addField: false,
                                 onAddPressed: () {},
-                                onRemovePressed: () => removePressed(e)))
+                                onRemovePressed: Jiffy(diary.date)
+                                        .isBefore(DateTime.now(), Units.DAY)
+                                    ? null
+                                    : () => removePressed(e)))
                             .toList()),
                     ActivityCard(
                         cardKey: GlobalKey<FlipCardState>(),
@@ -189,7 +214,10 @@ class _FoodDiaryState extends State<FoodDiary> {
                         title: 'Aktivität',
                         points: 0,
                         addField: true,
-                        onAddPressed: () => onAddActivityPressed(),
+                        onAddPressed: Jiffy(diary.date)
+                                .isBefore(DateTime.now(), Units.DAY)
+                            ? null
+                            : () => onAddActivityPressed(),
                         onRemovePressed: () {})
                   ],
                 ),

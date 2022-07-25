@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
-import 'package:punkte_zaehler/models/profiledata.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/home/calc_dailypoints_sheet.dart';
-import 'package:punkte_zaehler/widgets/custom_textfield.dart';
-import 'package:punkte_zaehler/widgets/home/edit_weights_sheet.dart';
 import 'package:punkte_zaehler/widgets/home/home_card.dart';
 
 class Home extends StatefulWidget {
@@ -24,15 +21,23 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    startController.text = '${AllData.profiledata.startWeight!.weight}';
-    targetController.text = '${AllData.profiledata.targetWeight!.weight}';
-    currentController.text = '${AllData.profiledata.currentWeight!.weight}';
+    startController.text = '${AllData.profiledata.startWeight!.weight ?? ''}';
+    targetController.text = '${AllData.profiledata.targetWeight!.weight ?? ''}';
+    currentController.text = '${AllData.profiledata.currentWeight!.weight?? ''}';
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // DateTime now = DateTime.now();
+    // DateTime other = DateTime(2022,07,20);
+
+    // print(now);
+    // print(other);
+
+    // print(Jiffy(other).isBefore(now, Units.DAY));
+
     return Stack(
       children: [
         Column(children: [
@@ -63,12 +68,12 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${AllData.profiledata.name}',
+                      AllData.profiledata.name ?? '',
                       // 'NAME',
                       style: const TextStyle(color: Colors.white),
                     ),
                     Text(
-                      '${AllData.profiledata.email}',
+                      AllData.profiledata.email ?? '',
                       // '',
                       style: const TextStyle(color: Colors.white),
                     ),

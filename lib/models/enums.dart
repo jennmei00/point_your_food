@@ -5,3 +5,20 @@ enum PointType {
   snack,
   activity,
 }
+
+enum Gender {
+  male,
+  female,
+}
+
+enum Movement {
+  no,
+  some,
+  much,
+  daily,
+}
+
+enum Goal {
+  hold,
+  reduce,
+}

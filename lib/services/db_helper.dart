@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
+import 'package:uuid/uuid.dart';
 
 class DBHelper {
   static sql.Database? _database;
@@ -38,7 +39,7 @@ class DBHelper {
     List<Map<String, dynamic>> data =
         await getData(table, columns: columns, where: where, orderBy: orderBy);
 
-    return data[0];
+    return data.isNotEmpty ? data[0] : {};
   }
 
   //INSERT
@@ -154,6 +155,7 @@ class DBHelper {
     await db.execute(
         'CREATE TABLE Profiledata(ID TEXT PRIAMRY KEY, Name TEXT, Email TEXT, Dailypoints REAL, Pointsafe REAL, '
         'StartweightID TEXT, TargetweightID TEXT, CurrentweightID TEXT, '
+        'PointSafeDate TEXT, Age INTEGER, Gender INTEGER, Goal INTEGER, Height REAL, Movement INTEGER,'
         'FOREIGN KEY(StartweightID) REFERENCES Weight(ID), FOREIGN KEY(TargetweightID) REFERENCES Weight(ID), '
         'FOREIGN KEY(CurrentweightID) REFERENCES Weight(ID))');
 
@@ -188,6 +190,15 @@ class DBHelper {
     await db.execute(
         'CREATE TABLE Fitpoint(ID TEXT PRIMARY KEY, DiaryID TEXT, ActivityID TEXT, '
         'FOREIGN KEY(DiaryID) REFERENCES Diary(ID), FOREIGN KEY(ActivityID) REFERENCES Activity(ID))');
+
+    //INSERT
+    await db.execute("INSERT INTO Weight VALUES('0Startweight0', 'Startgewicht', '${DateTime.now()}', NULL)");
+    await db.execute("INSERT INTO Weight VALUES('0Targetweight0', 'Zielgewicht', '${DateTime.now()}', NULL)");
+    await db.execute("INSERT INTO Weight VALUES('0Currentweight0', 'Aktuelles Gewicht', '${DateTime.now()}', NULL)");
+
+    await db.execute(
+        "INSERT INTO Profiledata VALUES('${const Uuid().v1()}', NULL, NULL, 0, 0, '0Startweight0', '0Targetweight0', "
+        "'0Currentweight0', '${DateTime.now()}', NULL, 1, 0, NULL, 0)");
   }
 
   // Upgrade Tables

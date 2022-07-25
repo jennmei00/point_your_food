@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
+import 'package:punkte_zaehler/models/diary.dart';
+import 'package:punkte_zaehler/models/enums.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/custom_textfield.dart';
@@ -7,19 +10,24 @@ import 'package:punkte_zaehler/widgets/custom_textfield.dart';
 class CalcDailypointsSheet extends StatefulWidget {
   final BuildContext ctx;
   final Function onPressed;
-  const CalcDailypointsSheet({Key? key, required this.ctx, required this.onPressed}) : super(key: key);
+  const CalcDailypointsSheet(
+      {Key? key, required this.ctx, required this.onPressed})
+      : super(key: key);
 
   @override
   State<CalcDailypointsSheet> createState() => _CalcDailypointsSheetState();
 }
 
 class _CalcDailypointsSheetState extends State<CalcDailypointsSheet> {
-  TextEditingController ageController = TextEditingController();
-  TextEditingController weightController = TextEditingController();
-  TextEditingController heightController = TextEditingController();
-  int genderValue = 0;
-  int moveDropdown = 0;
-  int purposeDropdown = 0;
+  TextEditingController ageController =
+      TextEditingController(text: '${AllData.profiledata.age ?? ''}');
+  TextEditingController weightController = TextEditingController(
+      text: '${AllData.profiledata.currentWeight!.weight ?? ''}');
+  TextEditingController heightController =
+      TextEditingController(text: '${AllData.profiledata.height ?? ''}');
+  int genderValue = AllData.profiledata.gender!.index;
+  int moveDropdown = AllData.profiledata.movement!.index;
+  int purposeDropdown = AllData.profiledata.goal!.index;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +108,7 @@ class _CalcDailypointsSheetState extends State<CalcDailypointsSheet> {
                 controller: heightController,
                 mandatory: false,
                 labelText: 'Größe',
-                hintText: 'in cm',
+                hintText: 'in mm',
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -166,18 +174,26 @@ class _CalcDailypointsSheetState extends State<CalcDailypointsSheet> {
                       child: const Text('Abbrechen')),
                   OutlinedButton(
                       onPressed: () async {
-                          AllData.profiledata.dailyPoints =
-                              calculateDailypoints(
-                            gender: genderValue,
-                            age: int.parse(ageController.text),
-                            weight: double.parse(weightController.text),
-                            height: double.parse(heightController.text),
-                            move: moveDropdown,
-                            purpose: purposeDropdown,
-                          );
+                        AllData.profiledata.dailyPoints = calculateDailypoints(
+                          gender: genderValue,
+                          age: int.parse(ageController.text),
+                          weight: double.parse(weightController.text),
+                          height: double.parse(heightController.text),
+                          move: moveDropdown,
+                          purpose: purposeDropdown,
+                        );
+                        AllData.profiledata.gender = Gender.values[genderValue];
+                        AllData.profiledata.age = int.parse(ageController.text);
+                        AllData.profiledata.height =
+                            double.parse(heightController.text);
+                        AllData.profiledata.movement =
+                            Movement.values[moveDropdown];
+                        AllData.profiledata.goal = Goal.values[purposeDropdown];
                         await DBHelper.update(
                                 'Profiledata', AllData.profiledata.toMap())
                             .then((value) => Navigator.pop(context));
+
+                        calcTodayDiaryRestPoints();
                         widget.onPressed();
                       },
                       child: const Text('Übernehmen')),
@@ -189,5 +205,50 @@ class _CalcDailypointsSheetState extends State<CalcDailypointsSheet> {
         ),
       ),
     );
+  }
+
+  void calcTodayDiaryRestPoints() {
+    Diary? d;
+    d = AllData.diaries.firstWhere(
+        (element) => Jiffy(element.date).isSame(DateTime.now(), Units.DAY),
+        orElse: () => Diary(
+            id: 'NULL',
+            date: null,
+            dailyRestPoints: null,
+            breakfast: null,
+            lunch: null,
+            dinner: null,
+            snack: null,
+            fitpoints: null));
+    if (d.id != 'NULL') {
+      double restpoints = AllData.profiledata.dailyPoints!;
+      for (var element in d.breakfast!) {
+        restpoints -= element.points!;
+      }
+      for (var element in d.lunch!) {
+        restpoints -= element.points!;
+      }
+      for (var element in d.dinner!) {
+        restpoints -= element.points!;
+      }
+      for (var element in d.snack!) {
+        restpoints -= element.points!;
+      }
+      for (var element in d.fitpoints!) {
+        restpoints += element.points!;
+      }
+      AllData.diaries
+          .firstWhere((element) =>
+              Jiffy(element.date).isSame(DateTime.now(), Units.DAY))
+          .dailyRestPoints = restpoints;
+      DBHelper.update(
+          'Diary',
+          AllData.diaries
+              .firstWhere((element) =>
+                  Jiffy(element.date).isSame(DateTime.now(), Units.DAY))
+              .toMap(),
+          where:
+              'ID = "${AllData.diaries.firstWhere((element) => Jiffy(element.date).isSame(DateTime.now(), Units.DAY)).id}"');
+    }
   }
 }

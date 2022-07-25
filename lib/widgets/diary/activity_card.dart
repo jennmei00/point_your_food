@@ -9,8 +9,8 @@ class ActivityCard extends StatelessWidget {
   final String title;
   final double points;
   final bool addField;
-  final Function onAddPressed;
-  final Function onRemovePressed;
+  final Function? onAddPressed;
+  final Function? onRemovePressed;
 
   const ActivityCard({
     Key? key,
@@ -90,7 +90,9 @@ class ActivityCard extends StatelessWidget {
                           child: Align(
                               alignment: Alignment.center,
                               child: IconButton(
-                                onPressed: () => onRemovePressed(),
+                                onPressed: onRemovePressed == null
+                                    ? null
+                                    : () => onRemovePressed!(),
                                 icon: const Icon(Icons.remove),
                                 iconSize: 50,
                               )),
@@ -122,7 +124,9 @@ class ActivityCard extends StatelessWidget {
                     Align(
                         alignment: Alignment.center,
                         child: IconButton(
-                          onPressed: () => onAddPressed(),
+                          onPressed: onAddPressed == null
+                              ? null
+                              : () => onAddPressed!(),
                           icon: const Icon(Icons.add),
                           iconSize: 50,
                         )),

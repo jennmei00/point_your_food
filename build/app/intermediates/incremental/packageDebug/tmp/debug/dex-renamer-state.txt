@@ -1,4 +1,4 @@
-#Mon Jul 25 21:13:24 CEST 2022
+#Tue Jul 26 19:49:33 CEST 2022
 base.0=C\:\\flutter\\flutter_projects\\punkte_zaehler\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

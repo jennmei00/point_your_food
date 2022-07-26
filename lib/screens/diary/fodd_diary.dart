@@ -118,10 +118,11 @@ class _FoodDiaryState extends State<FoodDiary> {
                 ],
               ),
               SizedBox(
-                height: 200,
+                height: 215,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.only(bottom: 15),
                   children: [
                     FoodCard(
                       diary: diary,
@@ -191,6 +192,7 @@ class _FoodDiaryState extends State<FoodDiary> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.only(bottom: 15),
                   children: [
                     Row(
                         children: diary.fitpoints!

@@ -1,8 +1,10 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:punkte_zaehler/screens/diary/fodd_diary.dart';
 import 'package:punkte_zaehler/screens/home.dart';
 import 'package:punkte_zaehler/screens/point_calculator.dart';
+import 'package:punkte_zaehler/screens/scale.dart';
 import 'package:punkte_zaehler/screens/settings.dart';
 
 class Navigation extends StatefulWidget {
@@ -18,12 +20,14 @@ class NavigationState extends State<Navigation> {
     const Home(),
     const PointCalculator(fromSheet: false),
     const FoodDiary(),
+    const Scale(),
     const Settings(),
   ];
   final List<Widget> _navTitles = [
     const Text('Home'),
     const Text('Punkterechner'),
     const Text('Tagebuch'),
+    const Text('Wiegedaten'),
     const Text('Einstellungen'),
   ];
 
@@ -41,22 +45,27 @@ class NavigationState extends State<Navigation> {
         color: Theme.of(context).primaryColor,
         items: <Widget>[
           Icon(
-            Icons.home,
+            CommunityMaterialIcons.home_account,
             size: 30,
             color: Theme.of(context).colorScheme.onPrimary,
           ),
           Icon(
-            Icons.calculate,
+            CommunityMaterialIcons.calculator,
             size: 30,
             color: Theme.of(context).colorScheme.onPrimary,
           ),
           Icon(
-            Icons.calendar_month,
+            CommunityMaterialIcons.notebook_edit,
             size: 30,
             color: Theme.of(context).colorScheme.onPrimary,
           ),
           Icon(
-            Icons.settings,
+            CommunityMaterialIcons.scale,
+            size: 30,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+          Icon(
+            CommunityMaterialIcons.cogs,
             size: 30,
             color: Theme.of(context).colorScheme.onPrimary,
           ),

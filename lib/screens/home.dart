@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
+import 'package:punkte_zaehler/models/weigh.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/home/calc_dailypoints_sheet.dart';
@@ -168,10 +169,33 @@ class _HomeState extends State<Home> {
     switch (i) {
       case 0: //Startweight
         AllData.profiledata.startWeight!.date = date;
-
         await DBHelper.update(
             'Weight', AllData.profiledata.startWeight!.toMap(),
             where: 'ID = "${AllData.profiledata.startWeight!.id}"');
+        // if (AllData.weighs
+        //     .where(
+        //         (element) => element.id == AllData.profiledata.startWeight!.id)
+        //     .isNotEmpty) {
+        //   AllData.weighs
+        //       .firstWhere((element) =>
+        //           element.id == AllData.profiledata.startWeight!.id)
+        //       .date = date;
+        //   await DBHelper.update(
+        //       'Weigh',
+        //       AllData.weighs
+        //           .firstWhere((element) =>
+        //               element.id == AllData.profiledata.startWeight!.id)
+        //           .toMap(),
+        //       where: 'ID = "0Startweight0"');
+        // } else {
+        //   Weigh w = Weigh(
+        //       id: '0Startweight0',
+        //       date: date,
+        //       weight: AllData.profiledata.startWeight!.weight);
+        //   AllData.weighs.add(w);
+        //   await DBHelper.insert('Weigh', w.toMap());
+        // }
+
         break;
       case 1: //Targetweight
         AllData.profiledata.targetWeight!.date = date;
@@ -179,13 +203,37 @@ class _HomeState extends State<Home> {
         await DBHelper.update(
             'Weight', AllData.profiledata.targetWeight!.toMap(),
             where: 'ID = "${AllData.profiledata.targetWeight!.id}"');
+        // if (AllData.weighs
+        //     .where(
+        //         (element) => element.id == AllData.profiledata.targetWeight!.id)
+        //     .isNotEmpty) {
+        //   AllData.weighs
+        //       .firstWhere((element) =>
+        //           element.id == AllData.profiledata.targetWeight!.id)
+        //       .date = date;
+        //   await DBHelper.update(
+        //       'Weigh',
+        //       AllData.weighs
+        //           .firstWhere((element) =>
+        //               element.id == AllData.profiledata.targetWeight!.id)
+        //           .toMap(),
+        //       where: 'ID = "0Targetweight0"');
+        // } else {
+        //   Weigh w = Weigh(
+        //       id: '0Targetweight0',
+        //       date: date,
+        //       weight: AllData.profiledata.targetWeight!.weight);
+        //   AllData.weighs.add(w);
+        //   await DBHelper.insert('Weigh', w.toMap());
+        // }
+
         break;
       case 2: //Currentweight
         AllData.profiledata.currentWeight!.date = date;
-
         await DBHelper.update(
             'Weight', AllData.profiledata.currentWeight!.toMap(),
             where: 'ID = "${AllData.profiledata.currentWeight!.id}"');
+
         break;
       default:
     }

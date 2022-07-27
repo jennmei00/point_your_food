@@ -51,15 +51,15 @@ class _FoodDiaryState extends State<FoodDiary> {
       children: [
         CalendarTimeline(
           initialDate: initDate,
-          firstDate: DateTime(2022, 1, 1),
-          lastDate: DateTime(2022, 12, 31),
+          firstDate: Jiffy(DateTime.now()).subtract(years: 1).dateTime,
+          lastDate: Jiffy(DateTime.now()).add(months: 1).dateTime,
           onDateSelected: (date) => onDateSelected(date),
           leftMargin: 20,
           dayColor: const Color.fromARGB(255, 207, 107, 100),
           activeDayColor: const Color.fromARGB(255, 238, 178, 178),
           activeBackgroundDayColor: const Color.fromARGB(255, 107, 16, 7),
           dotsColor: const Color.fromARGB(255, 58, 66, 82),
-          selectableDayPredicate: (date) => date.day != 23,
+          showYears: true,
           locale: 'de',
         ),
         const Divider(),

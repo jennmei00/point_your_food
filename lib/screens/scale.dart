@@ -4,6 +4,7 @@ import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/models/weigh.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
+import 'package:punkte_zaehler/widgets/custom_linechart.dart';
 import 'package:uuid/uuid.dart';
 
 class Scale extends StatefulWidget {
@@ -23,7 +24,17 @@ class _ScaleState extends State<Scale> {
     AllData.weighs.sort((obj, obj2) => obj2.date!.compareTo(obj.date!));
 
     return ListView(children: [
-      const Text('Here is someday the chart :D'),
+      const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(
+          'Grafik',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+      ),
+      const SizedBox(
+        height: 250,
+        child: CustomLineChart(),
+      ),
       const Divider(
         indent: 15,
         endIndent: 15,
@@ -137,6 +148,39 @@ class _ScaleState extends State<Scale> {
       AllData.weighs.add(weigh);
       AllData.profiledata.currentWeight!.weight =
           doubleCommaToPoint(weightController.text);
+      AllData.profiledata.pointSafe = 0;
+      AllData.profiledata.pointSafeDate = DateTime.now();
+
+      double newDaily = calculateDailypoints(
+          gender: AllData.profiledata.gender!.index,
+          weight: doubleCommaToPoint(weightController.text),
+          height: AllData.profiledata.height!,
+          move: AllData.profiledata.movement!.index,
+          purpose: AllData.profiledata.goal!.index,
+          age: AllData.profiledata.age!);
+
+      if (newDaily != AllData.profiledata.dailyPoints) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.all(20),
+          content: Text(
+            'Tagespunkte geändert:   ${decimalFormat(AllData.profiledata.dailyPoints!)} ➟ ${decimalFormat(newDaily)} ',
+            textAlign: TextAlign.center,
+          ),
+        ));
+        AllData.profiledata.dailyPoints = newDaily;
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.all(20),
+          content: Text(
+            'Hinzugefügt',
+            textAlign: TextAlign.center,
+          ),
+        ));
+      }
+
+      weightController.text = '';
 
       DBHelper.update('Profiledata', AllData.profiledata.toMap());
       DBHelper.insert('Weigh', weigh.toMap());

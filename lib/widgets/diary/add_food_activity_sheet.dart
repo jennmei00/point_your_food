@@ -1,3 +1,4 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:punkte_zaehler/models/activity.dart';
@@ -49,7 +50,7 @@ class _AddFoodActivitySheetState extends State<AddFoodActivitySheet> {
             hintText: '',
             onSelected: (val) {
               nameController.text = val.title!;
-              pointController.text = val.points.toString();
+              pointController.text = decimalFormat(val.points);
             },
           ),
           const SizedBox(height: 10),
@@ -112,7 +113,8 @@ class _AddFoodActivitySheetState extends State<AddFoodActivitySheet> {
                               id: activityId,
                               title: nameController.text,
                               points: roundPoints(
-                                  doubleCommaToPoint(pointController.text)));
+                                  doubleCommaToPoint(pointController.text)),
+                              icon: CommunityMaterialIcons.walk);
                           AllData.activities.add(newActivity);
                           DBHelper.insert('Activity', newActivity.toMap());
                         }
@@ -122,7 +124,10 @@ class _AddFoodActivitySheetState extends State<AddFoodActivitySheet> {
                         String foodId = '';
                         bool exists = false;
                         for (var element in AllData.foods) {
-                          if (element.title == nameController.text) {
+                          if (element.title == nameController.text &&
+                              element.points ==
+                                  roundPoints(doubleCommaToPoint(
+                                      pointController.text))) {
                             exists = true;
                             foodId = element.id!;
                           }
@@ -156,12 +161,16 @@ class _AddFoodActivitySheetState extends State<AddFoodActivitySheet> {
 
   Future<void> addFitpoint(String activityId) async {
     FitPoint f = FitPoint(
-        id: const Uuid().v1(), diaryId: widget.diaryId, activityId: activityId);
+        id: const Uuid().v1(),
+        diaryId: widget.diaryId,
+        activityId: activityId,
+        duration: const Duration(minutes: 30),
+        points: 2);
     DBHelper.insert('Fitpoint', f.toMap());
     AllData.fitpoints.add(f);
     AllData.diaries
         .firstWhere((element) => element.id == widget.diaryId)
-        .fitpoints!
+        .activities!
         .add(AllData.activities
             .firstWhere((element) => element.id == activityId));
 

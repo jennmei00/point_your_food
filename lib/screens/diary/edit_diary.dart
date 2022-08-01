@@ -557,54 +557,53 @@ class _EditDiaryState extends State<EditDiary> {
   //   }
 
   undoDelete(Food obj, dynamic removed, PointType type) {
-    ScaffoldMessenger.of(context)
-      ..removeCurrentSnackBar
-      ..showSnackBar(SnackBar(
-          content: const Text('Gelöscht'),
-          action: SnackBarAction(
-            label: 'Rückgängig',
-            onPressed: () async {
-              if (type == PointType.breakfast) {
-                removed as Breakfast;
-                AllData.breakfast.add(removed);
-                await DBHelper.insert('Breakfast', removed.toMap());
-                // food.add(obj);
-                AllData.diaries
-                    .firstWhere((element) => element.id == widget.diaryID)
-                    .breakfast!
-                    .add(obj);
-              } else if (type == PointType.lunch) {
-                removed as Lunch;
-                AllData.lunch.add(removed);
-                await DBHelper.insert('Lunch', removed.toMap());
-                // food.add(obj);
-                AllData.diaries
-                    .firstWhere((element) => element.id == widget.diaryID)
-                    .lunch!
-                    .add(obj);
-              } else if (type == PointType.dinner) {
-                removed as Dinner;
-                AllData.dinner.add(removed);
-                await DBHelper.insert('Dinner', removed.toMap());
-                // food.add(obj);
-                AllData.diaries
-                    .firstWhere((element) => element.id == widget.diaryID)
-                    .dinner!
-                    .add(obj);
-              } else if (type == PointType.snack) {
-                removed as Snack;
-                AllData.snack.add(removed);
-                await DBHelper.insert('Snack', removed.toMap());
-                // food.add(obj);
-                AllData.diaries
-                    .firstWhere((element) => element.id == widget.diaryID)
-                    .snack!
-                    .add(obj);
-              }
-              await calcDialyRestPoints(obj, true);
-              getData();
-              setState(() {});
-            },
-          )));
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Gelöscht'),
+        action: SnackBarAction(
+          label: 'Rückgängig',
+          onPressed: () async {
+            if (type == PointType.breakfast) {
+              removed as Breakfast;
+              AllData.breakfast.add(removed);
+              await DBHelper.insert('Breakfast', removed.toMap());
+              // food.add(obj);
+              AllData.diaries
+                  .firstWhere((element) => element.id == widget.diaryID)
+                  .breakfast!
+                  .add(obj);
+            } else if (type == PointType.lunch) {
+              removed as Lunch;
+              AllData.lunch.add(removed);
+              await DBHelper.insert('Lunch', removed.toMap());
+              // food.add(obj);
+              AllData.diaries
+                  .firstWhere((element) => element.id == widget.diaryID)
+                  .lunch!
+                  .add(obj);
+            } else if (type == PointType.dinner) {
+              removed as Dinner;
+              AllData.dinner.add(removed);
+              await DBHelper.insert('Dinner', removed.toMap());
+              // food.add(obj);
+              AllData.diaries
+                  .firstWhere((element) => element.id == widget.diaryID)
+                  .dinner!
+                  .add(obj);
+            } else if (type == PointType.snack) {
+              removed as Snack;
+              AllData.snack.add(removed);
+              await DBHelper.insert('Snack', removed.toMap());
+              // food.add(obj);
+              AllData.diaries
+                  .firstWhere((element) => element.id == widget.diaryID)
+                  .snack!
+                  .add(obj);
+            }
+            await calcDialyRestPoints(obj, true);
+            getData();
+            setState(() {});
+          },
+        )));
   }
 }

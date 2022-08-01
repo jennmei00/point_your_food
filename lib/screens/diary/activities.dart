@@ -1,0 +1,203 @@
+import 'package:duration_picker/duration_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:punkte_zaehler/models/activity.dart';
+import 'package:punkte_zaehler/models/all_data.dart';
+import 'package:punkte_zaehler/services/db_helper.dart';
+import 'package:punkte_zaehler/services/help_methods.dart';
+import 'package:uuid/uuid.dart';
+
+class Activities extends StatefulWidget {
+  final String diaryId;
+
+  const Activities({Key? key, required this.diaryId}) : super(key: key);
+  static const routeName = '/activities';
+
+  @override
+  State<Activities> createState() => _ActivitiesState();
+}
+
+class _ActivitiesState extends State<Activities> {
+  Duration duration = const Duration(minutes: 30);
+  double activityPoint = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    // AllData.activities = [];
+    // AllData.activities.addAll([
+    //   Activity(
+    //       id: '0Bike0',
+    //       title: 'Fahrrad',
+    //       points: 3,
+    //       icon: CommunityMaterialIcons.bike),
+    //   Activity(
+    //       id: '0Hike0',
+    //       title: 'Wandern',
+    //       points: 3,
+    //       icon: CommunityMaterialIcons.hiking),
+    //   Activity(
+    //       id: '0WeightTraining0',
+    //       title: 'Krafttraining',
+    //       points: 5,
+    //       icon: CommunityMaterialIcons.weight_lifter),
+    //   Activity(
+    //       id: '0Swim0',
+    //       title: 'Schwimmen',
+    //       points: 4,
+    //       icon: CommunityMaterialIcons.swim),
+    //   Activity(
+    //       id: '0Yoga0',
+    //       title: 'Yoga',
+    //       points: 2,
+    //       icon: CommunityMaterialIcons.yoga),
+    //   Activity(
+    //       id: '0Dance0',
+    //       title: 'Tanzen',
+    //       points: 2,
+    //       icon: CommunityMaterialIcons.dance_ballroom),
+    //   Activity(
+    //       id: '0Others0',
+    //       title: 'Sonstiges',
+    //       points: 2,
+    //       icon: CommunityMaterialIcons.walk),
+    // ]);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Aktivitäten'),
+      ),
+      body: ListView(
+          children: AllData.activities
+              .map(
+                (e) => GestureDetector(
+                  child: ListTile(
+                    leading: Icon(e.icon, color: Colors.black),
+                    title: Text('${e.title}'),
+                    trailing: Text('${decimalFormat(e.points!)} P.'),
+                  ),
+                  onTap: () => onTapActivity(e),
+                ),
+              )
+              .toList()),
+    );
+  }
+
+  onTapActivity(Activity a) {
+    activityPoint = a.points!;
+    duration = const Duration(minutes: 30);
+    showDialog(
+        context: context,
+        builder: (context) => StatefulBuilder(builder: (context, setState) {
+              return Dialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ListTile(
+                        leading: Icon(
+                          a.icon,
+                          color: Colors.black,
+                        ),
+                        title: Text(
+                          '${a.title}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        trailing: Text(
+                          '${decimalFormat(activityPoint)} P.',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      ListTile(
+                        title: const Text('Dauer'),
+                        trailing: GestureDetector(
+                          child: Text(duration.inMinutes.toString()),
+                          onTap: () => onTapDuration(setState, a.points!),
+                        ),
+                      ),
+                      OutlinedButton(
+                        onPressed: () => addFitpoint(a),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.5)),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)))),
+                        child: const Text('   Übernehmen   '),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }));
+  }
+
+  onTapDuration(StateSetter setState, double oldPoints) async {
+    var dur = await showDurationPicker(
+      context: context,
+      initialTime: duration,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: Colors.white,
+      ),
+    );
+
+    if (dur != null) {
+      setState(() {
+        duration = dur;
+        activityPoint = calcNewPoint(oldPoints);
+      });
+    }
+  }
+
+  double calcNewPoint(double oldPoints) {
+    double d = 0;
+
+    d = roundPoints(duration.inMinutes * oldPoints / 30);
+
+    return d;
+  }
+
+  Future<void> addFitpoint(Activity a) async {
+    FitPoint f = FitPoint(
+        id: const Uuid().v1(),
+        diaryId: widget.diaryId,
+        activityId: a.id,
+        duration: const Duration(minutes: 30),
+        points: calcNewPoint(a.points!));
+    DBHelper.insert('Fitpoint', f.toMap());
+    AllData.fitpoints.add(f);
+    AllData.diaries
+        .firstWhere((element) => element.id == widget.diaryId)
+        .activities!
+        .add(AllData.activities.firstWhere((element) => element.id == a.id));
+    AllData.diaries
+        .firstWhere((element) => element.id == widget.diaryId)
+        .fitpoints!
+        .add(f);
+
+    AllData.diaries
+        .firstWhere((element) => element.id == widget.diaryId)
+        .dailyRestPoints = AllData.diaries
+            .firstWhere((element) => element.id == widget.diaryId)
+            .dailyRestPoints! +
+        f.points!;
+
+    await DBHelper.update(
+        'Diary',
+        AllData.diaries
+            .firstWhere((element) => element.id == widget.diaryId)
+            .toMap(),
+        where: 'ID = "${widget.diaryId}"');
+
+    popScreen();
+  }
+
+  void popScreen() {
+    Navigator.of(context)..pop()..pop();
+  }
+}

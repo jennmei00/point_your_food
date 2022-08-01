@@ -160,6 +160,7 @@ class _ScaleState extends State<Scale> {
           age: AllData.profiledata.age!);
 
       if (newDaily != AllData.profiledata.dailyPoints) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           behavior: SnackBarBehavior.floating,
           margin: const EdgeInsets.all(20),
@@ -170,6 +171,7 @@ class _ScaleState extends State<Scale> {
         ));
         AllData.profiledata.dailyPoints = newDaily;
       } else {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           behavior: SnackBarBehavior.floating,
           margin: EdgeInsets.all(20),

@@ -10,16 +10,19 @@ class CustomLineChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return SfCartesianChart(
       primaryXAxis: DateTimeAxis(
-        minimum: AllData.weighs.last.date,
-        maximum: AllData.weighs.first.date,
+        minimum:
+            AllData.weighs.isEmpty ? DateTime.now() : AllData.weighs.last.date,
+        maximum: AllData.weighs.isEmpty
+            ? DateTime.now().add(const Duration(days: 50))
+            : AllData.weighs.first.date,
         intervalType: DateTimeIntervalType.days,
         interval: 7,
         dateFormat: DateFormat("dd.MM", "de"),
       ),
       primaryYAxis: NumericAxis(
         numberFormat: NumberFormat('###.## kg', 'de'),
-        minimum: _getMinimum(),
-        maximum: _getMaximum(),
+        minimum: AllData.weighs.isEmpty ? null : _getMinimum(),
+        maximum: AllData.weighs.isEmpty ? null : _getMaximum(),
       ),
       series: _getDefaultLineSeries(),
     );

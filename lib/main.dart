@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:punkte_zaehler/screens/diary/activities.dart';
 import 'package:punkte_zaehler/screens/diary/edit_diary.dart';
 import 'package:punkte_zaehler/screens/point_calculator.dart';
 import 'package:punkte_zaehler/screens/start_screen.dart';
@@ -63,6 +64,14 @@ class _MyAppState extends State<MyApp> {
                 );
               },
             );
+          } else if (settings.name == Activities.routeName) {
+            final args = settings.arguments as String;
+
+            return MaterialPageRoute(builder: (context) {
+              return Activities(
+                diaryId: args,
+              );
+            });
           }
 
           return null;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/models/food.dart';
+import 'package:punkte_zaehler/services/help_methods.dart';
 
 class CustomTypeAheadFormField extends StatelessWidget {
   final TextEditingController controller;
@@ -29,6 +30,8 @@ class CustomTypeAheadFormField extends StatelessWidget {
         return AllData.foods
             .where((Food option) => option.title!.startsWith(textEditingValue));
       },
+      // keepSuggestionsOnSuggestionSelected: false,
+      hideOnEmpty: true,
       validator: (value) {
         if ((value == null || value.isEmpty || value == '')) {
           return 'Das ist ein Pflichtfeld';
@@ -39,7 +42,7 @@ class CustomTypeAheadFormField extends StatelessWidget {
       itemBuilder: (context, Food suggestion) {
         return ListTile(
           title: Text(suggestion.title!),
-          trailing: Text('${suggestion.points}'),
+          trailing: Text('${decimalFormat(suggestion.points!)} P.'),
         );
       },
       textFieldConfiguration: TextFieldConfiguration(

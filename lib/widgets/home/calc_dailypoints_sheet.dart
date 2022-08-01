@@ -251,6 +251,7 @@ class _CalcDailypointsSheetState extends State<CalcDailypointsSheet> {
             lunch: null,
             dinner: null,
             snack: null,
+            activities: null,
             fitpoints: null));
     if (d.id != 'NULL') {
       double restpoints = AllData.profiledata.dailyPoints!;
@@ -266,7 +267,7 @@ class _CalcDailypointsSheetState extends State<CalcDailypointsSheet> {
       for (var element in d.snack!) {
         restpoints -= element.points!;
       }
-      for (var element in d.fitpoints!) {
+      for (var element in d.activities!) {
         restpoints += element.points!;
       }
       AllData.diaries

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
-import 'package:punkte_zaehler/models/weigh.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/home/calc_dailypoints_sheet.dart';

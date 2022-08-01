@@ -10,7 +10,8 @@ class Diary {
   List<Food>? lunch;
   List<Food>? dinner;
   List<Food>? snack;
-  List<Activity>? fitpoints;
+  List<Activity>? activities;
+  List<FitPoint>? fitpoints;
 
   Diary({
     required this.id,
@@ -20,42 +21,43 @@ class Diary {
     required this.lunch,
     required this.dinner,
     required this.snack,
+    required this.activities,
     required this.fitpoints,
   });
 
   Diary.forDB();
 
-  static List<Diary> getDummyData() {
-    return [
-      Diary(
-          id: '256486',
-          date: DateTime(2022, 7, 6),
-          dailyRestPoints: 5,
-          breakfast: Food.getDummyDataBreakfast(),
-          lunch: Food.getDummyDataLunch(),
-          dinner: Food.getDummyDataDinner(),
-          fitpoints: Activity.getDummyData(),
-          snack: Food.getDummyDataBreakfast()),
-      Diary(
-          id: '256487',
-          date: DateTime(2022, 7, 5),
-          dailyRestPoints: 0,
-          breakfast: Food.getDummyDataBreakfast(),
-          lunch: Food.getDummyDataLunch(),
-          dinner: Food.getDummyDataDinner(),
-          fitpoints: Activity.getDummyData(),
-          snack: Food.getDummyDataBreakfast()),
-      Diary(
-          id: '256488',
-          date: DateTime(2022, 7, 4),
-          dailyRestPoints: 2,
-          breakfast: Food.getDummyDataBreakfast(),
-          lunch: Food.getDummyDataLunch(),
-          dinner: Food.getDummyDataDinner(),
-          fitpoints: Activity.getDummyData(),
-          snack: Food.getDummyDataBreakfast()),
-    ];
-  }
+  // static List<Diary> getDummyData() {
+  //   return [
+  //     Diary(
+  //         id: '256486',
+  //         date: DateTime(2022, 7, 6),
+  //         dailyRestPoints: 5,
+  //         breakfast: Food.getDummyDataBreakfast(),
+  //         lunch: Food.getDummyDataLunch(),
+  //         dinner: Food.getDummyDataDinner(),
+  //         fitpoints: Activity.getDummyData(),
+  //         snack: Food.getDummyDataBreakfast()),
+  //     Diary(
+  //         id: '256487',
+  //         date: DateTime(2022, 7, 5),
+  //         dailyRestPoints: 0,
+  //         breakfast: Food.getDummyDataBreakfast(),
+  //         lunch: Food.getDummyDataLunch(),
+  //         dinner: Food.getDummyDataDinner(),
+  //         fitpoints: Activity.getDummyData(),
+  //         snack: Food.getDummyDataBreakfast()),
+  //     Diary(
+  //         id: '256488',
+  //         date: DateTime(2022, 7, 4),
+  //         dailyRestPoints: 2,
+  //         breakfast: Food.getDummyDataBreakfast(),
+  //         lunch: Food.getDummyDataLunch(),
+  //         dinner: Food.getDummyDataDinner(),
+  //         fitpoints: Activity.getDummyData(),
+  //         snack: Food.getDummyDataBreakfast()),
+  //   ];
+  // }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};
@@ -91,9 +93,12 @@ class Diary {
       snack: _getFood(AllData.snack
           .where((element) => element.diaryId == data['ID'])
           .toList()),
-      fitpoints: _getActivity(AllData.fitpoints
+      activities: _getActivity(AllData.fitpoints
           .where((element) => element.diaryId == data['ID'])
           .toList()),
+      fitpoints: AllData.fitpoints
+          .where((element) => element.diaryId == data['ID'])
+          .toList(),
     );
     return diary;
   }

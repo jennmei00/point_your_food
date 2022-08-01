@@ -1,3 +1,4 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
 import 'package:uuid/uuid.dart';
@@ -169,7 +170,8 @@ class DBHelper {
         'CREATE TABLE Food(ID TEXT PRIMARY KEY, Title TEXT, Points REAL)');
 
     await db.execute(
-        'CREATE TABLE Activity(ID TEXT PRIMARY KEY, Title TEXT, Points REAL)');
+        'CREATE TABLE Activity(ID TEXT PRIMARY KEY, Title TEXT, Points REAL, IconCodePoint INTEGER, '
+        'IconFontFamily TEXT, IconPackage TEXT, IconMathTextDirection BOOLEAN)');
 
     await db.execute(
         'CREATE TABLE Breakfast(ID TEXT PRIMARY KEY, DiaryID TEXT, FoodID TEXT, '
@@ -188,17 +190,49 @@ class DBHelper {
         'FOREIGN KEY(DiaryID) REFERENCES Diary(ID), FOREIGN KEY(FoodID) REFERENCES Food(ID))');
 
     await db.execute(
-        'CREATE TABLE Fitpoint(ID TEXT PRIMARY KEY, DiaryID TEXT, ActivityID TEXT, '
+        'CREATE TABLE Fitpoint(ID TEXT PRIMARY KEY, DiaryID TEXT, ActivityID TEXT, Duration TEXT, Points REAL,'
         'FOREIGN KEY(DiaryID) REFERENCES Diary(ID), FOREIGN KEY(ActivityID) REFERENCES Activity(ID))');
 
     //INSERT
-    await db.execute("INSERT INTO Weight VALUES('0Startweight0', 'Startgewicht', '${DateTime.now()}', NULL)");
-    await db.execute("INSERT INTO Weight VALUES('0Targetweight0', 'Zielgewicht', '${DateTime.now()}', NULL)");
-    await db.execute("INSERT INTO Weight VALUES('0Currentweight0', 'Aktuelles Gewicht', '${DateTime.now()}', NULL)");
+    await db.execute(
+        "INSERT INTO Weight VALUES('0Startweight0', 'Startgewicht', '${DateTime.now()}', NULL)");
+    await db.execute(
+        "INSERT INTO Weight VALUES('0Targetweight0', 'Zielgewicht', '${DateTime.now()}', NULL)");
+    await db.execute(
+        "INSERT INTO Weight VALUES('0Currentweight0', 'Aktuelles Gewicht', '${DateTime.now()}', NULL)");
 
     await db.execute(
         "INSERT INTO Profiledata VALUES('${const Uuid().v1()}', NULL, NULL, 0, 0, '0Startweight0', '0Targetweight0', "
         "'0Currentweight0', '${DateTime.now()}', NULL, 1, 0, NULL, 0)");
+
+    await db.execute(
+        "INSERT INTO Activity VALUES('0Bike0','Fahrrad', 3, ${CommunityMaterialIcons.bike.codePoint}, "
+        "'${CommunityMaterialIcons.bike.fontFamily}', '${CommunityMaterialIcons.bike.fontPackage}', "
+        "${CommunityMaterialIcons.bike.matchTextDirection == true ? 1 : 0})");
+    await db.execute(
+        "INSERT INTO Activity VALUES('0Hike0','Wandern', 3, ${CommunityMaterialIcons.hiking.codePoint}, "
+        "'${CommunityMaterialIcons.hiking.fontFamily}', '${CommunityMaterialIcons.hiking.fontPackage}', "
+        "${CommunityMaterialIcons.hiking.matchTextDirection == true ? 1 : 0})");
+    await db.execute(
+        "INSERT INTO Activity VALUES('0WeightTraining0','Krafttraining', 5, ${CommunityMaterialIcons.weight_lifter.codePoint}, "
+        "'${CommunityMaterialIcons.weight_lifter.fontFamily}', '${CommunityMaterialIcons.weight_lifter.fontPackage}', "
+        "${CommunityMaterialIcons.weight_lifter.matchTextDirection == true ? 1 : 0})");
+    await db.execute(
+        "INSERT INTO Activity VALUES('0Swim0','Schwimmen', 4, ${CommunityMaterialIcons.swim.codePoint}, "
+        "'${CommunityMaterialIcons.swim.fontFamily}', '${CommunityMaterialIcons.swim.fontPackage}', "
+        "${CommunityMaterialIcons.swim.matchTextDirection == true ? 1 : 0})");
+    await db.execute(
+        "INSERT INTO Activity VALUES('0Yoga0','Yoga', 2, ${CommunityMaterialIcons.yoga.codePoint}, "
+        "'${CommunityMaterialIcons.yoga.fontFamily}', '${CommunityMaterialIcons.yoga.fontPackage}', "
+        "${CommunityMaterialIcons.yoga.matchTextDirection == true ? 1 : 0})");
+    await db.execute(
+        "INSERT INTO Activity VALUES('0Dance0','Tanzen', 2, ${CommunityMaterialIcons.dance_ballroom.codePoint}, "
+        "'${CommunityMaterialIcons.dance_ballroom.fontFamily}', '${CommunityMaterialIcons.dance_ballroom.fontPackage}', "
+        "${CommunityMaterialIcons.dance_ballroom.matchTextDirection == true ? 1 : 0})");
+    await db.execute(
+        "INSERT INTO Activity VALUES('0Others0','Sonstiges', 2, ${CommunityMaterialIcons.walk.codePoint}, "
+        "'${CommunityMaterialIcons.walk.fontFamily}', '${CommunityMaterialIcons.walk.fontPackage}', "
+        "${CommunityMaterialIcons.walk.matchTextDirection == true ? 1 : 0})");
   }
 
   // Upgrade Tables

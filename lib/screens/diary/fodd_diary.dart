@@ -8,6 +8,7 @@ import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/models/diary.dart';
 import 'package:punkte_zaehler/models/enums.dart';
+import 'package:punkte_zaehler/screens/diary/activities.dart';
 import 'package:punkte_zaehler/screens/diary/edit_diary.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
@@ -31,6 +32,7 @@ class _FoodDiaryState extends State<FoodDiary> {
       breakfast: [],
       lunch: [],
       dinner: [],
+      activities: [],
       fitpoints: [],
       snack: []);
   DateTime initDate = DateTime.now();
@@ -47,7 +49,8 @@ class _FoodDiaryState extends State<FoodDiary> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
+      physics: const BouncingScrollPhysics(),
       children: [
         CalendarTimeline(
           initialDate: initDate,
@@ -81,11 +84,9 @@ class _FoodDiaryState extends State<FoodDiary> {
         ),
         const Divider(
             thickness: 2, color: Colors.black, indent: 10, endIndent: 10),
-        Expanded(
-            child: Padding(
+        Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
+          child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -195,13 +196,20 @@ class _FoodDiaryState extends State<FoodDiary> {
                   padding: const EdgeInsets.only(bottom: 15),
                   children: [
                     Row(
-                        children: diary.fitpoints!
+                        children: diary.activities!
                             .map((e) => ActivityCard(
                                 cardKey: GlobalKey<FlipCardState>(),
                                 color: HexColor('#A60505').withOpacity(0.4),
-                                icon: CommunityMaterialIcons.dance_ballroom,
+                                icon: IconData(e.icon!.codePoint,
+                                    fontFamily: e.icon!.fontFamily,
+                                    fontPackage: e.icon!.fontPackage,
+                                    matchTextDirection:
+                                        e.icon!.matchTextDirection),
                                 title: e.title!,
-                                points: e.points!,
+                                points: diary.fitpoints!
+                                    .firstWhere(
+                                        (element) => element.activityId == e.id)
+                                    .points!,
                                 addField: false,
                                 onAddPressed: () {},
                                 onRemovePressed: Jiffy(diary.date)
@@ -219,7 +227,29 @@ class _FoodDiaryState extends State<FoodDiary> {
                         onAddPressed: Jiffy(diary.date)
                                 .isBefore(DateTime.now(), Units.DAY)
                             ? null
-                            : () => onAddActivityPressed(),
+                            : () {
+                                if (diary.id == 'null') {
+                                  Diary newDiary = Diary(
+                                      id: const Uuid().v1(),
+                                      date: initDate,
+                                      dailyRestPoints:
+                                          AllData.profiledata.dailyPoints,
+                                      breakfast: [],
+                                      lunch: [],
+                                      dinner: [],
+                                      snack: [],
+                                      fitpoints: [],
+                                      activities: []);
+                                  AllData.diaries.add(newDiary);
+                                  DBHelper.insert('Diary', newDiary.toMap());
+                                  diary = newDiary;
+                                }
+                                Navigator.of(context)
+                                    .pushNamed(Activities.routeName,
+                                        arguments: diary.id)
+                                    .then((value) => setState(() {}));
+                              },
+                        // onAddActivityPressed(),
                         onRemovePressed: () {})
                   ],
                 ),
@@ -276,7 +306,7 @@ class _FoodDiaryState extends State<FoodDiary> {
               // ),
             ],
           ),
-        )),
+        ),
         const SizedBox(height: 15)
       ],
     );
@@ -301,6 +331,7 @@ class _FoodDiaryState extends State<FoodDiary> {
           breakfast: [],
           lunch: [],
           dinner: [],
+          activities: [],
           fitpoints: [],
           snack: []);
     }
@@ -321,7 +352,8 @@ class _FoodDiaryState extends State<FoodDiary> {
           lunch: [],
           dinner: [],
           snack: [],
-          fitpoints: []);
+          fitpoints: [],
+          activities: []);
       AllData.diaries.add(newDiary);
       DBHelper.insert('Diary', newDiary.toMap());
       diary = newDiary;
@@ -378,7 +410,8 @@ class _FoodDiaryState extends State<FoodDiary> {
           lunch: [],
           dinner: [],
           snack: [],
-          fitpoints: []);
+          fitpoints: [],
+          activities: []);
       AllData.diaries.add(newDiary);
       DBHelper.insert('Diary', newDiary.toMap());
       diary = newDiary;
@@ -431,25 +464,24 @@ class _FoodDiaryState extends State<FoodDiary> {
   }
 
   undoDelete(Activity obj, dynamic removed) {
-    ScaffoldMessenger.of(context)
-      ..removeCurrentSnackBar
-      ..showSnackBar(SnackBar(
-          content: const Text('Gelöscht'),
-          action: SnackBarAction(
-            label: 'Rückgängig',
-            onPressed: () async {
-              removed as FitPoint;
-              AllData.fitpoints.add(removed);
-              await DBHelper.insert('Fitpoint', removed.toMap());
-              AllData.diaries
-                  .firstWhere((element) => element.id == diary.id)
-                  .fitpoints!
-                  .add(obj);
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Gelöscht'),
+        action: SnackBarAction(
+          label: 'Rückgängig',
+          onPressed: () async {
+            removed as FitPoint;
+            AllData.fitpoints.add(removed);
+            await DBHelper.insert('Fitpoint', removed.toMap());
+            AllData.diaries
+                .firstWhere((element) => element.id == diary.id)
+                .activities!
+                .add(obj);
 
-              await calcDialyRestPoints(obj, true);
-              setState(() {});
-            },
-          )));
+            await calcDialyRestPoints(obj, true);
+            setState(() {});
+          },
+        )));
   }
 
   removePressed(Activity obj) async {
@@ -464,7 +496,7 @@ class _FoodDiaryState extends State<FoodDiary> {
     await DBHelper.delete('Fitpoint', where: 'ID = "$id"');
     AllData.diaries
         .firstWhere((element) => element.id == diary.id)
-        .fitpoints!
+        .activities!
         .remove(obj);
 
     await calcDialyRestPoints(obj, false);
@@ -474,20 +506,23 @@ class _FoodDiaryState extends State<FoodDiary> {
   }
 
   Future<void> calcDialyRestPoints(Activity obj, bool add) async {
+    double fPoints = diary.fitpoints!
+        .firstWhere((element) => element.activityId == obj.id)
+        .points!;
     if (!add) {
       AllData.diaries
           .firstWhere((element) => element.id == diary.id)
           .dailyRestPoints = AllData.diaries
               .firstWhere((element) => element.id == diary.id)
-              .dailyRestPoints! +
-          obj.points!;
+              .dailyRestPoints! -
+          fPoints;
     } else {
       AllData.diaries
           .firstWhere((element) => element.id == diary.id)
           .dailyRestPoints = AllData.diaries
               .firstWhere((element) => element.id == diary.id)
-              .dailyRestPoints! -
-          obj.points!;
+              .dailyRestPoints! +
+          fPoints;
     }
 
     await DBHelper.update('Diary',

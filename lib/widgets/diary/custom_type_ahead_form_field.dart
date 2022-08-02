@@ -25,7 +25,7 @@ class CustomTypeAheadFormField extends StatelessWidget {
       // animationDuration: Duration(milliseconds: 100),
       suggestionsCallback: (textEditingValue) {
         if (textEditingValue == '') {
-          return AllData.foods;
+          return [];
         }
         return AllData.foods
             .where((Food option) => option.title!.startsWith(textEditingValue));

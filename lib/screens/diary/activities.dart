@@ -1,5 +1,7 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
@@ -19,6 +21,9 @@ class Activities extends StatefulWidget {
 class _ActivitiesState extends State<Activities> {
   Duration duration = const Duration(minutes: 30);
   double activityPoint = 0;
+  TextEditingController titleController = TextEditingController();
+  TextEditingController pointController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -62,23 +67,114 @@ class _ActivitiesState extends State<Activities> {
     // ]);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Aktivitäten'),
-      ),
-      body: ListView(
-          children: AllData.activities
-              .map(
-                (e) => GestureDetector(
-                  child: ListTile(
-                    leading: Icon(e.icon, color: Colors.black),
-                    title: Text('${e.title}'),
-                    trailing: Text('${decimalFormat(e.points!)} P.'),
-                  ),
-                  onTap: () => onTapActivity(e),
+        appBar: AppBar(
+          title: const Text('Aktivitäten'),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                  children: AllData.activities
+                      .map(
+                        (e) => GestureDetector(
+                          child: ListTile(
+                            leading: Icon(e.icon, color: Colors.black),
+                            title: Text('${e.title}'),
+                            trailing: Text('${decimalFormat(e.points!)} P.'),
+                          ),
+                          onTap: () => onTapActivity(e),
+                        ),
+                      )
+                      .toList()),
+            ),
+            Container(
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3),
                 ),
-              )
-              .toList()),
-    );
+              ]),
+              child: Form(
+                key: formKey,
+                child: ListTile(
+                  leading: const Icon(
+                    CommunityMaterialIcons.human_handsup,
+                    color: Colors.black,
+                  ),
+                  title: Row(
+                    children: [
+                      Expanded(
+                          child: TextFormField(
+                        validator: (value) {
+                          if ((value == null || value.isEmpty || value == '')) {
+                            return '*';
+                          }
+                          return null;
+                        },
+                        decoration: const InputDecoration(hintText: 'Titel'),
+                        controller: titleController,
+                      )),
+                      const SizedBox(width: 10),
+                      SizedBox(
+                        width: 60,
+                        child: TextFormField(
+                          validator: (value) {
+                            if ((value == null ||
+                                value.isEmpty ||
+                                value == '')) {
+                              return '*';
+                            }
+                            return null;
+                          },
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(
+                                r'^(?:-?(?:[0-9]+))?(?:\,[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?')),
+                          ],
+                          decoration: const InputDecoration(hintText: 'Punkte'),
+                          controller: pointController,
+                        ),
+                      ),
+                    ],
+                  ),
+                  trailing: OutlinedButton(
+                    child: const Icon(CommunityMaterialIcons.arrow_up_bold),
+                    onPressed: () => addActivityToList(),
+                  ),
+                ),
+              ),
+            )
+            // Row(
+            //   children: [
+            //     const Icon(CommunityMaterialIcons.human_handsup),
+            //     Expanded(
+            //       child: TextFormField(
+
+            //         decoration: const InputDecoration(
+            //           // labelText: '',
+
+            //           hintText: 'Bsp.: Klettern',
+            //           // border: OutlineInputBorder(
+            //           //     borderRadius: BorderRadius.all(Radius.circular(10))),
+            //         ),
+            //       ),
+            //     ),
+            //     Row(children: [
+            //       TextFormField(
+            //       decoration: const InputDecoration(
+            //         // labelText: '',
+            //         hintText: '3,5',
+            //         border: OutlineInputBorder(
+            //             borderRadius: BorderRadius.all(Radius.circular(10))),
+            //       ),
+            //     ),
+            //     const Text(' P.'),
+            //     ],)
+            //   ],
+            // )
+          ],
+        ));
   }
 
   onTapActivity(Activity a) {
@@ -198,6 +294,26 @@ class _ActivitiesState extends State<Activities> {
   }
 
   void popScreen() {
-    Navigator.of(context)..pop()..pop();
+    Navigator.of(context)
+      ..pop()
+      ..pop();
+  }
+
+  addActivityToList() async {
+    if (formKey.currentState!.validate()) {
+      Activity a = Activity(
+          id: const Uuid().v1(),
+          title: titleController.text,
+          points: roundPoints(doubleCommaToPoint(pointController.text)),
+          icon: CommunityMaterialIcons.human_handsup);
+
+      AllData.activities.add(a);
+      await DBHelper.insert('Activity', a.toMap());
+
+      setState(() {
+        titleController.text = '';
+        pointController.text = '';
+      });
+    }
   }
 }

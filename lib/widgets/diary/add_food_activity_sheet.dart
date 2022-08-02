@@ -79,7 +79,7 @@ class _AddFoodActivitySheetState extends State<AddFoodActivitySheet> {
                                   arguments: true);
                           setState(() {
                             pointController.text =
-                                decimalFormat(foodPoints ?? 0);
+                                decimalFormat(foodPoints ?? '');
                           });
                         },
                       ),

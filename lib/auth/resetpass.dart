@@ -1,21 +1,22 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 
-class resetPassword extends StatefulWidget {
-  const resetPassword({Key? key}) : super(key: key);
+class ResetPassword extends StatefulWidget {
+  const ResetPassword({Key? key}) : super(key: key);
 
   @override
-  _resetPasswordState createState() => _resetPasswordState();
+  ResetPasswordState createState() => ResetPasswordState();
 }
 
-class _resetPasswordState extends State<resetPassword> {
+class ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              'assets/login.png',
+              'assets/register.png',
             ),
             fit: BoxFit.cover,
           ),
@@ -25,18 +26,19 @@ class _resetPasswordState extends State<resetPassword> {
           body: Stack(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       top: 60.0,
+                      left: 25.0,
                     ),
-                    child: Text(
-                      'RESET \n NOW',
-                      textAlign: TextAlign.center,
+                    child: const Text(
+                      'Passwort\nvergessen',
+                      textAlign: TextAlign.left,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 40.0,
+                        fontSize: 35.0,
                       ),
                     ),
                   ),
@@ -63,52 +65,55 @@ class _resetPasswordState extends State<resetPassword> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 30.0),
+                      const SizedBox(height: 20.0),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                maximumSize: Size(170.0, 90.0),
-                                minimumSize: Size(170.0, 60.0),
-                                primary: Colors.black,
-                                shape: StadiumBorder(),
+                          TextButton(
+                            onPressed: () => resetPass(),
+                            child: const Text(
+                              'Passwort zurücksetzen',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
                               ),
-                              onPressed: () {},
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                //crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text('RESET NOW'),
-                                  Icon(
-                                    Icons.refresh,
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              )),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => resetPass(),
+                            icon: const Icon(
+                                CommunityMaterialIcons.arrow_right_bold),
+                            iconSize: 30,
+                          )
                         ],
                       ),
-                      SizedBox(height: 30.0),
+                      const SizedBox(height: 15.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, 'register');
+                              Navigator.pushNamed(context, 'login');
                             },
-                            child: Text(
-                              'Register',
-                              style: TextStyle(color: Colors.black),
+                            child: const Text(
+                              'Anmelden',
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.w100,
+                              ),
                             ),
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, 'login');
+                              Navigator.pushNamed(context, 'register');
                             },
-                            child: Text(
-                              'LOGIN',
-                              style: TextStyle(color: Colors.black),
+                            child: const Text(
+                              'Registrieren',
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.w100,
+                              ),
                             ),
                           ),
                         ],
@@ -123,4 +128,6 @@ class _resetPasswordState extends State<resetPassword> {
       ),
     );
   }
+
+  resetPass() {}
 }

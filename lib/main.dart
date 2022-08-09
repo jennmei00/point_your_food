@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:punkte_zaehler/screens/diary/activities.dart';
 import 'package:punkte_zaehler/screens/diary/edit_diary.dart';
 import 'package:punkte_zaehler/screens/point_calculator.dart';
+import 'package:punkte_zaehler/screens/settings/edit_activity.dart';
+import 'package:punkte_zaehler/screens/settings/edit_food.dart';
+import 'package:punkte_zaehler/screens/settings/profile.dart';
 import 'package:punkte_zaehler/screens/start_screen.dart';
 import 'package:punkte_zaehler/services/theme.dart';
 import 'package:punkte_zaehler/services/theme_notifier.dart';
@@ -38,9 +41,12 @@ class _MyAppState extends State<MyApp> {
         title: 'Flutter Demo',
         theme: themeNotifier.getTheme(),
         home: const StartScreen(),
-        // routes: {
-        //   // PointCalculatorScreen.routeName: (context) => const PointCalculatorScreen(),
-        // },
+        // home: const ResetPassword(),
+        routes: {
+          EditFood.routeName: (context) => const EditFood(),
+          EditActivity.routeName: (context) => const EditActivity(),
+          Profile.routeName: (context) => const Profile(),
+        },
         onGenerateRoute: (settings) {
           if (settings.name == EditDiary.routeName) {
             final args = settings.arguments as List<dynamic>;

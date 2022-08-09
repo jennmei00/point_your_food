@@ -13,7 +13,7 @@ import 'package:punkte_zaehler/screens/diary/edit_diary.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/diary/activity_card.dart';
-import 'package:punkte_zaehler/widgets/diary/add_food_activity_sheet.dart';
+import 'package:punkte_zaehler/widgets/diary/add_food_sheet.dart';
 import 'package:punkte_zaehler/widgets/diary/food_card.dart';
 import 'package:uuid/uuid.dart';
 
@@ -420,7 +420,7 @@ class _FoodDiaryState extends State<FoodDiary> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (ctx) => AddFoodActivitySheet(
+      builder: (ctx) => AddFoodSheet(
           type: type,
           diaryId: diary.id!,
           onPressed: () async {
@@ -449,7 +449,7 @@ class _FoodDiaryState extends State<FoodDiary> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (ctx) => AddFoodActivitySheet(
+      builder: (ctx) => AddFoodSheet(
           type: PointType.activity,
           diaryId: diary.id!,
           onPressed: () async {

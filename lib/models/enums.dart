@@ -4,6 +4,7 @@ enum PointType {
   dinner,
   snack,
   activity,
+  food
 }
 
 enum Gender {

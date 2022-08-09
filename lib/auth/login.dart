@@ -1,20 +1,21 @@
-import 'package:flutter/cupertino.dart';
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 
-class myLogin extends StatefulWidget {
-  const myLogin({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
-  _myLoginState createState() => _myLoginState();
+  LoginState createState() => LoginState();
 }
 
-class _myLoginState extends State<myLogin> {
+class LoginState extends State<Login> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
               'assets/login.png',
@@ -27,18 +28,19 @@ class _myLoginState extends State<myLogin> {
           body: Stack(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                    padding: EdgeInsets.only(
-                      top: 60.0,
+                    padding: const EdgeInsets.only(
+                      top: 110.0,
+                      left: 25.0,
                     ),
-                    child: Text(
-                      'OMS\n LOGIN',
-                      textAlign: TextAlign.center,
+                    child: const Text(
+                      'Willkommen',
+                      textAlign: TextAlign.left,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 40.0,
+                        fontSize: 35.0,
                       ),
                     ),
                   ),
@@ -47,93 +49,113 @@ class _myLoginState extends State<myLogin> {
               SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.5,
+                    top: MediaQuery.of(context).size.height * 0.45,
                     left: 35,
                     right: 35,
                   ),
-                  child: Column(
-                    children: [
-                      TextField(
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          fillColor: Colors.grey.shade100,
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Bitte Email eingeben';
+                            } else if (!value.contains('@')) {
+                              return 'Keine gültige Email';
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            fillColor: Colors.grey.shade100,
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 30.0),
-                      TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the password';
-                          } else if (value.length <= 6) {
-                            return 'Password must be greator than 6 digits';
-                          }
-                        },
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          fillColor: Colors.grey.shade100,
-                          filled: true,
-                          // hintText: 'Password',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
+                        const SizedBox(height: 30.0),
+                        TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Bitte Passwort eingeben';
+                            } else if (value.length <= 6) {
+                              return 'mind. 6 Zeichen';
+                            }
+                            return null;
+                          },
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: 'Passwort',
+                            fillColor: Colors.grey.shade100,
+                            filled: true,
+                            // hintText: 'Password',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 30.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                maximumSize: Size(170.0, 90.0),
-                                minimumSize: Size(170.0, 60.0),
-                                primary: Colors.black,
-                                shape: StadiumBorder(),
+                        const SizedBox(height: 15.0),
+                        GestureDetector(
+                          child: const Text(
+                            'Ohne Registrierung fortfahren -->',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                          onTap: () => continueWithoutLogin(),
+                        ),
+                        const SizedBox(height: 20.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                              onPressed: () => login(),
+                              child: const Text(
+                                'Anmelden',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
                               ),
-                              onPressed: () {},
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                //crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text('LOG IN'),
-                                  Icon(
-                                    Icons.lock,
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              )),
-                        ],
-                      ),
-                      SizedBox(height: 30.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'register');
-                            },
-                            child: Text(
-                              'Register',
-                              style: TextStyle(color: Colors.black),
                             ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'forgot');
-                            },
-                            child: Text(
-                              'Forgot password?',
-                              style: TextStyle(color: Colors.black),
+                            IconButton(
+                              onPressed: () => login(),
+                              icon: const Icon(
+                                  CommunityMaterialIcons.arrow_right_bold),
+                              iconSize: 30,
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 30.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, 'register');
+                              },
+                              child: const Text(
+                                'Registrieren',
+                                style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.w100,
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, 'forgot');
+                              },
+                              child: const Text(
+                                'Passwort vergessen?',
+                                style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.w100,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -142,5 +164,13 @@ class _myLoginState extends State<myLogin> {
         ),
       ),
     );
+  }
+
+  continueWithoutLogin() {}
+
+  login() {
+    if(formKey.currentState!.validate()) {
+
+    }
   }
 }

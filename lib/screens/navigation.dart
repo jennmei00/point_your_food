@@ -5,7 +5,7 @@ import 'package:punkte_zaehler/screens/diary/fodd_diary.dart';
 import 'package:punkte_zaehler/screens/home.dart';
 import 'package:punkte_zaehler/screens/point_calculator.dart';
 import 'package:punkte_zaehler/screens/scale.dart';
-import 'package:punkte_zaehler/screens/settings.dart';
+import 'package:punkte_zaehler/screens/settings/settings.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({Key? key}) : super(key: key);

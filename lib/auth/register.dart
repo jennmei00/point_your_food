@@ -1,67 +1,70 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 
-class myRegister extends StatefulWidget {
-  const myRegister({Key? key}) : super(key: key);
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
 
   @override
-  _myRegisterState createState() => _myRegisterState();
+  RegisterState createState() => RegisterState();
 }
 
-class _myRegisterState extends State<myRegister> {
+class RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              'assets/login.png',
+              'assets/register.png',
             ),
             fit: BoxFit.cover,
           ),
         ),
         child: Scaffold(
-          appBar: AppBar(
-              elevation: null,
-              backgroundColor: Colors.transparent,
-              leading: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, 'login');
-                },
-                child: Icon(
-                  Icons.arrow_back_ios_rounded,
-                  color: Colors.white,
-                ),
-              )),
           backgroundColor: Colors.transparent,
           body: Stack(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'REGISTER\n NOW',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40.0,
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0, top: 50.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    Text(
+                      'Konto\nerstellen',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 35.0,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.28,
+                    top: MediaQuery.of(context).size.height * 0.20,
                     left: 35,
                     right: 35,
                   ),
                   child: Column(
                     children: [
+                      // const CircleAvatar(
+                      // foregroundColor: Colors.black,
+                      // radius: 40,
+                      // child:
+                      const Icon(
+                        Icons.account_circle_rounded,
+                        size: 100,
+                        color: Colors.black,
+                      ),
+                      // ),
+                      const SizedBox(height: 30.0),
                       TextField(
                         decoration: InputDecoration(
-                          labelText: 'Username',
-                          fillColor: Colors.transparent,
+                          labelText: 'Name',
+                          fillColor: Colors.grey[300],
                           filled: true,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -70,41 +73,27 @@ class _myRegisterState extends State<myRegister> {
                               )),
                         ),
                       ),
-                      SizedBox(height: 30.0),
+                      const SizedBox(height: 30.0),
                       TextField(
                         decoration: InputDecoration(
-                          fillColor: Colors.transparent,
+                          fillColor: Colors.grey[300],
                           filled: true,
                           labelText: 'Email',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 30.0),
-                      TextField(
-                        decoration: InputDecoration(
-                          fillColor: Colors.transparent,
-                          filled: true,
-                          labelText: 'Phone',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
                             borderSide: const BorderSide(
                               color: Colors.white,
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(height: 30.0),
+                      const SizedBox(height: 30.0),
                       TextField(
                         obscureText: true,
                         decoration: InputDecoration(
-                          fillColor: Colors.transparent,
+                          fillColor: Colors.grey[300],
                           filled: true,
-                          labelText: 'Password',
+                          labelText: 'Passwort',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: const BorderSide(
@@ -113,33 +102,30 @@ class _myRegisterState extends State<myRegister> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 30.0),
+                      const SizedBox(height: 20.0),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                maximumSize: const Size(170.0, 90.0),
-                                minimumSize: const Size(170.0, 60.0),
-                                primary: Colors.black,
-                                shape: const StadiumBorder(),
+                          TextButton(
+                            onPressed: () => register(),
+                            child: const Text(
+                              'Anmelden',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
                               ),
-                              onPressed: () {},
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                //crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text('REGISTER'),
-                                  Icon(
-                                    Icons.content_paste_rounded,
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              )),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => register(),
+                            icon: const Icon(
+                                CommunityMaterialIcons.arrow_right_bold),
+                            iconSize: 30,
+                          )
                         ],
                       ),
-                      SizedBox(height: 30.0),
+                      const SizedBox(height: 15.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -147,18 +133,12 @@ class _myRegisterState extends State<myRegister> {
                             onPressed: () {
                               Navigator.pushNamed(context, 'login');
                             },
-                            child: Text(
-                              'Login',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'forgot');
-                            },
-                            child: Text(
-                              'Forgot password?',
-                              style: TextStyle(color: Colors.black),
+                            child: const Text(
+                              'Anmelden',
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.w100,
+                              ),
                             ),
                           ),
                         ],
@@ -173,4 +153,6 @@ class _myRegisterState extends State<myRegister> {
       ),
     );
   }
+
+  register() {}
 }

@@ -7,7 +7,7 @@ import 'package:punkte_zaehler/models/food.dart';
 import 'package:punkte_zaehler/models/foods.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
-import 'package:punkte_zaehler/widgets/diary/add_food_activity_sheet.dart';
+import 'package:punkte_zaehler/widgets/diary/add_food_sheet.dart';
 
 class EditDiary extends StatefulWidget {
   const EditDiary({Key? key, required this.date, required this.diaryID})
@@ -529,7 +529,7 @@ class _EditDiaryState extends State<EditDiary> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (ctx) => AddFoodActivitySheet(
+      builder: (ctx) => AddFoodSheet(
           type: type,
           diaryId: widget.diaryID,
           onPressed: () async {

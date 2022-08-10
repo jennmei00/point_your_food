@@ -17,6 +17,9 @@ class EditFood extends StatefulWidget {
 
 class _EditFoodState extends State<EditFood> {
   List<FoodTile> listFood = [];
+  bool search = false;
+  TextEditingController searchController = TextEditingController(text: '');
+  FocusNode searchFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -29,7 +32,41 @@ class _EditFoodState extends State<EditFood> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Essen bearbeiten'),
+        title: !search
+            ? const Text('Essen bearbeiten')
+            : TextField(
+                onChanged: (query) => searchFood(query),
+                // autofocus: true,
+                focusNode: searchFocusNode,
+                controller: searchController,
+                decoration: const InputDecoration(
+                  hintText: 'Suche',
+                  hintStyle: TextStyle(color: Colors.white30),
+                  border: UnderlineInputBorder(borderSide: BorderSide.none),
+                ),
+                style: const TextStyle(color: Colors.white),
+              ),
+        actions: [
+          search
+              ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      searchController.text = '';
+                      search = false;
+                      fillListFood();
+                    });
+                  },
+                  icon: const Icon(Icons.clear))
+              : IconButton(
+                  onPressed: () {
+                    setState(() {
+                      searchFocusNode.requestFocus();
+                      search = true;
+                    });
+                  },
+                  icon: const Icon(Icons.search),
+                ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => addCard(),
@@ -48,7 +85,7 @@ class _EditFoodState extends State<EditFood> {
                     TextEditingController(text: e.food.title);
                 TextEditingController pointController =
                     TextEditingController(text: decimalFormat(e.food.points!));
-                FocusNode focusNode = FocusNode();
+                // FocusNode focusNode = FocusNode();
 
                 return ListTile(
                   title: !e.edit
@@ -65,7 +102,7 @@ class _EditFoodState extends State<EditFood> {
                             children: [
                               Expanded(
                                   child: TextFormField(
-                                focusNode: focusNode,
+                                focusNode: e.focusNode,
                                 controller: titleController,
                                 validator: (value) {
                                   if ((value == null ||
@@ -102,20 +139,20 @@ class _EditFoodState extends State<EditFood> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: () => edit(e, focusNode),
-                            ),
+                                icon: const Icon(Icons.edit),
+                                onPressed: () => edit(e, e.focusNode),
+                                color: Colors.black),
                             IconButton(
-                              onPressed: () => delete(e),
-                              icon: const Icon(Icons.delete),
-                            ),
+                                onPressed: () => delete(e),
+                                icon: const Icon(Icons.delete),
+                                color: Colors.black),
                           ],
                         )
                       : IconButton(
                           icon: const Icon(Icons.save),
                           onPressed: () => save(
                               e, titleController, pointController, formKey),
-                        ),
+                          color: Colors.black),
                 );
               }).toList(),
             ),
@@ -125,12 +162,10 @@ class _EditFoodState extends State<EditFood> {
     );
   }
 
-  edit(
-    FoodTile e,
-    FocusNode focusNode,
-  ) {
+  edit(FoodTile e, FocusNode focusNode) {
+    focusNode.requestFocus();
+    focusNode.requestFocus();
     setState(() {
-      FocusScope.of(context).requestFocus(focusNode);
       listFood.firstWhere((element) => element.food.id == e.food.id).edit =
           true;
     });
@@ -219,7 +254,7 @@ class _EditFoodState extends State<EditFood> {
     if (formKey.currentState!.validate()) {
       Food f = e.food;
       f.title = titleController.text;
-      f.points = doubleCommaToPoint(pointController.text);
+      f.points = roundPoints(doubleCommaToPoint(pointController.text));
       AllData.foods.firstWhere((element) => element.id == e.food.id).title =
           f.title;
       AllData.foods.firstWhere((element) => element.id == e.food.id).points =
@@ -227,11 +262,12 @@ class _EditFoodState extends State<EditFood> {
 
       DBHelper.update('Food', where: 'ID = "${e.food.id}"', f.toMap());
 
-      fillListFood();
-      setState(() {
-        // listFood.firstWhere((element) => element.food.id == e.food.id).edit =
-        //     false;
-      });
+      listFood.firstWhere((element) => element.food.id == e.food.id).food = f;
+      listFood.firstWhere((element) => element.food.id == e.food.id).edit =
+          false;
+      FocusScope.of(context).requestFocus(FocusNode());
+
+      setState(() {});
     }
   }
 
@@ -246,11 +282,14 @@ class _EditFoodState extends State<EditFood> {
       }
     });
     for (var element in AllData.foods) {
-      listFood.add(FoodTile(edit: false, food: element));
+      listFood
+          .add(FoodTile(edit: false, food: element, focusNode: FocusNode()));
     }
   }
 
   addCard() {
+    search = false;
+    searchController.text = '';
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -268,14 +307,29 @@ class _EditFoodState extends State<EditFood> {
       ),
     );
   }
+
+  searchFood(String query) {
+    listFood = [];
+
+    for (var element in AllData.foods) {
+      if (element.title!.contains(query)) {
+        listFood
+            .add(FoodTile(edit: false, food: element, focusNode: FocusNode()));
+      }
+    }
+
+    setState(() {});
+  }
 }
 
 class FoodTile {
   bool edit;
   Food food;
+  FocusNode focusNode;
 
   FoodTile({
     required this.edit,
     required this.food,
+    required this.focusNode,
   });
 }

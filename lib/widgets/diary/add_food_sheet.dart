@@ -78,8 +78,9 @@ class _AddFoodSheetState extends State<AddFoodSheet> {
                               .pushNamed(PointCalculator.routeName,
                                   arguments: true);
                           setState(() {
-                            pointController.text =
-                                decimalFormat(foodPoints ?? '');
+                            pointController.text = foodPoints == null
+                                ? ''
+                                : decimalFormat(foodPoints);
                           });
                         },
                       ),

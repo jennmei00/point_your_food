@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
+import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
+import 'package:uuid/uuid.dart';
 
 class EditActivity extends StatefulWidget {
   const EditActivity({Key? key}) : super(key: key);
@@ -18,6 +20,9 @@ class _EditActivityState extends State<EditActivity> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController pointController = TextEditingController();
   TextEditingController titleController = TextEditingController();
+  bool search = false;
+  TextEditingController searchController = TextEditingController(text: '');
+  FocusNode searchFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -28,7 +33,43 @@ class _EditActivityState extends State<EditActivity> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Aktivitäten  bearbeiten')),
+      appBar: AppBar(
+        title: !search
+            ? const Text('Aktivitäten  bearbeiten')
+            : TextField(
+                onChanged: (query) => searchActivity(query),
+                // autofocus: true,
+                focusNode: searchFocusNode,
+                controller: searchController,
+                decoration: const InputDecoration(
+                  hintText: 'Suche',
+                  hintStyle: TextStyle(color: Colors.white30),
+                  border: UnderlineInputBorder(borderSide: BorderSide.none),
+                ),
+                style: const TextStyle(color: Colors.white),
+              ),
+        actions: [
+          search
+              ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      searchController.text = '';
+                      search = false;
+                      fillListActivity();
+                    });
+                  },
+                  icon: const Icon(Icons.clear))
+              : IconButton(
+                  onPressed: () {
+                    setState(() {
+                      searchFocusNode.requestFocus();
+                      search = true;
+                    });
+                  },
+                  icon: const Icon(Icons.search),
+                ),
+        ],
+      ),
       body: Column(
         children: [
           Expanded(
@@ -59,6 +100,7 @@ class _EditActivityState extends State<EditActivity> {
                                 Expanded(
                                     child: TextFormField(
                                   controller: titleController2,
+                                  focusNode: e.focusNode,
                                   validator: (value) {
                                     if ((value == null ||
                                         value.isEmpty ||
@@ -95,18 +137,22 @@ class _EditActivityState extends State<EditActivity> {
                             children: [
                               IconButton(
                                 icon: const Icon(Icons.edit),
-                                onPressed: () => edit(e),
+                                onPressed: () => edit(e, e.focusNode),
+                                color: Colors.black,
                               ),
                               IconButton(
-                                onPressed: () => delete(e),
-                                icon: const Icon(Icons.delete),
-                              ),
+                                  onPressed: e.activity.id!.startsWith('0') &&
+                                          e.activity.id!.endsWith('0')
+                                      ? null
+                                      : () => delete(e),
+                                  icon: const Icon(Icons.delete),
+                                  color: Colors.black),
                             ],
                           )
                         : IconButton(
                             icon: const Icon(Icons.save),
-                            onPressed: () => save(
-                                e, titleController2, pointController2, formKey2),
+                            onPressed: () => save(e, titleController2,
+                                pointController2, formKey2),
                           ),
                   );
                 }).toList()),
@@ -172,7 +218,19 @@ class _EditActivityState extends State<EditActivity> {
     );
   }
 
-  addActivityToList() {}
+  addActivityToList() {
+    if (formKey.currentState!.validate()) {
+      Activity newActivity = Activity(
+          id: const Uuid().v1(),
+          title: titleController.text,
+          points: roundPoints(doubleCommaToPoint(pointController.text)),
+          icon: CommunityMaterialIcons.walk);
+      AllData.activities.add(newActivity);
+      DBHelper.insert('Activity', newActivity.toMap());
+    }
+    fillListActivity();
+    setState(() {});
+  }
 
   void fillListActivity() {
     listActivity = [];
@@ -185,21 +243,134 @@ class _EditActivityState extends State<EditActivity> {
       }
     });
     for (var element in AllData.activities) {
-      listActivity.add(ActivityTile(edit: false, activity: element));
+      listActivity.add(
+          ActivityTile(edit: false, activity: element, focusNode: FocusNode()));
     }
   }
 
-  edit(ActivityTile e) {}
+  edit(ActivityTile e, FocusNode focusNode) {
+    focusNode.requestFocus();
+    focusNode.requestFocus();
+    setState(() {
+      listActivity
+          .firstWhere((element) => element.activity.id == e.activity.id)
+          .edit = true;
+    });
+  }
 
-  delete(ActivityTile e) {}
+  delete(ActivityTile e) {
+    bool inUse = false;
+    inUse = activityInUse(e, inUse);
+
+    if (inUse) {
+      var text = Text.rich(
+        TextSpan(
+          style: const TextStyle(fontWeight: FontWeight.bold),
+          children: <TextSpan>[
+            TextSpan(text: e.activity.title),
+            const TextSpan(
+              text: ' wird bereits verwendet. Kann nicht gelöscht werden.',
+              style: TextStyle(fontWeight: FontWeight.normal),
+            )
+          ],
+        ),
+        textAlign: TextAlign.center,
+      );
+
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.all(20),
+          content: text));
+    } else {
+      AllData.activities.remove(e.activity);
+      DBHelper.delete('Activity', where: 'ID = "${e.activity.id}"');
+      fillListActivity();
+      setState(() {});
+      undoDelete(e.activity);
+    }
+  }
+
+  undoDelete(Activity removed) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Gelöscht'),
+        action: SnackBarAction(
+          label: 'Rückgängig',
+          onPressed: () async {
+            AllData.activities.add(removed);
+            await DBHelper.insert('Activity', removed.toMap());
+            fillListActivity();
+            setState(() {});
+          },
+        )));
+  }
+
+  bool activityInUse(ActivityTile e, bool inUse) {
+    for (var element in AllData.diaries) {
+      for (var element in element.fitpoints!) {
+        if (element.activityId == e.activity.id) {
+          inUse = true;
+          break;
+        }
+      }
+    }
+    return inUse;
+  }
 
   save(ActivityTile e, TextEditingController titleController,
-      TextEditingController pointController, GlobalKey<FormState> formKey) {}
+      TextEditingController pointController, GlobalKey<FormState> formKey) {
+    if (formKey.currentState!.validate()) {
+      Activity a = e.activity;
+      a.title = titleController.text;
+      a.points = roundPoints(doubleCommaToPoint(pointController.text));
+      AllData.activities
+          .firstWhere((element) => element.id == e.activity.id)
+          .title = a.title;
+      AllData.activities
+          .firstWhere((element) => element.id == e.activity.id)
+          .points = a.points;
+
+      DBHelper.update('Activity', where: 'ID = "${e.activity.id}"', a.toMap());
+      listActivity
+          .firstWhere((element) => element.activity.id == e.activity.id)
+          .activity = a;
+
+      listActivity
+          .firstWhere((element) => element.activity.id == e.activity.id)
+          .edit = false;
+      FocusScope.of(context).requestFocus(FocusNode());
+
+      setState(() {
+        titleController.text = '';
+        pointController.text = '';
+        FocusScope.of(context).requestFocus(FocusNode());
+      });
+    }
+  }
+
+  searchActivity(String query) {
+    listActivity = [];
+
+    for (var element in AllData.activities) {
+      if (element.title!.contains(query)) {
+        listActivity.add(ActivityTile(
+            edit: false, activity: element, focusNode: FocusNode()));
+      }
+    }
+
+    setState(() {});
+  }
 }
 
 class ActivityTile {
   bool edit;
   Activity activity;
+  FocusNode focusNode;
 
-  ActivityTile({required this.edit, required this.activity});
+  ActivityTile({
+    required this.edit,
+    required this.activity,
+    required this.focusNode,
+  });
 }

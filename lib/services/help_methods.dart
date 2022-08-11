@@ -1,5 +1,6 @@
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 
@@ -55,6 +56,68 @@ double doubleCommaToPoint(String num) {
   double d = 0;
   d = double.parse(num.replaceAll(',', '.'));
   return d;
+}
+
+DateTime getMondayOfWeek(DateTime date) {
+  DateTime monday;
+
+  switch (Jiffy(date).day) {
+    case 1:
+      monday = Jiffy(date).subtract(days: 6).dateTime;
+      break;
+    case 2:
+      monday = date;
+      break;
+    case 3:
+      monday = Jiffy(date).subtract(days: 1).dateTime;
+      break;
+    case 4:
+      monday = Jiffy(date).subtract(days: 2).dateTime;
+      break;
+    case 5:
+      monday = Jiffy(date).subtract(days: 3).dateTime;
+      break;
+    case 6:
+      monday = Jiffy(date).subtract(days: 4).dateTime;
+      break;
+    case 7:
+      monday = Jiffy(date).subtract(days: 5).dateTime;
+      break;
+    default:
+      monday = date;
+  }
+  return monday;
+}
+
+DateTime getSundayOfWeek(DateTime date) {
+  DateTime sunday;
+
+  switch (Jiffy(date).day) {
+    case 1:
+      sunday = date;
+      break;
+    case 2:
+      sunday = Jiffy(date).subtract(days: 1).dateTime;
+      break;
+    case 3:
+      sunday = Jiffy(date).subtract(days: 2).dateTime;
+      break;
+    case 4:
+      sunday = Jiffy(date).subtract(days: 3).dateTime;
+      break;
+    case 5:
+      sunday = Jiffy(date).subtract(days: 4).dateTime;
+      break;
+    case 6:
+      sunday = Jiffy(date).subtract(days: 5).dateTime;
+      break;
+    case 7:
+      sunday = Jiffy(date).subtract(days: 6).dateTime;
+      break;
+    default:
+      sunday = date;
+  }
+  return sunday;
 }
 
 double calculateDailypoints({

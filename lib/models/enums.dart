@@ -29,3 +29,9 @@ enum TextFieldType {
   decimal,
   text,
 }
+
+enum PointSafeDelete {
+  withWeigh,
+  everySunday,
+  everyMonday,
+}

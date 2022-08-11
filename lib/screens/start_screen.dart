@@ -3,6 +3,7 @@ import 'package:jiffy/jiffy.dart';
 import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/models/diary.dart';
+import 'package:punkte_zaehler/models/enums.dart';
 import 'package:punkte_zaehler/models/food.dart';
 import 'package:punkte_zaehler/models/foods.dart';
 import 'package:punkte_zaehler/models/profiledata.dart';
@@ -10,6 +11,8 @@ import 'package:punkte_zaehler/models/weigh.dart';
 import 'package:punkte_zaehler/models/weight.dart';
 import 'package:punkte_zaehler/screens/navigation.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
+import 'package:punkte_zaehler/services/help_methods.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({Key? key}) : super(key: key);
@@ -99,6 +102,7 @@ class _StartScreenState extends State<StartScreen> {
         ProfileData.forDB().fromDB(await DBHelper.getOneData('Profiledata'));
     AllData.diaries = Diary.forDB().listFromDB(await DBHelper.getData('Diary'));
 
+    await checkPreferences();
     await checkPointSafe();
 
     return Future.value(true);
@@ -140,6 +144,43 @@ class _StartScreenState extends State<StartScreen> {
       AllData.profiledata.pointSafeDate = DateTime.now();
 
       await DBHelper.update('Profiledata', AllData.profiledata.toMap());
+    }
+
+    if (AllData.prefs.getInt('deletePointsafeDay') ==
+        PointSafeDelete.everyMonday.index) {
+      if (DateTime.now().weekday == 1) {
+        AllData.profiledata.pointSafeDate == DateTime.now();
+        AllData.profiledata.pointSafe = 0;
+      } else if(
+        Jiffy(AllData.profiledata.pointSafe).isBefore(getMondayOfWeek(DateTime.now()), Units.DAY) 
+      ){
+        AllData.profiledata.pointSafeDate == DateTime.now();
+        AllData.profiledata.pointSafe = 0;
+      }
+    } else if (AllData.prefs.getInt('deletePointsafeDay') ==
+        PointSafeDelete.everySunday.index) {
+      if (DateTime.now().weekday == 7) {
+        AllData.profiledata.pointSafeDate == DateTime.now();
+        AllData.profiledata.pointSafe = 0;
+      } else if( Jiffy(AllData.profiledata.pointSafe).isBefore(getSundayOfWeek(DateTime.now()), Units.DAY) 
+      ){
+        AllData.profiledata.pointSafeDate == DateTime.now();
+        AllData.profiledata.pointSafe = 0;
+      }
+    }
+  }
+
+  Future<void> checkPreferences() async {
+    var prefs = await SharedPreferences.getInstance();
+
+    AllData.prefs = prefs;
+
+    if (prefs.getBool('autoDailypointChange') == null) {
+      prefs.setBool('autoDailypointChange', true);
+    }
+
+    if (prefs.getInt('deletePointsafeDay') == null) {
+      prefs.setInt('deletePointsafeDay', 0);
     }
   }
 }

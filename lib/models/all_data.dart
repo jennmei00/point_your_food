@@ -3,6 +3,7 @@ import 'package:punkte_zaehler/models/foods.dart';
 import 'package:punkte_zaehler/models/profiledata.dart';
 import 'package:punkte_zaehler/models/weigh.dart';
 import 'package:punkte_zaehler/models/weight.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'activity.dart';
 import 'diary.dart';
@@ -19,4 +20,5 @@ class AllData {
   static late List<Weight> weights;
   static late List<FitPoint> fitpoints;
   static late ProfileData profiledata;
+  static late SharedPreferences prefs;
 }

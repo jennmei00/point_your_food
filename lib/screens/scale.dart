@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
+import 'package:punkte_zaehler/models/enums.dart';
 import 'package:punkte_zaehler/models/weigh.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/custom_linechart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 class Scale extends StatefulWidget {
@@ -18,6 +20,11 @@ class _ScaleState extends State<Scale> {
   final _formKey = GlobalKey<FormState>();
   DateTime date = DateTime.now();
   TextEditingController weightController = TextEditingController();
+
+  @override
+  initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,28 +155,43 @@ class _ScaleState extends State<Scale> {
       AllData.weighs.add(weigh);
       AllData.profiledata.currentWeight!.weight =
           doubleCommaToPoint(weightController.text);
-      AllData.profiledata.pointSafe = 0;
-      AllData.profiledata.pointSafeDate = DateTime.now();
+      if (AllData.prefs.getInt('deletePointsafeDay') ==
+          PointSafeDelete.withWeigh.index) {
+        AllData.profiledata.pointSafe = 0;
+        AllData.profiledata.pointSafeDate = DateTime.now();
+      }
 
-      double newDaily = calculateDailypoints(
-          gender: AllData.profiledata.gender!.index,
-          weight: doubleCommaToPoint(weightController.text),
-          height: AllData.profiledata.height!,
-          move: AllData.profiledata.movement!.index,
-          purpose: AllData.profiledata.goal!.index,
-          age: AllData.profiledata.age!);
+      if (AllData.prefs.getBool('autoDailypointChange')!) {
+        double newDaily = calculateDailypoints(
+            gender: AllData.profiledata.gender!.index,
+            weight: doubleCommaToPoint(weightController.text),
+            height: AllData.profiledata.height!,
+            move: AllData.profiledata.movement!.index,
+            purpose: AllData.profiledata.goal!.index,
+            age: AllData.profiledata.age!);
 
-      if (newDaily != AllData.profiledata.dailyPoints) {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.all(20),
-          content: Text(
-            'Tagespunkte geändert:   ${decimalFormat(AllData.profiledata.dailyPoints!)} ➟ ${decimalFormat(newDaily)} ',
-            textAlign: TextAlign.center,
-          ),
-        ));
-        AllData.profiledata.dailyPoints = newDaily;
+        if (newDaily != AllData.profiledata.dailyPoints) {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(20),
+            content: Text(
+              'Tagespunkte geändert:   ${decimalFormat(AllData.profiledata.dailyPoints!)} ➟ ${decimalFormat(newDaily)} ',
+              textAlign: TextAlign.center,
+            ),
+          ));
+          AllData.profiledata.dailyPoints = newDaily;
+        } else {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.all(20),
+            content: Text(
+              'Hinzugefügt',
+              textAlign: TextAlign.center,
+            ),
+          ));
+        }
       } else {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

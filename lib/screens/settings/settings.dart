@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
+import 'package:punkte_zaehler/models/all_data.dart';
+import 'package:punkte_zaehler/models/enums.dart';
 import 'package:punkte_zaehler/screens/settings/edit_activity.dart';
 import 'package:punkte_zaehler/screens/settings/edit_food.dart';
 import 'package:punkte_zaehler/screens/settings/profile.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
+
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  PointSafeDelete groupValue = PointSafeDelete.withWeigh;
+  bool checkboxValue = true;
+
+  @override
+  void initState() {
+    getData();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,43 +61,36 @@ class Settings extends StatelessWidget {
             Navigator.of(context).pushNamed(EditActivity.routeName);
           },
         ),
-        GestureDetector(
-          child: ExpansionTile(
-            leading: const Icon(Icons.safety_check),
-            title: const Text(
-              'Punktetresor',
-            ),
-            subtitle: const Text('Löschen bei Eingabe von Wiegedaten'),
-            // trailing: DropdownButton<Text>(
-            //   items: const [
-            //     DropdownMenuItem(child: Text('Eingabe von Wiegedaten'))
-            //   ],
-            //   onChanged: (Object? value) {},
-            // ),
-            children: [
-              RadioListTile<int>(
-                groupValue: 0,
-                onChanged: (Object? value) {},
-                value: 0,
-                title: const Text('Eingabe von Wiegedaten'),
-              ),
-              RadioListTile<int>(
-                groupValue: 0,
-                onChanged: (Object? value) {},
-                value: 1,
-                title: const Text('Jeden Montag'),
-              ),
-              RadioListTile<int>(
-                groupValue: 0,
-                onChanged: (Object? value) {},
-                value: 1,
-                title: const Text('Jeden Sonntag'),
-              ),
-            ],
+        ExpansionTile(
+          leading: const Icon(Icons.safety_check),
+          title: const Text(
+            'Punktetresor',
           ),
-          onTap: () {
-            // Navigator.of(context).pushNamed(Credits.routeName);
-          },
+          subtitle: groupValue == PointSafeDelete.withWeigh
+              ? const Text('Löschen bei Eingabe von Wiegedaten')
+              : groupValue == PointSafeDelete.everyMonday
+                  ? const Text('Jeden Montag löschen')
+                  : const Text('Jeden Sonntag löschen'),
+          children: [
+            RadioListTile<PointSafeDelete>(
+              groupValue: groupValue,
+              onChanged: (PointSafeDelete? value) => changeGroupValue(value),
+              value: PointSafeDelete.withWeigh,
+              title: const Text('Eingabe von Wiegedaten'),
+            ),
+            RadioListTile<PointSafeDelete>(
+              groupValue: groupValue,
+              onChanged: (PointSafeDelete? value) => changeGroupValue(value),
+              value: PointSafeDelete.everyMonday,
+              title: const Text('Jeden Montag'),
+            ),
+            RadioListTile<PointSafeDelete>(
+              groupValue: groupValue,
+              onChanged: (PointSafeDelete? value) => changeGroupValue(value),
+              value: PointSafeDelete.everySunday,
+              title: const Text('Jeden Sonntag'),
+            ),
+          ],
         ),
         GestureDetector(
           child: ListTile(
@@ -87,8 +98,12 @@ class Settings extends StatelessWidget {
             title: const Text(
               'Tagespunkte',
             ),
-            subtitle: const Text('Automatisch Gewicht anpassen?'),
-            trailing: Checkbox(value: true, onChanged: (val) {}),
+            subtitle:
+                const Text('Automatisch bei Änderung des Gewichts anpassen?'),
+            trailing: Checkbox(
+              value: checkboxValue,
+              onChanged: (val) => checkBoxChanged(val),
+            ),
           ),
           onTap: () {
             // Navigator.of(context).pushNamed(Credits.routeName);
@@ -159,5 +174,22 @@ class Settings extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future<void> getData() async {
+    groupValue = PointSafeDelete.values[AllData.prefs.getInt('deletePointsafeDay')!];
+    checkboxValue = AllData.prefs.getBool('autoDailypointChange')!;
+  }
+
+  changeGroupValue(PointSafeDelete? value) {
+    groupValue = value!;
+    AllData.prefs.setInt('deletePointsafeDay', value.index);
+    setState(() {});
+  }
+
+  checkBoxChanged(bool? value) {
+    checkboxValue = value!;
+    AllData.prefs.setBool('autoDailypointChange', value);
+    setState(() {});
   }
 }

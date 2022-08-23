@@ -9,6 +9,7 @@ import 'package:punkte_zaehler/screens/settings/profile.dart';
 import 'package:punkte_zaehler/screens/start_screen.dart';
 import 'package:punkte_zaehler/services/theme.dart';
 import 'package:punkte_zaehler/services/theme_notifier.dart';
+import 'package:punkte_zaehler/wrapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -40,7 +41,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: themeNotifier.getTheme(),
-        home: const StartScreen(),
+        home: const Wrapper(),
         // home: const ResetPassword(),
         routes: {
           EditFood.routeName: (context) => const EditFood(),
@@ -56,7 +57,7 @@ class _MyAppState extends State<MyApp> {
                 return EditDiary(
                   // type: PointType.values[args[0] as int],
                   date: args[0],
-                  diaryID: args[1],
+                  diaryId: args[1],
                 );
               },
             );

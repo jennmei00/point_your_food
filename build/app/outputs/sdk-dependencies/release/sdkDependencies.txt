@@ -332,10 +332,10 @@ library {
   maven_library {
     groupId: "org.jetbrains.kotlin"
     artifactId: "kotlin-stdlib-jdk8"
-    version: "1.5.30"
+    version: "1.6.10"
   }
   digests {
-    sha256: "\263\254\240S\234X2b#\260}\307\300\254y\265\250u\272\200\313\221\356\026\t\354\211\2737\270\231\016"
+    sha256: "\024V\330-\003\236\243\r\204\205\2602\220\037R\273\360~|\333\350\273\037\207\b\2552\250WLA\316"
   }
   repo_index {
     value: 1
@@ -420,7 +420,7 @@ library {
 }
 library {
   digests {
-    sha256: "\270==\274o\240f\326GZ\342<.\362VD-G\272\363\210\277\')\242\311P\002\244:u]"
+    sha256: "\323\306\002\301\253\216\001YN\375\357\301\2035\360\210\262\307\a\314\227\220\212$,\v\r.\226p\352F"
   }
 }
 library_dependencies {
@@ -581,11 +581,12 @@ library_dependencies {
 }
 module_dependencies {
   module_name: "base"
-  dependency_index: 28
+  dependency_index: 27
   dependency_index: 31
   dependency_index: 32
   dependency_index: 33
   dependency_index: 0
+  dependency_index: 28
   dependency_index: 34
 }
 repositories {

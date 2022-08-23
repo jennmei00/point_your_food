@@ -5,7 +5,7 @@ import 'package:uuid/uuid.dart';
 
 class DBHelper {
   static sql.Database? _database;
-  static int versionNumber = 1;
+  static int versionNumber = 2;
 
   //Open Database
   static Future<sql.Database> openDatabase() async {
@@ -240,17 +240,15 @@ class DBHelper {
       sql.Database db, int oldVersion, int newVersion) async {
     // ab Version 2
     if (oldVersion < 2) {
-      //   try {
-      //     await db.execute('ALTER TABLE StandingOrder ADD AccountToID TEXT');
-      //     await db.execute('ALTER TABLE Transfer ADD StandingOrderID TEXT');
-      //     await db.execute('ALTER TABLE Transfer ADD IsStandingOrder BOOLEAN');
-      //     // await db.execute('ALTER TABLE StandingOrder ADD FOREIGN KEY(AccountToID) REFERENCES Account(ID)');
-      //   } catch (ex) {
-      //     // FileHelper()
-      //     //     .writeAppLog(AppLog(ex.toString(), 'Upgrade Tables Version 2'));
+        try {
+          await db.execute('ALTER TABLE Diary ADD TotalDailyRestPoints REAL');
+          // await db.execute('ALTER TABLE StandingOrder ADD FOREIGN KEY(AccountToID) REFERENCES Account(ID)');
+        } catch (ex) {
+          // FileHelper()
+          //     .writeAppLog(AppLog(ex.toString(), 'Upgrade Tables Version 2'));
 
-      //   print('DBHelper $ex');
-      //   }
+        print('DBHelper $ex');
+        }
     }
   }
 }

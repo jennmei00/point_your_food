@@ -20,7 +20,7 @@ class CustomTypeAheadFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TypeAheadFormField<Food>(
-      hideSuggestionsOnKeyboardHide: false,
+      hideSuggestionsOnKeyboardHide: true,
       debounceDuration: const Duration(milliseconds: 500),
       // animationDuration: Duration(milliseconds: 100),
       suggestionsCallback: (textEditingValue) {
@@ -30,7 +30,6 @@ class CustomTypeAheadFormField extends StatelessWidget {
         return AllData.foods
             .where((Food option) => option.title!.startsWith(textEditingValue));
       },
-      // keepSuggestionsOnSuggestionSelected: false,
       hideOnEmpty: true,
       validator: (value) {
         if ((value == null || value.isEmpty || value == '')) {
@@ -53,6 +52,7 @@ class CustomTypeAheadFormField extends StatelessWidget {
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
         ),
+        textInputAction: TextInputAction.next,
       ),
       onSuggestionSelected: (val) => onSelected(val),
     );

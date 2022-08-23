@@ -247,6 +247,7 @@ class _CalcDailypointsSheetState extends State<CalcDailypointsSheet> {
             id: 'NULL',
             date: null,
             dailyRestPoints: null,
+            totalDailyRestPoints: null,
             breakfast: null,
             lunch: null,
             dinner: null,

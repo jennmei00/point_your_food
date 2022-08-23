@@ -6,6 +6,7 @@ class Diary {
   String? id;
   DateTime? date;
   double? dailyRestPoints;
+  double? totalDailyRestPoints;
   List<Food>? breakfast;
   List<Food>? lunch;
   List<Food>? dinner;
@@ -17,6 +18,7 @@ class Diary {
     required this.id,
     required this.date,
     required this.dailyRestPoints,
+    required this.totalDailyRestPoints,
     required this.breakfast,
     required this.lunch,
     required this.dinner,
@@ -64,6 +66,7 @@ class Diary {
     map['ID'] = id;
     map['Date'] = date!.toIso8601String();
     map['Dailyrestpoints'] = dailyRestPoints;
+    map['TotalDailyRestPoints'] = totalDailyRestPoints;
     return map;
   }
 
@@ -81,6 +84,7 @@ class Diary {
       id: data['ID'],
       date: DateTime.parse(data['Date']),
       dailyRestPoints: data['Dailyrestpoints'],
+      totalDailyRestPoints: data['TotalDailyRestPoints'],
       breakfast: _getFood(AllData.breakfast
           .where((element) => element.diaryId == data['ID'])
           .toList()),

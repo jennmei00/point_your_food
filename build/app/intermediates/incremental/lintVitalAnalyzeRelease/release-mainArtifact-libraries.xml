@@ -94,13 +94,9 @@
       jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-core-jvm\1.5.2\f4cc07a50437659e0043e7da762809a46932b6a0\kotlinx-coroutines-core-jvm-1.5.2.jar"
       resolved="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.2"/>
   <library
-      name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.30@jar"
-      jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk8\1.5.30\5fd47535cc85f9e24996f939c2de6583991481b0\kotlin-stdlib-jdk8-1.5.30.jar"
-      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.30"/>
-  <library
-      name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10@jar"
-      jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.6.10\e1c380673654a089c4f0c9f83d0ddfdc1efdb498\kotlin-stdlib-jdk7-1.6.10.jar"
-      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"/>
+      name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10@jar"
+      jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk8\1.6.10\e80fe6ac3c3573a80305f5ec43f86b829e8ab53d\kotlin-stdlib-jdk8-1.6.10.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10"/>
   <library
       name="io.flutter:armeabi_v7a_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar"
       jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\io.flutter\armeabi_v7a_release\1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187\39a18ec879f90bf3c23f37db9a1548040b4284cc\armeabi_v7a_release-1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187.jar"
@@ -328,6 +324,10 @@
       symbolFile="R.txt"
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
+  <library
+      name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10@jar"
+      jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.6.10\e1c380673654a089c4f0c9f83d0ddfdc1efdb498\kotlin-stdlib-jdk7-1.6.10.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"/>
   <library
       name="org.jetbrains.kotlin:kotlin-stdlib:1.6.10@jar"
       jars="C:\Users\jennm\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\1.6.10\b8af3fe6f1ca88526914929add63cf5e7c5049af\kotlin-stdlib-1.6.10.jar"

@@ -10,12 +10,12 @@ import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/diary/add_food_sheet.dart';
 
 class EditDiary extends StatefulWidget {
-  const EditDiary({Key? key, required this.date, required this.diaryID})
+  const EditDiary({Key? key, required this.date, required this.diaryId})
       : super(key: key);
   static const routeName = '/edit_diary';
   // final PointType type;
   final DateTime date;
-  final String diaryID;
+  final String diaryId;
 
   @override
   State<EditDiary> createState() => _EditDiaryState();
@@ -31,7 +31,7 @@ class _EditDiaryState extends State<EditDiary> {
   void initState() {
     // getData();
     diary =
-        AllData.diaries.firstWhere((element) => element.id == widget.diaryID);
+        AllData.diaries.firstWhere((element) => element.id == widget.diaryId);
 
     super.initState();
   }
@@ -440,56 +440,56 @@ class _EditDiaryState extends State<EditDiary> {
       String id = '';
       id = AllData.breakfast
           .firstWhere((element) =>
-              element.foodId == obj.id && element.diaryId == widget.diaryID)
+              element.foodId == obj.id && element.diaryId == widget.diaryId)
           .id!;
       removed = AllData.breakfast.firstWhere((element) => element.id == id);
       AllData.breakfast.remove(removed);
       await DBHelper.delete('Breakfast', where: 'ID = "$id"');
       // food.remove(obj);
       AllData.diaries
-          .firstWhere((element) => element.id == widget.diaryID)
+          .firstWhere((element) => element.id == widget.diaryId)
           .breakfast!
           .remove(obj);
     } else if (type == PointType.lunch) {
       String id = '';
       id = AllData.lunch
           .firstWhere((element) =>
-              element.foodId == obj.id && element.diaryId == widget.diaryID)
+              element.foodId == obj.id && element.diaryId == widget.diaryId)
           .id!;
       removed = AllData.lunch.firstWhere((element) => element.id == id);
       AllData.lunch.remove(removed);
       DBHelper.delete('Lunch', where: 'ID = "$id"');
       // food.remove(obj);
       AllData.diaries
-          .firstWhere((element) => element.id == widget.diaryID)
+          .firstWhere((element) => element.id == widget.diaryId)
           .lunch!
           .remove(obj);
     } else if (type == PointType.dinner) {
       String id = '';
       id = AllData.dinner
           .firstWhere((element) =>
-              element.foodId == obj.id && element.diaryId == widget.diaryID)
+              element.foodId == obj.id && element.diaryId == widget.diaryId)
           .id!;
       removed = AllData.dinner.firstWhere((element) => element.id == id);
       AllData.dinner.remove(removed);
       await DBHelper.delete('Dinner', where: 'ID = "$id"');
       // food.remove(obj);
       AllData.diaries
-          .firstWhere((element) => element.id == widget.diaryID)
+          .firstWhere((element) => element.id == widget.diaryId)
           .dinner!
           .remove(obj);
     } else if (type == PointType.snack) {
       String id = '';
       id = AllData.snack
           .firstWhere((element) =>
-              element.foodId == obj.id && element.diaryId == widget.diaryID)
+              element.foodId == obj.id && element.diaryId == widget.diaryId)
           .id!;
       removed = AllData.snack.firstWhere((element) => element.id == id);
       AllData.snack.remove(removed);
       await DBHelper.delete('Snack', where: 'ID = "$id"');
       // food.remove(obj);
       AllData.diaries
-          .firstWhere((element) => element.id == widget.diaryID)
+          .firstWhere((element) => element.id == widget.diaryId)
           .snack!
           .remove(obj);
     }
@@ -501,28 +501,82 @@ class _EditDiaryState extends State<EditDiary> {
   }
 
   Future<void> calcDialyRestPoints(Food obj, bool add) async {
+    Diary d =
+        AllData.diaries.firstWhere((element) => element.id == widget.diaryId);
+
     if (!add) {
+      double x = d.dailyRestPoints! - d.totalDailyRestPoints!;
       AllData.diaries
-          .firstWhere((element) => element.id == widget.diaryID)
+          .firstWhere((element) => element.id == widget.diaryId)
+          .totalDailyRestPoints = AllData.diaries
+              .firstWhere((element) => element.id == widget.diaryId)
+              .totalDailyRestPoints! +
+          obj.points!;
+
+      AllData.diaries
+          .firstWhere((element) => element.id == widget.diaryId)
           .dailyRestPoints = AllData.diaries
-              .firstWhere((element) => element.id == widget.diaryID)
+              .firstWhere((element) => element.id == widget.diaryId)
               .dailyRestPoints! +
           obj.points!;
+
+      if (AllData.diaries
+              .firstWhere((element) => element.id == widget.diaryId)
+              .dailyRestPoints! >=
+          0) {
+        AllData.profiledata.pointSafe = AllData.profiledata.pointSafe! + x;
+        AllData.diaries
+            .firstWhere((element) => element.id == widget.diaryId)
+            .dailyRestPoints = AllData.diaries
+                .firstWhere((element) => element.id == widget.diaryId)
+                .dailyRestPoints! -
+            x;
+      }
     } else {
       AllData.diaries
-          .firstWhere((element) => element.id == widget.diaryID)
-          .dailyRestPoints = AllData.diaries
-              .firstWhere((element) => element.id == widget.diaryID)
-              .dailyRestPoints! -
-          obj.points!;
+          .firstWhere((element) => element.id == widget.diaryId)
+          .totalDailyRestPoints = AllData.diaries
+              .firstWhere((element) => element.id == widget.diaryId)
+              .totalDailyRestPoints! -
+          AllData.foods.firstWhere((element) => element.id == obj.id).points!;
+
+      double points = AllData.diaries
+          .firstWhere((element) => element.id == widget.diaryId)
+          .totalDailyRestPoints!;
+
+      if (points < 0) {
+        if (AllData.profiledata.pointSafe! < points.abs()) {
+          AllData.diaries
+              .firstWhere((element) => element.id == widget.diaryId)
+              .dailyRestPoints = AllData.diaries
+                  .firstWhere((element) => element.id == widget.diaryId)
+                  .dailyRestPoints! -
+              AllData.foods
+                  .firstWhere((element) => element.id == obj.id)
+                  .points! +
+              AllData.profiledata.pointSafe!;
+
+          AllData.profiledata.pointSafe = 0;
+        } else {
+          AllData.profiledata.pointSafe =
+              AllData.profiledata.pointSafe! + points;
+        }
+      }
+
+      // AllData.diaries
+      //     .firstWhere((element) => element.id == widget.diaryId)
+      //     .dailyRestPoints = AllData.diaries
+      //         .firstWhere((element) => element.id == widget.diaryId)
+      //         .dailyRestPoints! -
+      //     obj.points!;
     }
 
     await DBHelper.update(
         'Diary',
         AllData.diaries
-            .firstWhere((element) => element.id == widget.diaryID)
+            .firstWhere((element) => element.id == widget.diaryId)
             .toMap(),
-        where: 'ID = "${widget.diaryID}"');
+        where: 'ID = "${widget.diaryId}"');
   }
 
   addCard(PointType type) {
@@ -531,7 +585,7 @@ class _EditDiaryState extends State<EditDiary> {
       isScrollControlled: true,
       builder: (ctx) => AddFoodSheet(
           type: type,
-          diaryId: widget.diaryID,
+          diaryId: widget.diaryId,
           onPressed: () async {
             Navigator.of(context).pop();
             getData();
@@ -569,7 +623,7 @@ class _EditDiaryState extends State<EditDiary> {
               await DBHelper.insert('Breakfast', removed.toMap());
               // food.add(obj);
               AllData.diaries
-                  .firstWhere((element) => element.id == widget.diaryID)
+                  .firstWhere((element) => element.id == widget.diaryId)
                   .breakfast!
                   .add(obj);
             } else if (type == PointType.lunch) {
@@ -578,7 +632,7 @@ class _EditDiaryState extends State<EditDiary> {
               await DBHelper.insert('Lunch', removed.toMap());
               // food.add(obj);
               AllData.diaries
-                  .firstWhere((element) => element.id == widget.diaryID)
+                  .firstWhere((element) => element.id == widget.diaryId)
                   .lunch!
                   .add(obj);
             } else if (type == PointType.dinner) {
@@ -587,7 +641,7 @@ class _EditDiaryState extends State<EditDiary> {
               await DBHelper.insert('Dinner', removed.toMap());
               // food.add(obj);
               AllData.diaries
-                  .firstWhere((element) => element.id == widget.diaryID)
+                  .firstWhere((element) => element.id == widget.diaryId)
                   .dinner!
                   .add(obj);
             } else if (type == PointType.snack) {
@@ -596,7 +650,7 @@ class _EditDiaryState extends State<EditDiary> {
               await DBHelper.insert('Snack', removed.toMap());
               // food.add(obj);
               AllData.diaries
-                  .firstWhere((element) => element.id == widget.diaryID)
+                  .firstWhere((element) => element.id == widget.diaryId)
                   .snack!
                   .add(obj);
             }

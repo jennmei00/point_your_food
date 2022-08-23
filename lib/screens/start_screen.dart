@@ -162,7 +162,7 @@ class _StartScreenState extends State<StartScreen> {
       if (DateTime.now().weekday == 7) {
         AllData.profiledata.pointSafeDate == DateTime.now();
         AllData.profiledata.pointSafe = 0;
-      } else if( Jiffy(AllData.profiledata.pointSafe).isBefore(getSundayOfWeek(DateTime.now()), Units.DAY) 
+      } else if( Jiffy(AllData.profiledata.pointSafeDate!).isBefore(getSundayOfWeek(DateTime.now()), Units.DAY) 
       ){
         AllData.profiledata.pointSafeDate == DateTime.now();
         AllData.profiledata.pointSafe = 0;

@@ -36,68 +36,6 @@ class _EditDiaryState extends State<EditDiary> {
     super.initState();
   }
 
-  void getData() {
-    // food = [];
-    // activity = [];
-
-    // if (widget.type == PointType.breakfast) {
-    //   List<Breakfast> breakfast = AllData.breakfast
-    //       .where((element) => element.diaryId == widget.diaryID)
-    //       .toList();
-    //   for (var f in AllData.foods) {
-    //     for (var b in breakfast) {
-    //       if (f.id == b.foodId) {
-    //         food.add(f);
-    //       }
-    //     }
-    //   }
-    // } else if (widget.type == PointType.lunch) {
-    //   List<Lunch> lunch = AllData.lunch
-    //       .where((element) => element.diaryId == widget.diaryID)
-    //       .toList();
-    //   for (var f in AllData.foods) {
-    //     for (var l in lunch) {
-    //       if (f.id == l.foodId) {
-    //         food.add(f);
-    //       }
-    //     }
-    //   }
-    // } else if (widget.type == PointType.dinner) {
-    //   List<Dinner> dinner = AllData.dinner
-    //       .where((element) => element.diaryId == widget.diaryID)
-    //       .toList();
-    //   for (var f in AllData.foods) {
-    //     for (var d in dinner) {
-    //       if (f.id == d.foodId) {
-    //         food.add(f);
-    //       }
-    //     }
-    //   }
-    // } else if (widget.type == PointType.snack) {
-    //   List<Snack> snack = AllData.snack
-    //       .where((element) => element.diaryId == widget.diaryID)
-    //       .toList();
-    //   for (var f in AllData.foods) {
-    //     for (var s in snack) {
-    //       if (f.id == s.foodId) {
-    //         food.add(f);
-    //       }
-    //     }
-    //   }
-    // } else if (widget.type == PointType.activity) {
-    //   List<FitPoint> fitpoint = AllData.fitpoints
-    //       .where((element) => element.diaryId == widget.diaryID)
-    //       .toList();
-    //   for (var a in AllData.activities) {
-    //     for (var f in fitpoint) {
-    //       if (a.id == f.activityId) {
-    //         activity.add(a);
-    //       }
-    //     }
-    //   }
-    // }
-    // calcPoints();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -283,154 +221,6 @@ class _EditDiaryState extends State<EditDiary> {
           ],
         ),
       ),
-      // body: Padding(
-      //   padding: const EdgeInsets.all(10),
-      //   child: Column(children: [
-      //     Row(
-      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //       children: [
-      //         Text(
-      //           widget.type == PointType.breakfast
-      //               ? 'Frühstück'
-      //               : widget.type == PointType.lunch
-      //                   ? 'Mittag'
-      //                   : widget.type == PointType.dinner
-      //                       ? 'Abend'
-      //                       : widget.type == PointType.snack
-      //                           ? 'Snack'
-      //                           : 'Fitpunkte',
-      //           style:
-      //               const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-      //         ),
-      //         Text('$points Punkte Gesamt'),
-      //       ],
-      //     ),
-      //     const SizedBox(height: 10),
-      //     Expanded(
-      //       child: ListView(
-      //           children: widget.type == 'activity'
-      //               ? activity
-      //                   .map(
-      //                     (e) => Card(
-      //                       elevation: 5,
-      //                       child: ListTile(
-      //                         title: Row(
-      //                           mainAxisAlignment:
-      //                               MainAxisAlignment.spaceBetween,
-      //                           children: [
-      //                             Text('${e.title}'),
-      //                             Text('${e.points}')
-      //                           ],
-      //                         ),
-      //                         trailing: IconButton(
-      //                             icon: const Icon(
-      //                               Icons.delete,
-      //                               color: Color.fromARGB(255, 216, 77, 67),
-      //                             ),
-      //                             onPressed: () => deleteCard(e)),
-      //                       ),
-      //                     ),
-      //                   )
-      //                   .toList()
-      //               : food
-      //                   .map(
-      //                     (e) => Card(
-      //                       elevation: 5,
-      //                       child: ListTile(
-      //                         title: Row(
-      //                           mainAxisAlignment:
-      //                               MainAxisAlignment.spaceBetween,
-      //                           children: [
-      //                             Text('${e.title}'),
-      //                             Text('${e.points}')
-      //                           ],
-      //                         ),
-      //                         trailing: IconButton(
-      //                             icon: const Icon(
-      //                               Icons.delete,
-      //                               color: Color.fromARGB(255, 216, 77, 67),
-      //                             ),
-      //                             onPressed: () => deleteCard(e)),
-      //                       ),
-      //                     ),
-      //                   )
-      //                   .toList()
-      //           // [
-      //           // Card(
-      //           //   elevation: 5,
-      //           //   child: ListTile(
-      //           //     title: Row(
-      //           //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //           //       children: const [Text('Pencake'), Text('1.5')],
-      //           //     ),
-      //           //     trailing: IconButton(
-      //           //         icon: const Icon(
-      //           //           Icons.delete,
-      //           //           color: Color.fromARGB(255, 216, 77, 67),
-      //           //         ),
-      //           //         onPressed: () => deleteCard()),
-      //           //   ),
-      //           // ),
-      //           //   Card(
-      //           //     elevation: 5,
-      //           //     child: ListTile(
-      //           //       title: Row(
-      //           //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //           //         children: const [Text('Pencake'), Text('1.5')],
-      //           //       ),
-      //           //       trailing: IconButton(
-      //           //           icon: const Icon(
-      //           //             Icons.delete,
-      //           //             color: Color.fromARGB(255, 216, 77, 67),
-      //           //           ),
-      //           //           onPressed: () => deleteCard()),
-      //           //     ),
-      //           //   ),
-      //           //   Card(
-      //           //     elevation: 5,
-      //           //     child: ListTile(
-      //           //       title: Row(
-      //           //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //           //         children: const [Text('Ei'), Text('1.0')],
-      //           //       ),
-      //           //       trailing: IconButton(
-      //           //           icon: const Icon(
-      //           //             Icons.delete,
-      //           //             color: Color.fromARGB(255, 216, 77, 67),
-      //           //           ),
-      //           //           onPressed: () => deleteCard()),
-      //           //     ),
-      //           //   ),
-      //           // Row(
-      //           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //           //   children: [
-      //           //     const SizedBox(),
-      //           //     OutlinedButton(
-      //           //         onPressed: () => addCard(),
-      //           //         child: Row(
-      //           //           children: const [
-      //           //             Icon(Icons.add),
-      //           //             Text(' Hinzufügen')
-      //           //           ],
-      //           //         )),
-      //           //   ],
-      //           // )
-      //           // ],
-      //           ),
-      //     ),
-      //     Row(
-      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //       children: [
-      //         const SizedBox(),
-      //         OutlinedButton(
-      //             onPressed: () => addCard(),
-      //             child: Row(
-      //               children: const [Icon(Icons.add), Text(' Hinzufügen')],
-      //             )),
-      //       ],
-      //     )
-      //   ]),
-      // ),
     );
   }
 
@@ -493,90 +283,13 @@ class _EditDiaryState extends State<EditDiary> {
           .snack!
           .remove(obj);
     }
-    await calcDialyRestPoints(obj, false);
-    getData();
+
+    await calcDailyRestPoints(
+        add: false, diaryId: widget.diaryId, points: obj.points!);
+
     setState(() {});
 
     undoDelete(obj, removed, type);
-  }
-
-  Future<void> calcDialyRestPoints(Food obj, bool add) async {
-    Diary d =
-        AllData.diaries.firstWhere((element) => element.id == widget.diaryId);
-
-    if (!add) {
-      double x = d.dailyRestPoints! - d.totalDailyRestPoints!;
-      AllData.diaries
-          .firstWhere((element) => element.id == widget.diaryId)
-          .totalDailyRestPoints = AllData.diaries
-              .firstWhere((element) => element.id == widget.diaryId)
-              .totalDailyRestPoints! +
-          obj.points!;
-
-      AllData.diaries
-          .firstWhere((element) => element.id == widget.diaryId)
-          .dailyRestPoints = AllData.diaries
-              .firstWhere((element) => element.id == widget.diaryId)
-              .dailyRestPoints! +
-          obj.points!;
-
-      if (AllData.diaries
-              .firstWhere((element) => element.id == widget.diaryId)
-              .dailyRestPoints! >=
-          0) {
-        AllData.profiledata.pointSafe = AllData.profiledata.pointSafe! + x;
-        AllData.diaries
-            .firstWhere((element) => element.id == widget.diaryId)
-            .dailyRestPoints = AllData.diaries
-                .firstWhere((element) => element.id == widget.diaryId)
-                .dailyRestPoints! -
-            x;
-      }
-    } else {
-      AllData.diaries
-          .firstWhere((element) => element.id == widget.diaryId)
-          .totalDailyRestPoints = AllData.diaries
-              .firstWhere((element) => element.id == widget.diaryId)
-              .totalDailyRestPoints! -
-          AllData.foods.firstWhere((element) => element.id == obj.id).points!;
-
-      double points = AllData.diaries
-          .firstWhere((element) => element.id == widget.diaryId)
-          .totalDailyRestPoints!;
-
-      if (points < 0) {
-        if (AllData.profiledata.pointSafe! < points.abs()) {
-          AllData.diaries
-              .firstWhere((element) => element.id == widget.diaryId)
-              .dailyRestPoints = AllData.diaries
-                  .firstWhere((element) => element.id == widget.diaryId)
-                  .dailyRestPoints! -
-              AllData.foods
-                  .firstWhere((element) => element.id == obj.id)
-                  .points! +
-              AllData.profiledata.pointSafe!;
-
-          AllData.profiledata.pointSafe = 0;
-        } else {
-          AllData.profiledata.pointSafe =
-              AllData.profiledata.pointSafe! + points;
-        }
-      }
-
-      // AllData.diaries
-      //     .firstWhere((element) => element.id == widget.diaryId)
-      //     .dailyRestPoints = AllData.diaries
-      //         .firstWhere((element) => element.id == widget.diaryId)
-      //         .dailyRestPoints! -
-      //     obj.points!;
-    }
-
-    await DBHelper.update(
-        'Diary',
-        AllData.diaries
-            .firstWhere((element) => element.id == widget.diaryId)
-            .toMap(),
-        where: 'ID = "${widget.diaryId}"');
   }
 
   addCard(PointType type) {
@@ -588,7 +301,6 @@ class _EditDiaryState extends State<EditDiary> {
           diaryId: widget.diaryId,
           onPressed: () async {
             Navigator.of(context).pop();
-            getData();
             setState(() {});
           }),
       shape: const RoundedRectangleBorder(
@@ -597,18 +309,6 @@ class _EditDiaryState extends State<EditDiary> {
       ),
     );
   }
-
-  // void calcPoints() {
-  //   points = 0;
-  //   if (widget.type == PointType.activity) {
-  //     for (var element in activity) {
-  //       points += element.points!;
-  //     }
-  //   } else {
-  //     for (var element in food) {
-  //       points += element.points!;
-  //     }
-  //   }
 
   undoDelete(Food obj, dynamic removed, PointType type) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -654,8 +354,8 @@ class _EditDiaryState extends State<EditDiary> {
                   .snack!
                   .add(obj);
             }
-            await calcDialyRestPoints(obj, true);
-            getData();
+            await calcDailyRestPoints(
+                add: true, diaryId: widget.diaryId, points: obj.points!);
             setState(() {});
           },
         )));

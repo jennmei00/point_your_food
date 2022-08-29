@@ -72,6 +72,10 @@ class _EditActivityState extends State<EditActivity> {
       ),
       body: Column(
         children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 15),
+            child: Text('Für je 30 Minuten', style: TextStyle(fontWeight: FontWeight.bold),),
+          ),
           Expanded(
             child: ListView(
                 physics: const BouncingScrollPhysics(),
@@ -114,6 +118,7 @@ class _EditActivityState extends State<EditActivity> {
                                 SizedBox(
                                     width: 60,
                                     child: TextFormField(
+                                      enabled: !activityInUse(e, true),
                                       controller: pointController2,
                                       validator: (value) {
                                         if ((value == null ||
@@ -146,13 +151,16 @@ class _EditActivityState extends State<EditActivity> {
                                       ? null
                                       : () => delete(e),
                                   icon: const Icon(Icons.delete),
-                                  color: Colors.black),
+                                  color: activityInUse(e, true)
+                                      ? Colors.grey
+                                      : Colors.black),
                             ],
                           )
                         : IconButton(
                             icon: const Icon(Icons.save),
                             onPressed: () => save(e, titleController2,
                                 pointController2, formKey2),
+                            color: Colors.black,
                           ),
                   );
                 }).toList()),

@@ -117,6 +117,7 @@ class _EditFoodState extends State<EditFood> {
                               SizedBox(
                                   width: 60,
                                   child: TextFormField(
+                                    enabled:  !foodInUse(e, true),
                                     controller: pointController,
                                     validator: (value) {
                                       if ((value == null ||
@@ -145,7 +146,9 @@ class _EditFoodState extends State<EditFood> {
                             IconButton(
                                 onPressed: () => delete(e),
                                 icon: const Icon(Icons.delete),
-                                color: Colors.black),
+                                color: foodInUse(e, true)
+                                    ? Colors.grey
+                                    : Colors.black),
                           ],
                         )
                       : IconButton(

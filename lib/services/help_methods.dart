@@ -1,7 +1,9 @@
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
+import 'package:punkte_zaehler/models/food.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 
 double roundPoints(double points) {
@@ -192,4 +194,92 @@ double calculateDailypoints({
 Future<void> resestPointsafe() async {
   AllData.profiledata.pointSafe = 0;
   await DBHelper.update('Profiledata', AllData.profiledata.toMap());
+}
+
+Future<void> calcDailyRestPoints(
+    {required bool add,
+    required String diaryId,
+    required double points}) async {
+  if (!add) {
+    AllData.diaries
+        .firstWhere((element) => element.id == diaryId)
+        .dailyRestPoints = AllData.diaries
+            .firstWhere((element) => element.id == diaryId)
+            .dailyRestPoints! +
+        points;
+
+    if (AllData.diaries
+            .firstWhere((element) => element.id == diaryId)
+            .dailyRestPoints! >=
+        0) {
+      if (AllData.diaries
+              .firstWhere((element) => element.id == diaryId)
+              .dailyRestPoints! <=
+          AllData.diaries
+                  .firstWhere((element) => element.id == diaryId)
+                  .totalDailyRestPoints! -
+              AllData.profiledata.pointSafe!) {
+        AllData.profiledata.pointSafe = AllData.profiledata.pointSafe! +
+            AllData.diaries
+                .firstWhere((element) => element.id == diaryId)
+                .dailyRestPoints!;
+
+        AllData.diaries
+            .firstWhere((element) => element.id == diaryId)
+            .dailyRestPoints = 0;
+      } else {
+        AllData.diaries
+            .firstWhere((element) => element.id == diaryId)
+            .dailyRestPoints = AllData.diaries
+                .firstWhere((element) => element.id == diaryId)
+                .dailyRestPoints! -
+            (AllData.diaries
+                    .firstWhere((element) => element.id == diaryId)
+                    .totalDailyRestPoints! -
+                AllData.profiledata.pointSafe!);
+        AllData.profiledata.pointSafe = AllData.diaries
+            .firstWhere((element) => element.id == diaryId)
+            .totalDailyRestPoints!;
+      }
+    }
+  } else {
+    if (AllData.diaries
+            .firstWhere((element) => element.id == diaryId)
+            .dailyRestPoints! <
+        points) {
+      if (AllData.profiledata.pointSafe! >=
+          (points -
+              AllData.diaries
+                  .firstWhere((element) => element.id == diaryId)
+                  .dailyRestPoints!)) {
+        AllData.profiledata.pointSafe = AllData.profiledata.pointSafe! -
+            (points -
+                AllData.diaries
+                    .firstWhere((element) => element.id == diaryId)
+                    .dailyRestPoints!);
+        AllData.diaries
+            .firstWhere((element) => element.id == diaryId)
+            .dailyRestPoints = 0;
+      } else {
+        AllData.diaries
+            .firstWhere((element) => element.id == diaryId)
+            .dailyRestPoints = AllData.diaries
+                .firstWhere((element) => element.id == diaryId)
+                .dailyRestPoints! -
+            (points - AllData.profiledata.pointSafe!);
+        AllData.profiledata.pointSafe = 0;
+      }
+    } else {
+      AllData.diaries
+          .firstWhere((element) => element.id == diaryId)
+          .dailyRestPoints = AllData.diaries
+              .firstWhere((element) => element.id == diaryId)
+              .dailyRestPoints! -
+          points;
+    }
+  }
+
+  await DBHelper.update('Diary',
+      AllData.diaries.firstWhere((element) => element.id == diaryId).toMap(),
+      where: 'ID = "$diaryId"');
 }

@@ -56,9 +56,9 @@ class _FoodDiaryState extends State<FoodDiary> {
 
     print(diary.dailyRestPoints);
     print(diary.totalDailyRestPoints);
-    // AllData.diaries.firstWhere((element) => element == diary).totalDailyRestPoints = -4;
-    // AllData.diaries.firstWhere((element) => element == diary).dailyRestPoints = -1;
-    // AllData.profiledata.pointSafe = 0;
+    // AllData.diaries.firstWhere((element) => element == diary).totalDailyRestPoints = 3;
+    // AllData.diaries.firstWhere((element) => element == diary).dailyRestPoints = 2;
+    // AllData.profiledata.pointSafe = 3;
 
     return ListView(
       physics: const BouncingScrollPhysics(),
@@ -188,9 +188,12 @@ class _FoodDiaryState extends State<FoodDiary> {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Fitpoints',
-                style: TextStyle(fontSize: 16),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Fitpoints',
+                  style: TextStyle(fontSize: 16),
+                ),
               ),
               SizedBox(
                 height: 200,
@@ -399,7 +402,13 @@ class _FoodDiaryState extends State<FoodDiary> {
                 .activities!
                 .add(obj);
 
-            await calcDialyRestPoints(obj, true);
+            await calcDailyRestPoints(
+                add: false,
+                diaryId: diary.id!,
+                points: diary.fitpoints!
+                    .firstWhere((element) => element.activityId == obj.id)
+                    .points!);
+
             setState(() {});
           },
         )));
@@ -420,34 +429,15 @@ class _FoodDiaryState extends State<FoodDiary> {
         .activities!
         .remove(obj);
 
-    await calcDialyRestPoints(obj, false);
+    await calcDailyRestPoints(
+        add: true,
+        diaryId: diary.id!,
+        points: diary.fitpoints!
+            .firstWhere((element) => element.activityId == obj.id)
+            .points!);
+
     setState(() {});
 
     undoDelete(obj, removed);
-  }
-
-  Future<void> calcDialyRestPoints(Activity obj, bool add) async {
-    double fPoints = diary.fitpoints!
-        .firstWhere((element) => element.activityId == obj.id)
-        .points!;
-    if (!add) {
-      AllData.diaries
-          .firstWhere((element) => element.id == diary.id)
-          .dailyRestPoints = AllData.diaries
-              .firstWhere((element) => element.id == diary.id)
-              .dailyRestPoints! -
-          fPoints;
-    } else {
-      AllData.diaries
-          .firstWhere((element) => element.id == diary.id)
-          .dailyRestPoints = AllData.diaries
-              .firstWhere((element) => element.id == diary.id)
-              .dailyRestPoints! +
-          fPoints;
-    }
-
-    await DBHelper.update('Diary',
-        AllData.diaries.firstWhere((element) => element.id == diary.id).toMap(),
-        where: 'ID = "${diary.id}"');
   }
 }

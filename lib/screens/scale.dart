@@ -155,6 +155,9 @@ class _ScaleState extends State<Scale> {
       AllData.weighs.add(weigh);
       AllData.profiledata.currentWeight!.weight =
           doubleCommaToPoint(weightController.text);
+      AllData.profiledata.currentWeight!.weight =
+          doubleCommaToPoint(weightController.text);
+      AllData.profiledata.currentWeight!.date = DateTime.now();
       if (AllData.prefs.getInt('deletePointsafeDay') ==
           PointSafeDelete.withWeigh.index) {
         AllData.profiledata.pointSafe = 0;

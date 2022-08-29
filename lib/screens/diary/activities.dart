@@ -27,45 +27,6 @@ class _ActivitiesState extends State<Activities> {
 
   @override
   Widget build(BuildContext context) {
-    // AllData.activities = [];
-    // AllData.activities.addAll([
-    //   Activity(
-    //       id: '0Bike0',
-    //       title: 'Fahrrad',
-    //       points: 3,
-    //       icon: CommunityMaterialIcons.bike),
-    //   Activity(
-    //       id: '0Hike0',
-    //       title: 'Wandern',
-    //       points: 3,
-    //       icon: CommunityMaterialIcons.hiking),
-    //   Activity(
-    //       id: '0WeightTraining0',
-    //       title: 'Krafttraining',
-    //       points: 5,
-    //       icon: CommunityMaterialIcons.weight_lifter),
-    //   Activity(
-    //       id: '0Swim0',
-    //       title: 'Schwimmen',
-    //       points: 4,
-    //       icon: CommunityMaterialIcons.swim),
-    //   Activity(
-    //       id: '0Yoga0',
-    //       title: 'Yoga',
-    //       points: 2,
-    //       icon: CommunityMaterialIcons.yoga),
-    //   Activity(
-    //       id: '0Dance0',
-    //       title: 'Tanzen',
-    //       points: 2,
-    //       icon: CommunityMaterialIcons.dance_ballroom),
-    //   Activity(
-    //       id: '0Others0',
-    //       title: 'Sonstiges',
-    //       points: 2,
-    //       icon: CommunityMaterialIcons.walk),
-    // ]);
-
     return Scaffold(
         appBar: AppBar(
           title: const Text('Aktivitäten'),
@@ -145,34 +106,6 @@ class _ActivitiesState extends State<Activities> {
                 ),
               ),
             )
-            // Row(
-            //   children: [
-            //     const Icon(CommunityMaterialIcons.human_handsup),
-            //     Expanded(
-            //       child: TextFormField(
-
-            //         decoration: const InputDecoration(
-            //           // labelText: '',
-
-            //           hintText: 'Bsp.: Klettern',
-            //           // border: OutlineInputBorder(
-            //           //     borderRadius: BorderRadius.all(Radius.circular(10))),
-            //         ),
-            //       ),
-            //     ),
-            //     Row(children: [
-            //       TextFormField(
-            //       decoration: const InputDecoration(
-            //         // labelText: '',
-            //         hintText: '3,5',
-            //         border: OutlineInputBorder(
-            //             borderRadius: BorderRadius.all(Radius.circular(10))),
-            //       ),
-            //     ),
-            //     const Text(' P.'),
-            //     ],)
-            //   ],
-            // )
           ],
         ));
   }
@@ -276,12 +209,7 @@ class _ActivitiesState extends State<Activities> {
         .fitpoints!
         .add(f);
 
-    AllData.diaries
-        .firstWhere((element) => element.id == widget.diaryId)
-        .dailyRestPoints = AllData.diaries
-            .firstWhere((element) => element.id == widget.diaryId)
-            .dailyRestPoints! +
-        f.points!;
+    calcDailyRestPoints(add: false, diaryId: widget.diaryId, points: f.points!);
 
     await DBHelper.update(
         'Diary',

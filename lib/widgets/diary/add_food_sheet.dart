@@ -1,7 +1,5 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/models/enums.dart';
 import 'package:punkte_zaehler/models/food.dart';
@@ -98,30 +96,6 @@ class _AddFoodSheetState extends State<AddFoodSheet> {
               OutlinedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // if (widget.type == PointType.activity) {
-                      //   String activityId = '';
-                      //   bool exists = false;
-                      //   for (var element in AllData.activities) {
-                      //     if (element.title == nameController.text) {
-                      //       exists = true;
-                      //       activityId = element.id!;
-                      //     }
-                      //   }
-
-                      //   if (!exists) {
-                      //     activityId = const Uuid().v1();
-                      //     Activity newActivity = Activity(
-                      //         id: activityId,
-                      //         title: nameController.text,
-                      //         points: roundPoints(
-                      //             doubleCommaToPoint(pointController.text)),
-                      //         icon: CommunityMaterialIcons.walk);
-                      //     AllData.activities.add(newActivity);
-                      //     DBHelper.insert('Activity', newActivity.toMap());
-                      //   }
-
-                      //   addFitpoint(activityId);
-                      // } else {
                       String foodId = '';
                       bool exists = false;
                       for (var element in AllData.foods) {
@@ -162,37 +136,6 @@ class _AddFoodSheetState extends State<AddFoodSheet> {
     );
   }
 
-  // Future<void> addFitpoint(String activityId) async {
-  //   FitPoint f = FitPoint(
-  //       id: const Uuid().v1(),
-  //       diaryId: widget.diaryId,
-  //       activityId: activityId,
-  //       duration: const Duration(minutes: 30),
-  //       points: 2);
-  //   DBHelper.insert('Fitpoint', f.toMap());
-  //   AllData.fitpoints.add(f);
-  //   AllData.diaries
-  //       .firstWhere((element) => element.id == widget.diaryId)
-  //       .activities!
-  //       .add(AllData.activities
-  //           .firstWhere((element) => element.id == activityId));
-
-  //   AllData.diaries
-  //       .firstWhere((element) => element.id == widget.diaryId)
-  //       .dailyRestPoints = AllData.diaries
-  //           .firstWhere((element) => element.id == widget.diaryId)
-  //           .dailyRestPoints! +
-  //       AllData.activities
-  //           .firstWhere((element) => element.id == activityId)
-  //           .points!;
-
-  //   await DBHelper.update(
-  //       'Diary',
-  //       AllData.diaries
-  //           .firstWhere((element) => element.id == widget.diaryId)
-  //           .toMap(),
-  //       where: 'ID = "${widget.diaryId}"');
-  // }
 
   Future<void> addFood(String foodId) async {
     if (widget.type == PointType.breakfast) {
@@ -233,47 +176,11 @@ class _AddFoodSheetState extends State<AddFoodSheet> {
           .add(AllData.foods.firstWhere((element) => element.id == foodId));
     }
 
-    AllData.diaries
-        .firstWhere((element) => element.id == widget.diaryId)
-        .totalDailyRestPoints = AllData.diaries
-            .firstWhere((element) => element.id == widget.diaryId)
-            .totalDailyRestPoints! -
-        AllData.foods.firstWhere((element) => element.id == foodId).points!;
-
-    double points = AllData.diaries
-        .firstWhere((element) => element.id == widget.diaryId)
-        .totalDailyRestPoints!;
-
-    if (points < 0) {
-      if (AllData.profiledata.pointSafe! < points.abs()) {
-        AllData.diaries
-            .firstWhere((element) => element.id == widget.diaryId)
-            .dailyRestPoints = AllData.diaries
-                .firstWhere((element) => element.id == widget.diaryId)
-                .dailyRestPoints! -
-            AllData.foods
-                .firstWhere((element) => element.id == foodId)
-                .points! +
-            AllData.profiledata.pointSafe!;
-
-        AllData.profiledata.pointSafe = 0;
-      } else {
-        AllData.profiledata.pointSafe = AllData.profiledata.pointSafe! + points;
-      }
-    } else {
-      AllData.diaries
-          .firstWhere((element) => element.id == widget.diaryId)
-          .dailyRestPoints = AllData.diaries
-              .firstWhere((element) => element.id == widget.diaryId)
-              .dailyRestPoints! -
-          AllData.foods.firstWhere((element) => element.id == foodId).points!;
-    }
-
-    await DBHelper.update(
-        'Diary',
-        AllData.diaries
-            .firstWhere((element) => element.id == widget.diaryId)
-            .toMap(),
-        where: 'ID = "${widget.diaryId}"');
+    await calcDailyRestPoints(
+        add: true,
+        diaryId: widget.diaryId,
+        points: AllData.foods
+            .firstWhere((element) => element.id == foodId)
+            .points!);
   }
 }

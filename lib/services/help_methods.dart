@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
+import 'package:punkte_zaehler/models/diary.dart';
 import 'package:punkte_zaehler/models/food.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 
@@ -200,83 +201,51 @@ Future<void> calcDailyRestPoints(
     {required bool add,
     required String diaryId,
     required double points}) async {
+  Diary diary = AllData.diaries.firstWhere((element) => element.id == diaryId);
+
   if (!add) {
-    AllData.diaries
-        .firstWhere((element) => element.id == diaryId)
-        .dailyRestPoints = AllData.diaries
-            .firstWhere((element) => element.id == diaryId)
-            .dailyRestPoints! +
-        points;
+    if (Jiffy(diary.date).isBefore(DateTime.now(), Units.DAY)) {
+      diary.dailyRestPoints = diary.dailyRestPoints! + points;
+    } else {
+      diary.dailyRestPoints = diary.dailyRestPoints! + points;
 
-    if (AllData.diaries
-            .firstWhere((element) => element.id == diaryId)
-            .dailyRestPoints! >=
-        0) {
-      if (AllData.diaries
-              .firstWhere((element) => element.id == diaryId)
-              .dailyRestPoints! <=
-          AllData.diaries
-                  .firstWhere((element) => element.id == diaryId)
-                  .totalDailyRestPoints! -
-              AllData.profiledata.pointSafe!) {
-        AllData.profiledata.pointSafe = AllData.profiledata.pointSafe! +
-            AllData.diaries
-                .firstWhere((element) => element.id == diaryId)
-                .dailyRestPoints!;
+      if (diary.dailyRestPoints! >= 0) {
+        if (diary.dailyRestPoints! <=
+            diary.actualPointSafe! - AllData.profiledata.pointSafe!) {
+          AllData.profiledata.pointSafe =
+              AllData.profiledata.pointSafe! + diary.dailyRestPoints!;
 
-        AllData.diaries
-            .firstWhere((element) => element.id == diaryId)
-            .dailyRestPoints = 0;
-      } else {
-        AllData.diaries
-            .firstWhere((element) => element.id == diaryId)
-            .dailyRestPoints = AllData.diaries
-                .firstWhere((element) => element.id == diaryId)
-                .dailyRestPoints! -
-            (AllData.diaries
-                    .firstWhere((element) => element.id == diaryId)
-                    .totalDailyRestPoints! -
-                AllData.profiledata.pointSafe!);
-        AllData.profiledata.pointSafe = AllData.diaries
-            .firstWhere((element) => element.id == diaryId)
-            .totalDailyRestPoints!;
+          diary.dailyRestPoints = 0;
+        } else {
+          diary.dailyRestPoints = diary.dailyRestPoints! -
+              (diary.actualPointSafe! - AllData.profiledata.pointSafe!);
+          AllData.profiledata.pointSafe = diary.actualPointSafe!;
+        }
       }
     }
   } else {
-    if (AllData.diaries
-            .firstWhere((element) => element.id == diaryId)
-            .dailyRestPoints! <
-        points) {
-      if (AllData.profiledata.pointSafe! >=
-          (points -
-              AllData.diaries
-                  .firstWhere((element) => element.id == diaryId)
-                  .dailyRestPoints!)) {
-        AllData.profiledata.pointSafe = AllData.profiledata.pointSafe! -
-            (points -
-                AllData.diaries
-                    .firstWhere((element) => element.id == diaryId)
-                    .dailyRestPoints!);
-        AllData.diaries
-            .firstWhere((element) => element.id == diaryId)
-            .dailyRestPoints = 0;
-      } else {
-        AllData.diaries
-            .firstWhere((element) => element.id == diaryId)
-            .dailyRestPoints = AllData.diaries
-                .firstWhere((element) => element.id == diaryId)
-                .dailyRestPoints! -
-            (points - AllData.profiledata.pointSafe!);
-        AllData.profiledata.pointSafe = 0;
-      }
+    if (Jiffy(diary.date).isBefore(DateTime.now(), Units.DAY)) {
+      diary.dailyRestPoints = diary.dailyRestPoints! - points;
     } else {
-      AllData.diaries
-          .firstWhere((element) => element.id == diaryId)
-          .dailyRestPoints = AllData.diaries
-              .firstWhere((element) => element.id == diaryId)
-              .dailyRestPoints! -
-          points;
+      if (diary.dailyRestPoints! < points) {
+        if (AllData.profiledata.pointSafe! >=
+            (points - diary.dailyRestPoints!)) {
+          AllData.profiledata.pointSafe = AllData.profiledata.pointSafe! -
+              (points - diary.dailyRestPoints!);
+          diary.dailyRestPoints = 0;
+        } else {
+          diary.dailyRestPoints = diary.dailyRestPoints! -
+              (points - AllData.profiledata.pointSafe!);
+          AllData.profiledata.pointSafe = 0;
+        }
+      } else {
+        diary.dailyRestPoints = diary.dailyRestPoints! - points;
+      }
     }
+
+    AllData.diaries
+        .firstWhere((element) => element.id == diaryId)
+        .dailyRestPoints = diary.dailyRestPoints;
   }
 
   await DBHelper.update('Diary',

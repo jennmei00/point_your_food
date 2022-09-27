@@ -241,7 +241,7 @@ class DBHelper {
     // ab Version 2
     if (oldVersion < 2) {
         try {
-          await db.execute('ALTER TABLE Diary ADD TotalDailyRestPoints REAL');
+          await db.execute('ALTER TABLE Diary ADD ActualPointSafe REAL');
           // await db.execute('ALTER TABLE StandingOrder ADD FOREIGN KEY(AccountToID) REFERENCES Account(ID)');
         } catch (ex) {
           // FileHelper()

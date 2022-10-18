@@ -15,7 +15,7 @@ class Navigation extends StatefulWidget {
 }
 
 class NavigationState extends State<Navigation> {
-  int _page = 1;
+  int _page = 0;
   final List<Widget> _navScreens = [
     const Home(),
     const PointCalculator(fromSheet: false),

@@ -22,5 +22,5 @@ class AllData {
   static late List<FitPoint> fitpoints;
   static late ProfileData profiledata;
   static late SharedPreferences prefs;
-  static late UserAuth user;
+  // static late UserAuth user;
 }

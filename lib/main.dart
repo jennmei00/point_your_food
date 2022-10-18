@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:punkte_zaehler/auth/login.dart';
@@ -24,9 +24,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
   SharedPreferences.getInstance().then((prefs) {
     // var brightness = SchedulerBinding.instance.window.platformBrightness;
     // var darkModeOn = prefs.getBool('darkMode') ?? brightness == Brightness.dark;
@@ -69,10 +69,10 @@ class _MyAppState extends State<MyApp> {
             EditFood.routeName: (context) => const EditFood(),
             EditActivity.routeName: (context) => const EditActivity(),
             Profile.routeName: (context) => const Profile(),
-            Login.routeName: (context) => const Login(),
-            Register.routeName: (context) => const Register(),
-            ResetPassword.routeName: (context) => const ResetPassword(),
-            ResetpassPage.routeName: (context) => const ResetpassPage(),
+            // Login.routeName: (context) => const Login(),
+            // Register.routeName: (context) => const Register(),
+            // ResetPassword.routeName: (context) => const ResetPassword(),
+            // ResetpassPage.routeName: (context) => const ResetpassPage(),
           },
           onGenerateRoute: (settings) {
             if (settings.name == EditDiary.routeName) {

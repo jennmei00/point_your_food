@@ -1,5 +1,5 @@
-class UserAuth {
-  final String uid;
+// class UserAuth {
+//   final String uid;
 
-  UserAuth({required this.uid});
-}
+//   UserAuth({required this.uid});
+// }

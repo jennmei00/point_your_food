@@ -1,8 +1,12 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:punkte_zaehler/auth/register.dart';
+import 'package:punkte_zaehler/auth/resetpass.dart';
+import 'package:punkte_zaehler/services/firebase/auth.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
+  static const routeName = '/login';
 
   @override
   LoginState createState() => LoginState();
@@ -10,6 +14,8 @@ class Login extends StatefulWidget {
 
 class LoginState extends State<Login> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +64,7 @@ class LoginState extends State<Login> {
                     child: Column(
                       children: [
                         TextFormField(
+                          controller: emailController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Bitte Email eingeben';
@@ -77,6 +84,7 @@ class LoginState extends State<Login> {
                         ),
                         const SizedBox(height: 30.0),
                         TextFormField(
+                          controller: passwordController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Bitte Passwort eingeben';
@@ -129,9 +137,7 @@ class LoginState extends State<Login> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, 'register');
-                              },
+                              onPressed: () => register(),
                               child: const Text(
                                 'Registrieren',
                                 style: TextStyle(
@@ -141,9 +147,7 @@ class LoginState extends State<Login> {
                               ),
                             ),
                             TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, 'forgot');
-                              },
+                              onPressed: () => toResetpass(),
                               child: const Text(
                                 'Passwort vergessen?',
                                 style: TextStyle(
@@ -166,11 +170,20 @@ class LoginState extends State<Login> {
     );
   }
 
+  toResetpass() {
+    Navigator.popAndPushNamed(context, ResetPassword.routeName);
+  }
+
+  register() {
+    Navigator.popAndPushNamed(context, Register.routeName);
+  }
+
   continueWithoutLogin() {}
 
   login() {
-    if(formKey.currentState!.validate()) {
-
+    if (formKey.currentState!.validate()) {
+      AuthService().signInWithEmailAndPassword(
+          emailController.text, passwordController.text, context);
     }
   }
 }

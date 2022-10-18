@@ -13,7 +13,7 @@ class PointCalculator extends StatefulWidget {
 }
 
 class _PointCalculatorState extends State<PointCalculator> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _fettController = TextEditingController();
   final TextEditingController _kalorienController = TextEditingController();
   // final TextEditingController _bezogenAufController =
@@ -37,61 +37,70 @@ class _PointCalculatorState extends State<PointCalculator> {
             child: form());
   }
 
-  Form form() {
-    return Form(
-      key: _formKey,
-      child: ListView(
-        padding: const EdgeInsets.all(10),
-        children: [
-          CustomTextField(
-              onChanged: (val) => _calculatePoints(),
-              type: TextFieldType.decimal,
-              controller: _kalorienController,
-              mandatory: true,
-              hintText: 'in kcal',
-              labelText: 'Kalorien'),
-          CustomTextField(
-              onChanged: (val) => _calculatePoints(),
-              type: TextFieldType.decimal,
-              controller: _fettController,
-              mandatory: true,
-              hintText: 'in gramm',
-              labelText: 'Fett'),
-          const ListTile(
-            title: Text('Bezogen auf'),
-            subtitle: Text('in gramm'),
-            trailing: Text(
-              '100',
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-          CustomTextField(
-              onChanged: (val) => _calculatePoints(),
-              type: TextFieldType.decimal,
-              controller: _berechnungFuerController,
-              mandatory: true,
-              hintText: 'in gramm',
-              labelText: 'Berechnung für'),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  Widget form() {
+    return Card(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 30,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            padding: const EdgeInsets.all(10),
             children: [
-              Text(
-                foodPoints.toStringAsFixed(1).replaceAll('.', ','),
-                style:
-                    const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              CustomTextField(
+                  onChanged: (val) => _calculatePoints(),
+                  type: TextFieldType.decimal,
+                  controller: _kalorienController,
+                  mandatory: true,
+                  hintText: 'in kcal',
+                  labelText: 'Kalorien'),
+              CustomTextField(
+                  onChanged: (val) => _calculatePoints(),
+                  type: TextFieldType.decimal,
+                  controller: _fettController,
+                  mandatory: true,
+                  hintText: 'in gramm',
+                  labelText: 'Fett'),
+              const ListTile(
+                title: Text('Bezogen auf'),
+                subtitle: Text('in gramm'),
+                trailing: Text(
+                  '100',
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
-              const Text('Punkte'),
+              CustomTextField(
+                  onChanged: (val) => _calculatePoints(),
+                  type: TextFieldType.decimal,
+                  controller: _berechnungFuerController,
+                  mandatory: true,
+                  hintText: 'in gramm',
+                  labelText: 'Berechnung für'),
+              const Divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    foodPoints.toStringAsFixed(1).replaceAll('.', ','),
+                    style: const TextStyle(
+                        fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                  const Text('Punkte'),
+                ],
+              ),
+              widget.fromSheet
+                  ? OutlinedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(foodPoints);
+                      },
+                      child: const Text('Punkte übernehmen'))
+                  : const SizedBox(),
             ],
           ),
-          widget.fromSheet
-              ? OutlinedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(foodPoints);
-                  },
-                  child: const Text('Punkte übernehmen'))
-              : const SizedBox(),
-        ],
+        ),
       ),
     );
   }

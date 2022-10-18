@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:provider/provider.dart';
+import 'package:punkte_zaehler/auth/user.dart';
 import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/models/diary.dart';
@@ -11,6 +13,7 @@ import 'package:punkte_zaehler/models/weigh.dart';
 import 'package:punkte_zaehler/models/weight.dart';
 import 'package:punkte_zaehler/screens/navigation.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
+import 'package:punkte_zaehler/services/firebase/database.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -84,6 +87,8 @@ class _StartScreenState extends State<StartScreen> {
     // )
     //         .toMap());
 
+    // DatabaseService(uid: AllData.user.uid).loadToAllData();
+
     AllData.fitpoints =
         FitPoint.forDB().listFromDB(await DBHelper.getData('Fitpoint'));
     AllData.breakfast =
@@ -151,9 +156,8 @@ class _StartScreenState extends State<StartScreen> {
       if (DateTime.now().weekday == 1) {
         AllData.profiledata.pointSafeDate == DateTime.now();
         AllData.profiledata.pointSafe = 0;
-      } else if(
-        Jiffy(AllData.profiledata.pointSafe).isBefore(getMondayOfWeek(DateTime.now()), Units.DAY) 
-      ){
+      } else if (Jiffy(AllData.profiledata.pointSafe)
+          .isBefore(getMondayOfWeek(DateTime.now()), Units.DAY)) {
         AllData.profiledata.pointSafeDate == DateTime.now();
         AllData.profiledata.pointSafe = 0;
       }
@@ -162,8 +166,8 @@ class _StartScreenState extends State<StartScreen> {
       if (DateTime.now().weekday == 7) {
         AllData.profiledata.pointSafeDate == DateTime.now();
         AllData.profiledata.pointSafe = 0;
-      } else if( Jiffy(AllData.profiledata.pointSafeDate!).isBefore(getSundayOfWeek(DateTime.now()), Units.DAY) 
-      ){
+      } else if (Jiffy(AllData.profiledata.pointSafeDate!)
+          .isBefore(getSundayOfWeek(DateTime.now()), Units.DAY)) {
         AllData.profiledata.pointSafeDate == DateTime.now();
         AllData.profiledata.pointSafe = 0;
       }

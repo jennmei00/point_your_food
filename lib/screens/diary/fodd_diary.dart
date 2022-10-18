@@ -12,6 +12,7 @@ import 'package:punkte_zaehler/screens/diary/activities.dart';
 import 'package:punkte_zaehler/screens/diary/edit_diary.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
+import 'package:punkte_zaehler/services/theme.dart';
 import 'package:punkte_zaehler/widgets/diary/activity_card.dart';
 import 'package:punkte_zaehler/widgets/diary/add_food_sheet.dart';
 import 'package:punkte_zaehler/widgets/diary/food_card.dart';
@@ -29,7 +30,7 @@ class _FoodDiaryState extends State<FoodDiary> {
       id: 'null',
       date: DateTime.now(),
       dailyRestPoints: AllData.profiledata.dailyPoints,
-      actualPointSafe: AllData.profiledata.dailyPoints,
+      actualPointSafe: AllData.profiledata.pointSafe,
       breakfast: [],
       lunch: [],
       dinner: [],
@@ -54,9 +55,8 @@ class _FoodDiaryState extends State<FoodDiary> {
     // editDisabled = Jiffy(diary.date)
     //     .isBefore(DateTime.now().subtract(const Duration(days: 1)), Units.DAY);
 
-    print(diary.dailyRestPoints);
-    //actualPointSafe muss noch umbennant werden, es ist der heutige punktetresor
-    print(diary.actualPointSafe);
+    // print(diary.dailyRestPoints);
+    // print(diary.actualPointSafe);
     // AllData.diaries.firstWhere((element) => element == diary).actualPointSafe = 3;
     // AllData.diaries.firstWhere((element) => element == diary).dailyRestPoints = 2;
     // AllData.profiledata.pointSafe = 3;
@@ -70,10 +70,10 @@ class _FoodDiaryState extends State<FoodDiary> {
           lastDate: Jiffy(DateTime.now()).add(months: 1).dateTime,
           onDateSelected: (date) => onDateSelected(date),
           leftMargin: 20,
-          dayColor: const Color.fromARGB(255, 207, 107, 100),
-          activeDayColor: const Color.fromARGB(255, 238, 178, 178),
-          activeBackgroundDayColor: const Color.fromARGB(255, 107, 16, 7),
-          dotsColor: const Color.fromARGB(255, 58, 66, 82),
+          // dayColor: calenderDayColor,
+          // activeDayColor: calenderActiveDayColor,
+          // activeBackgroundDayColor: calenderActiveBackgroundDayColor,
+          // dotsColor: calenderDotsColor,
           showYears: true,
           locale: 'de',
         ),
@@ -113,23 +113,23 @@ class _FoodDiaryState extends State<FoodDiary> {
                     style: TextStyle(fontSize: 16),
                   ),
                   GestureDetector(
-                    onTap: 
-                    // editDisabled
-                    //     ? null
-                    //     : 
+                    onTap:
+                        // editDisabled
+                        //     ? null
+                        //     :
                         () => onEditPressed(0, initDate, context, diary),
                     child: Row(
-                      children: [
+                      children: const [
                         Text('Bearbeiten',
                             style: TextStyle(
                                 fontStyle: FontStyle.italic,
                                 color:
-                                    // editDisabled ? Colors.grey : 
+                                    // editDisabled ? Colors.grey :
                                     Colors.black)),
                         Icon(Icons.arrow_right_alt_outlined,
-                            color: 
-                            // editDisabled ? Colors.grey :
-                             Colors.black)
+                            color:
+                                // editDisabled ? Colors.grey :
+                                Colors.black)
                       ],
                     ),
                   )
@@ -148,11 +148,11 @@ class _FoodDiaryState extends State<FoodDiary> {
                       title: 'Frühstück',
                       icon: CommunityMaterialIcons.coffee,
                       food: diary.breakfast!,
-                      color: HexColor('#A60505').withOpacity(0.4),
-                      onAddPressed: 
-                      // editDisabled
-                      //     ? null
-                      //     : 
+                      color: breakfastCardColor,
+                      onAddPressed:
+                          // editDisabled
+                          //     ? null
+                          //     :
                           () => addCard(PointType.breakfast),
                       cardKey: cardKeyBreakfast,
                     ),
@@ -163,10 +163,10 @@ class _FoodDiaryState extends State<FoodDiary> {
                       title: 'Mittag',
                       icon: CommunityMaterialIcons.baguette,
                       food: diary.lunch!,
-                      color: HexColor('#591D1D').withOpacity(0.5),
+                      color: lunchCardColor,
                       onAddPressed:
                           // editDisabled ? null :
-                           () => addCard(PointType.lunch),
+                          () => addCard(PointType.lunch),
                       cardKey: cardKeyLunch,
                     ),
                     const SizedBox(width: 10),
@@ -176,9 +176,9 @@ class _FoodDiaryState extends State<FoodDiary> {
                       title: 'Abend',
                       icon: CommunityMaterialIcons.pasta,
                       food: diary.dinner!,
-                      color: HexColor('#D90707').withOpacity(0.5),
+                      color: dinnerCardColor,
                       onAddPressed:
-                          // editDisabled ? null : 
+                          // editDisabled ? null :
                           () => addCard(PointType.dinner),
                       cardKey: cardKeyDinner,
                     ),
@@ -189,9 +189,9 @@ class _FoodDiaryState extends State<FoodDiary> {
                       title: 'Snack',
                       icon: CommunityMaterialIcons.cake_layered,
                       food: diary.snack!,
-                      color: HexColor('##EE4F4F').withOpacity(0.2),
+                      color: snackCardColor,
                       onAddPressed:
-                          // editDisabled ? null : 
+                          // editDisabled ? null :
                           () => addCard(PointType.snack),
                       cardKey: cardKeySnack,
                     ),
@@ -217,7 +217,7 @@ class _FoodDiaryState extends State<FoodDiary> {
                         children: diary.activities!
                             .map((e) => ActivityCard(
                                 cardKey: GlobalKey<FlipCardState>(),
-                                color: HexColor('#A60505').withOpacity(0.4),
+                                color: activityCardColor,
                                 icon: IconData(e.icon!.codePoint,
                                     fontFamily: e.icon!.fontFamily,
                                     fontPackage: e.icon!.fontPackage,
@@ -231,46 +231,45 @@ class _FoodDiaryState extends State<FoodDiary> {
                                 addField: false,
                                 onAddPressed: () {},
                                 onRemovePressed:
-                                //  editDisabled
-                                //     ? null
-                                //     : 
+                                    //  editDisabled
+                                    //     ? null
+                                    //     :
                                     () => removePressed(e)))
                             .toList()),
                     ActivityCard(
                         cardKey: GlobalKey<FlipCardState>(),
-                        color: HexColor('#591D1D').withOpacity(0.5),
+                        color: activityAddCardColor,
                         icon: CommunityMaterialIcons.google_fit,
                         title: 'Aktivität',
                         points: 0,
                         addField: true,
-                        onAddPressed: 
-                        // editDisabled
-                        //     ? null
-                        //     :
-                             () {
-                                if (diary.id == 'null') {
-                                  Diary newDiary = Diary(
-                                      id: const Uuid().v1(),
-                                      date: initDate,
-                                      dailyRestPoints:
-                                          AllData.profiledata.dailyPoints,
-                                      actualPointSafe:
-                                          AllData.profiledata.dailyPoints,
-                                      breakfast: [],
-                                      lunch: [],
-                                      dinner: [],
-                                      snack: [],
-                                      fitpoints: [],
-                                      activities: []);
-                                  AllData.diaries.add(newDiary);
-                                  DBHelper.insert('Diary', newDiary.toMap());
-                                  diary = newDiary;
-                                }
-                                Navigator.of(context)
-                                    .pushNamed(Activities.routeName,
-                                        arguments: diary.id)
-                                    .then((value) => setState(() {}));
-                              },
+                        onAddPressed:
+                            // editDisabled
+                            //     ? null
+                            //     :
+                            () {
+                          if (diary.id == 'null') {
+                            Diary newDiary = Diary(
+                                id: const Uuid().v1(),
+                                date: initDate,
+                                dailyRestPoints:
+                                    AllData.profiledata.dailyPoints,
+                                actualPointSafe: AllData.profiledata.pointSafe,
+                                breakfast: [],
+                                lunch: [],
+                                dinner: [],
+                                snack: [],
+                                fitpoints: [],
+                                activities: []);
+                            AllData.diaries.add(newDiary);
+                            DBHelper.insert('Diary', newDiary.toMap());
+                            diary = newDiary;
+                          }
+                          Navigator.of(context)
+                              .pushNamed(Activities.routeName,
+                                  arguments: diary.id)
+                              .then((value) => setState(() {}));
+                        },
                         // onAddActivityPressed(),
                         onRemovePressed: () {})
                   ],
@@ -300,7 +299,7 @@ class _FoodDiaryState extends State<FoodDiary> {
           id: 'null',
           date: date!,
           dailyRestPoints: AllData.profiledata.dailyPoints,
-          actualPointSafe: AllData.profiledata.dailyPoints,
+          actualPointSafe: AllData.profiledata.pointSafe,
           breakfast: [],
           lunch: [],
           dinner: [],
@@ -321,7 +320,7 @@ class _FoodDiaryState extends State<FoodDiary> {
           id: const Uuid().v1(),
           date: date,
           dailyRestPoints: AllData.profiledata.dailyPoints,
-          actualPointSafe: AllData.profiledata.dailyPoints,
+          actualPointSafe: AllData.profiledata.pointSafe,
           breakfast: [],
           lunch: [],
           dinner: [],
@@ -345,7 +344,7 @@ class _FoodDiaryState extends State<FoodDiary> {
           id: const Uuid().v1(),
           date: initDate,
           dailyRestPoints: AllData.profiledata.dailyPoints,
-          actualPointSafe: AllData.profiledata.dailyPoints,
+          actualPointSafe: AllData.profiledata.pointSafe,
           breakfast: [],
           lunch: [],
           dinner: [],

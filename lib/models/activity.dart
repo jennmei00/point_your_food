@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
 
@@ -59,6 +60,27 @@ class Activity {
     );
     return activity;
   }
+
+  // activity list from snapshot
+  List<Activity> activityListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Activity(icon: null, id: '', points: null, title: ''
+          // documentID: doc.documentID,
+          // website: doc.data['website'],
+          // username: doc.data['username'] ?? '',
+          // email: doc.data['email'],
+          // password: doc.data['password'],
+          // image: doc.data['image'],
+          );
+    }).toList();
+  }
+
+  Stream<Activity> getActivityByDocumentID(
+      String documentID, CollectionReference activityCollection) {
+    return activityCollection.doc(documentID).snapshots().map((doc) {
+      return Activity(id: id, title: title, points: points, icon: icon);
+    });
+  }
 }
 
 class FitPoint {
@@ -106,5 +128,24 @@ class FitPoint {
       points: data['Points'],
     );
     return fitPoint;
+  }
+
+  List<FitPoint> listFromFirestore(QuerySnapshot snapshot) {
+    List<FitPoint> list = [];
+    list = snapshot.docs.map((doc) {
+      doc as QueryDocumentSnapshot<FitPoint>;
+      return fromFirestore(doc);
+    }).toList();
+    return list;
+  }
+
+  FitPoint fromFirestore(QueryDocumentSnapshot<FitPoint> doc) {
+    return FitPoint(
+      id: doc.id,
+      diaryId: doc.data().diaryId,
+      activityId: doc.data().activityId,
+      duration: doc.data().duration,
+      points: doc.data().points,
+    );
   }
 }

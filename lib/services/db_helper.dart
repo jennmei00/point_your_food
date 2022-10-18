@@ -5,7 +5,7 @@ import 'package:uuid/uuid.dart';
 
 class DBHelper {
   static sql.Database? _database;
-  static int versionNumber = 2;
+  static int versionNumber = 3;
 
   //Open Database
   static Future<sql.Database> openDatabase() async {
@@ -233,6 +233,8 @@ class DBHelper {
         "INSERT INTO Activity VALUES('0Others0','Sonstiges', 2, ${CommunityMaterialIcons.walk.codePoint}, "
         "'${CommunityMaterialIcons.walk.fontFamily}', '${CommunityMaterialIcons.walk.fontPackage}', "
         "${CommunityMaterialIcons.walk.matchTextDirection == true ? 1 : 0})");
+
+    await _upgradeTables(db, 1, versionNumber);
   }
 
   // Upgrade Tables
@@ -240,15 +242,15 @@ class DBHelper {
       sql.Database db, int oldVersion, int newVersion) async {
     // ab Version 2
     if (oldVersion < 2) {
-        try {
-          await db.execute('ALTER TABLE Diary ADD ActualPointSafe REAL');
-          // await db.execute('ALTER TABLE StandingOrder ADD FOREIGN KEY(AccountToID) REFERENCES Account(ID)');
-        } catch (ex) {
-          // FileHelper()
-          //     .writeAppLog(AppLog(ex.toString(), 'Upgrade Tables Version 2'));
-
+      try {
+        print('Upgrade table');
+        await db.execute('ALTER TABLE Diary ADD ActualPointSafe REAL');
+        // await db.execute('ALTER TABLE StandingOrder ADD FOREIGN KEY(AccountToID) REFERENCES Account(ID)');
+      } catch (ex) {
+        // FileHelper()
+        //     .writeAppLog(AppLog(ex.toString(), 'Upgrade Tables Version 2'));
         print('DBHelper $ex');
-        }
+      }
     }
   }
 }

@@ -31,103 +31,129 @@ class _ScaleState extends State<Scale> {
     AllData.weighs.sort((obj, obj2) => obj2.date!.compareTo(obj.date!));
 
     return ListView(children: [
-      const Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Text(
-          'Grafik',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        ),
-      ),
-      const SizedBox(
-        height: 250,
-        child: CustomLineChart(),
-      ),
-      const Divider(
-        indent: 15,
-        endIndent: 15,
-        thickness: 2,
-        color: Colors.black,
-      ),
-      const Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Text(
-          'Wiegedaten',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        ),
-      ),
-      Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            ListTile(
-              title: const Text('Datum:'),
-              trailing: GestureDetector(
-                child: Text(dateFormat(date)),
-                onTap: () {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  showDatePicker(
-                          context: context,
-                          initialDate: date,
-                          firstDate: DateTime.now()
-                              .subtract(const Duration(days: 2000)),
-                          lastDate:
-                              DateTime.now().add(const Duration(days: 1000)))
-                      .then((value) {
-                    if (value != null) {
-                      setState(() {
-                        date = value;
-                      });
-                    }
-                  });
-                },
-              ),
-            ),
-            ListTile(
-              title: const Text('Gewicht:'),
-              trailing: SizedBox(
-                width: 70,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        validator: (value) {
-                          if ((value == null || value.isEmpty || value == '')) {
-                            return '*';
-                          }
-                          return null;
-                        },
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(
-                              r'^(?:-?(?:[0-9]+))?(?:\,[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?')),
-                        ],
-                        controller: weightController,
-                      ),
-                    ),
-                    const Text(' kg'),
-                  ],
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: const [
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'Grafik',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
-            ),
-            OutlinedButton(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      // Theme.of(context).primaryColor.withOpacity(0.5)),
-                      Colors.white),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)))),
-              onPressed: () => addData(),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text('Daten hinzufügen'),
+              SizedBox(
+                height: 250,
+                child: CustomLineChart(),
               ),
-            ),
-            const Divider(
-              indent: 15,
-              endIndent: 15,
-              thickness: 2,
-              color: Colors.black,
-            ),
+            ],
+          ),
+        ),
+      ),
+      // const Divider(
+      //   indent: 15,
+      //   endIndent: 15,
+      //   thickness: 2,
+      //   color: Colors.black,
+      // ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'Wiegedaten',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+              ),
+              Form(
+                key: _formKey,
+                child: Column(children: [
+                  ListTile(
+                    title: const Text('Datum:'),
+                    trailing: GestureDetector(
+                      child: Text(dateFormat(date)),
+                      onTap: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        showDatePicker(
+                                context: context,
+                                initialDate: date,
+                                firstDate: DateTime.now()
+                                    .subtract(const Duration(days: 2000)),
+                                lastDate: DateTime.now()
+                                    .add(const Duration(days: 1000)))
+                            .then((value) {
+                          if (value != null) {
+                            setState(() {
+                              date = value;
+                            });
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  ListTile(
+                    title: const Text('Gewicht:'),
+                    trailing: SizedBox(
+                      width: 70,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              validator: (value) {
+                                if ((value == null ||
+                                    value.isEmpty ||
+                                    value == '')) {
+                                  return '*';
+                                }
+                                return null;
+                              },
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(RegExp(
+                                    r'^(?:-?(?:[0-9]+))?(?:\,[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?')),
+                              ],
+                              controller: weightController,
+                            ),
+                          ),
+                          const Text(' kg'),
+                        ],
+                      ),
+                    ),
+                  ),
+                  OutlinedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            // Theme.of(context).primaryColor.withOpacity(0.5)),
+                            Colors.white),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)))),
+                    onPressed: () => addData(),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Text('Daten hinzufügen'),
+                    ),
+                  ),
+                ]),
+              ),
+            ],
+          ),
+        ),
+      ),
+      // const Divider(
+      //   indent: 15,
+      //   endIndent: 15,
+      //   thickness: 2,
+      //   color: Colors.black,
+      // ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          child: Column(children: [
             ExpansionTile(
               title: const Text(
                 'Liste aller Daten',
@@ -140,9 +166,9 @@ class _ScaleState extends State<Scale> {
                       ))
                   .toList(),
             )
-          ],
+          ]),
         ),
-      )
+      ),
     ]);
   }
 

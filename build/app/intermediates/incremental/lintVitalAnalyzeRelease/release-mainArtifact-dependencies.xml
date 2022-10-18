@@ -1,11 +1,20 @@
 <dependencies>
   <compile
-      roots="__local_aars__:C:\flutter\flutter_projects\punkte_zaehler\build\app\intermediates\flutter\release\libs.jar:unspecified@jar,C:\flutter\flutter_projects\punkte_zaehler\android@@:shared_preferences_android::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:hexcolor::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:sqflite::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:flutter_keyboard_visibility::release,io.flutter:flutter_embedding_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar,androidx.window:window-java:1.0.0-beta04@aar,androidx.window:window:1.0.0-beta04@aar,org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2@jar,org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.2@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10@jar,io.flutter:armeabi_v7a_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar,io.flutter:arm64_v8a_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar,io.flutter:x86_64_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar,androidx.lifecycle:lifecycle-common-java8:2.2.0@jar,androidx.fragment:fragment:1.1.0@aar,androidx.viewpager:viewpager:1.0.0@aar,androidx.loader:loader:1.0.0@aar,androidx.activity:activity:1.0.0@aar,androidx.customview:customview:1.0.0@aar,androidx.core:core:1.6.0@aar,androidx.core:core:1.6.0@aar,androidx.lifecycle:lifecycle-runtime:2.2.0@aar,androidx.savedstate:savedstate:1.0.0@aar,androidx.lifecycle:lifecycle-livedata:2.0.0@aar,androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar,androidx.lifecycle:lifecycle-common:2.2.0@jar,androidx.arch.core:core-runtime:2.0.0@aar,androidx.arch.core:core-common:2.1.0@jar,androidx.versionedparcelable:versionedparcelable:1.1.1@aar,androidx.collection:collection:1.1.0@jar,androidx.lifecycle:lifecycle-viewmodel:2.1.0@aar,androidx.annotation:annotation:1.2.0@jar,androidx.annotation:annotation-experimental:1.1.0@aar,androidx.tracing:tracing:1.0.0@aar,org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10@jar,org.jetbrains.kotlin:kotlin-stdlib:1.6.10@jar,org.jetbrains:annotations:13.0@jar,org.jetbrains.kotlin:kotlin-stdlib-common:1.6.10@jar">
+      roots="__local_aars__:C:\flutter\flutter_projects\punkte_zaehler\build\app\intermediates\flutter\release\libs.jar:unspecified@jar,C:\flutter\flutter_projects\punkte_zaehler\android@@:shared_preferences_android::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:firebase_auth::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:firebase_core::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:flutter_plugin_android_lifecycle::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:hexcolor::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:sqflite::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:flutter_keyboard_visibility::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:local_auth_android::release,io.flutter:flutter_embedding_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar,androidx.biometric:biometric:1.1.0@aar,androidx.fragment:fragment:1.5.1@aar,androidx.activity:activity:1.5.1@aar,androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1@aar,androidx.window:window-java:1.0.0-beta04@aar,androidx.window:window:1.0.0-beta04@aar,org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.1@jar,org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10@jar,io.flutter:armeabi_v7a_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar,io.flutter:arm64_v8a_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar,io.flutter:x86_64_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar,androidx.lifecycle:lifecycle-common-java8:2.5.1@jar,androidx.core:core-ktx:1.2.0@aar,androidx.loader:loader:1.0.0@aar,androidx.viewpager:viewpager:1.0.0@aar,androidx.customview:customview:1.0.0@aar,androidx.core:core:1.8.0@aar,androidx.core:core:1.8.0@aar,androidx.lifecycle:lifecycle-runtime:2.5.1@aar,androidx.lifecycle:lifecycle-livedata:2.0.0@aar,androidx.lifecycle:lifecycle-livedata-core:2.5.1@aar,androidx.lifecycle:lifecycle-livedata-core:2.5.1@aar,androidx.lifecycle:lifecycle-common:2.5.1@jar,androidx.versionedparcelable:versionedparcelable:1.1.1@aar,androidx.collection:collection:1.1.0@jar,androidx.lifecycle:lifecycle-viewmodel:2.5.1@aar,androidx.lifecycle:lifecycle-viewmodel:2.5.1@aar,androidx.savedstate:savedstate:1.2.0@aar,androidx.arch.core:core-runtime:2.1.0@aar,androidx.arch.core:core-common:2.1.0@jar,androidx.annotation:annotation:1.2.0@jar,androidx.annotation:annotation-experimental:1.1.0@aar,org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10@jar,org.jetbrains.kotlin:kotlin-stdlib:1.6.21@jar,org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21@jar,org.jetbrains:annotations:13.0@jar,androidx.tracing:tracing:1.0.0@aar">
     <dependency
         name="__local_aars__:C:\flutter\flutter_projects\punkte_zaehler\build\app\intermediates\flutter\release\libs.jar:unspecified@jar"/>
     <dependency
         name="C:\flutter\flutter_projects\punkte_zaehler\android@@:shared_preferences_android::release"
         simpleName="io.flutter.plugins.sharedpreferences:shared_preferences_android"/>
+    <dependency
+        name="C:\flutter\flutter_projects\punkte_zaehler\android@@:firebase_auth::release"
+        simpleName="io.flutter.plugins.firebase.auth:firebase_auth"/>
+    <dependency
+        name="C:\flutter\flutter_projects\punkte_zaehler\android@@:firebase_core::release"
+        simpleName="io.flutter.plugins.firebase.core:firebase_core"/>
+    <dependency
+        name="C:\flutter\flutter_projects\punkte_zaehler\android@@:flutter_plugin_android_lifecycle::release"
+        simpleName="io.flutter.plugins.flutter_plugin_android_lifecycle:flutter_plugin_android_lifecycle"/>
     <dependency
         name="C:\flutter\flutter_projects\punkte_zaehler\android@@:hexcolor::release"
         simpleName="com.ggichure.github.hexcolor:hexcolor"/>
@@ -16,79 +25,100 @@
         name="C:\flutter\flutter_projects\punkte_zaehler\android@@:flutter_keyboard_visibility::release"
         simpleName="com.jrai.flutter_keyboard_visibility:flutter_keyboard_visibility"/>
     <dependency
-        name="io.flutter:flutter_embedding_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar"/>
+        name="C:\flutter\flutter_projects\punkte_zaehler\android@@:local_auth_android::release"
+        simpleName="io.flutter.plugins.localauth:local_auth_android"/>
+    <dependency
+        name="io.flutter:flutter_embedding_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar"/>
+    <dependency
+        name="androidx.biometric:biometric:1.1.0@aar"/>
+    <dependency
+        name="androidx.fragment:fragment:1.5.1@aar"/>
+    <dependency
+        name="androidx.activity:activity:1.5.1@aar"/>
+    <dependency
+        name="androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1@aar"/>
     <dependency
         name="androidx.window:window-java:1.0.0-beta04@aar"/>
     <dependency
         name="androidx.window:window:1.0.0-beta04@aar"/>
     <dependency
-        name="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2@jar"/>
+        name="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.1@jar"/>
     <dependency
-        name="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.2@jar"/>
+        name="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1@jar"/>
     <dependency
         name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10@jar"/>
     <dependency
-        name="io.flutter:armeabi_v7a_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar"/>
+        name="io.flutter:armeabi_v7a_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar"/>
     <dependency
-        name="io.flutter:arm64_v8a_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar"/>
+        name="io.flutter:arm64_v8a_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar"/>
     <dependency
-        name="io.flutter:x86_64_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar"/>
+        name="io.flutter:x86_64_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar"/>
     <dependency
-        name="androidx.lifecycle:lifecycle-common-java8:2.2.0@jar"/>
+        name="androidx.lifecycle:lifecycle-common-java8:2.5.1@jar"/>
     <dependency
-        name="androidx.fragment:fragment:1.1.0@aar"/>
-    <dependency
-        name="androidx.viewpager:viewpager:1.0.0@aar"/>
+        name="androidx.core:core-ktx:1.2.0@aar"/>
     <dependency
         name="androidx.loader:loader:1.0.0@aar"/>
     <dependency
-        name="androidx.activity:activity:1.0.0@aar"/>
+        name="androidx.viewpager:viewpager:1.0.0@aar"/>
     <dependency
         name="androidx.customview:customview:1.0.0@aar"/>
     <dependency
-        name="androidx.core:core:1.6.0@aar"/>
+        name="androidx.core:core:1.8.0@aar"/>
     <dependency
-        name="androidx.lifecycle:lifecycle-runtime:2.2.0@aar"/>
-    <dependency
-        name="androidx.savedstate:savedstate:1.0.0@aar"/>
+        name="androidx.lifecycle:lifecycle-runtime:2.5.1@aar"/>
     <dependency
         name="androidx.lifecycle:lifecycle-livedata:2.0.0@aar"/>
     <dependency
-        name="androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar"/>
+        name="androidx.lifecycle:lifecycle-livedata-core:2.5.1@aar"/>
     <dependency
-        name="androidx.lifecycle:lifecycle-common:2.2.0@jar"/>
-    <dependency
-        name="androidx.arch.core:core-runtime:2.0.0@aar"/>
-    <dependency
-        name="androidx.arch.core:core-common:2.1.0@jar"/>
+        name="androidx.lifecycle:lifecycle-common:2.5.1@jar"/>
     <dependency
         name="androidx.versionedparcelable:versionedparcelable:1.1.1@aar"/>
     <dependency
         name="androidx.collection:collection:1.1.0@jar"/>
     <dependency
-        name="androidx.lifecycle:lifecycle-viewmodel:2.1.0@aar"/>
+        name="androidx.lifecycle:lifecycle-viewmodel:2.5.1@aar"/>
+    <dependency
+        name="androidx.savedstate:savedstate:1.2.0@aar"/>
+    <dependency
+        name="androidx.arch.core:core-runtime:2.1.0@aar"/>
+    <dependency
+        name="androidx.arch.core:core-common:2.1.0@jar"/>
     <dependency
         name="androidx.annotation:annotation:1.2.0@jar"/>
     <dependency
         name="androidx.annotation:annotation-experimental:1.1.0@aar"/>
     <dependency
-        name="androidx.tracing:tracing:1.0.0@aar"/>
-    <dependency
         name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10@jar"/>
     <dependency
-        name="org.jetbrains.kotlin:kotlin-stdlib:1.6.10@jar"/>
+        name="org.jetbrains.kotlin:kotlin-stdlib:1.6.21@jar"/>
+    <dependency
+        name="org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21@jar"/>
     <dependency
         name="org.jetbrains:annotations:13.0@jar"/>
     <dependency
-        name="org.jetbrains.kotlin:kotlin-stdlib-common:1.6.10@jar"/>
+        name="androidx.tracing:tracing:1.0.0@aar"/>
   </compile>
   <package
-      roots="__local_aars__:C:\flutter\flutter_projects\punkte_zaehler\build\app\intermediates\flutter\release\libs.jar:unspecified@jar,C:\flutter\flutter_projects\punkte_zaehler\android@@:shared_preferences_android::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:hexcolor::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:sqflite::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:flutter_keyboard_visibility::release,io.flutter:flutter_embedding_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar,androidx.window:window-java:1.0.0-beta04@aar,androidx.window:window:1.0.0-beta04@aar,org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2@jar,org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.2@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10@jar,io.flutter:armeabi_v7a_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar,io.flutter:arm64_v8a_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar,io.flutter:x86_64_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10@jar,org.jetbrains.kotlin:kotlin-stdlib:1.6.10@jar,androidx.lifecycle:lifecycle-common-java8:2.2.0@jar,androidx.fragment:fragment:1.1.0@aar,androidx.viewpager:viewpager:1.0.0@aar,androidx.loader:loader:1.0.0@aar,androidx.activity:activity:1.0.0@aar,androidx.customview:customview:1.0.0@aar,androidx.core:core:1.6.0@aar,androidx.core:core:1.6.0@aar,androidx.lifecycle:lifecycle-runtime:2.2.0@aar,androidx.savedstate:savedstate:1.0.0@aar,androidx.lifecycle:lifecycle-livedata:2.0.0@aar,androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar,androidx.lifecycle:lifecycle-common:2.2.0@jar,androidx.tracing:tracing:1.0.0@aar,androidx.arch.core:core-runtime:2.0.0@aar,androidx.arch.core:core-common:2.1.0@jar,androidx.versionedparcelable:versionedparcelable:1.1.1@aar,androidx.collection:collection:1.1.0@jar,androidx.lifecycle:lifecycle-viewmodel:2.1.0@aar,androidx.annotation:annotation:1.2.0@jar,org.jetbrains:annotations:13.0@jar,org.jetbrains.kotlin:kotlin-stdlib-common:1.6.10@jar,androidx.annotation:annotation-experimental:1.1.0@aar">
+      roots="__local_aars__:C:\flutter\flutter_projects\punkte_zaehler\build\app\intermediates\flutter\release\libs.jar:unspecified@jar,C:\flutter\flutter_projects\punkte_zaehler\android@@:shared_preferences_android::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:firebase_auth::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:firebase_core::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:local_auth_android::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:flutter_plugin_android_lifecycle::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:hexcolor::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:sqflite::release,C:\flutter\flutter_projects\punkte_zaehler\android@@:flutter_keyboard_visibility::release,io.flutter:flutter_embedding_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar,androidx.biometric:biometric:1.1.0@aar,com.google.firebase:firebase-auth:21.0.8@aar,androidx.appcompat:appcompat:1.2.0@aar,com.google.firebase:firebase-auth-interop:20.0.0@aar,com.google.firebase:firebase-common:20.1.2@aar,com.google.android.gms:play-services-auth-api-phone:17.4.0@aar,com.google.android.gms:play-services-safetynet:17.0.0@aar,com.google.android.gms:play-services-base:17.1.0@aar,com.google.android.gms:play-services-tasks:18.0.1@aar,com.google.android.gms:play-services-basement:18.1.0@aar,androidx.fragment:fragment:1.5.1@aar,androidx.fragment:fragment:1.5.1@aar,androidx.activity:activity:1.5.1@aar,androidx.loader:loader:1.0.0@aar,androidx.lifecycle:lifecycle-viewmodel:2.5.1@aar,androidx.lifecycle:lifecycle-viewmodel:2.5.1@aar,androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1@aar,androidx.window:window-java:1.0.0-beta04@aar,androidx.window:window:1.0.0-beta04@aar,org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.1@jar,org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10@jar,io.flutter:armeabi_v7a_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar,io.flutter:arm64_v8a_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar,io.flutter:x86_64_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar,androidx.core:core-ktx:1.2.0@aar,androidx.viewpager:viewpager:1.0.0@aar,androidx.browser:browser:1.4.0@aar,androidx.appcompat:appcompat-resources:1.2.0@aar,androidx.drawerlayout:drawerlayout:1.0.0@aar,androidx.customview:customview:1.0.0@aar,androidx.vectordrawable:vectordrawable-animated:1.1.0@aar,androidx.vectordrawable:vectordrawable:1.1.0@aar,androidx.core:core:1.8.0@aar,androidx.core:core:1.8.0@aar,androidx.tracing:tracing:1.0.0@aar,androidx.concurrent:concurrent-futures:1.0.0@jar,androidx.versionedparcelable:versionedparcelable:1.1.1@aar,androidx.collection:collection:1.1.0@jar,androidx.savedstate:savedstate:1.2.0@aar,androidx.localbroadcastmanager:localbroadcastmanager:1.0.0@aar,com.google.firebase:firebase-components:17.0.1@aar,androidx.lifecycle:lifecycle-livedata:2.0.0@aar,androidx.lifecycle:lifecycle-livedata-core:2.5.1@aar,androidx.lifecycle:lifecycle-livedata-core:2.5.1@aar,androidx.lifecycle:lifecycle-runtime:2.5.1@aar,androidx.arch.core:core-runtime:2.1.0@aar,androidx.arch.core:core-common:2.1.0@jar,androidx.cursoradapter:cursoradapter:1.0.0@aar,androidx.lifecycle:lifecycle-common-java8:2.5.1@jar,androidx.lifecycle:lifecycle-common:2.5.1@jar,androidx.interpolator:interpolator:1.0.0@aar,androidx.annotation:annotation:1.2.0@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10@jar,org.jetbrains.kotlin:kotlin-stdlib:1.6.21@jar,androidx.annotation:annotation-experimental:1.1.0@aar,com.google.guava:listenablefuture:1.0@jar,org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21@jar,org.jetbrains:annotations:13.0@jar,com.google.firebase:firebase-annotations:16.1.0@jar,com.google.errorprone:error_prone_annotations:2.9.0@jar">
     <dependency
         name="__local_aars__:C:\flutter\flutter_projects\punkte_zaehler\build\app\intermediates\flutter\release\libs.jar:unspecified@jar"/>
     <dependency
         name="C:\flutter\flutter_projects\punkte_zaehler\android@@:shared_preferences_android::release"
         simpleName="io.flutter.plugins.sharedpreferences:shared_preferences_android"/>
+    <dependency
+        name="C:\flutter\flutter_projects\punkte_zaehler\android@@:firebase_auth::release"
+        simpleName="io.flutter.plugins.firebase.auth:firebase_auth"/>
+    <dependency
+        name="C:\flutter\flutter_projects\punkte_zaehler\android@@:firebase_core::release"
+        simpleName="io.flutter.plugins.firebase.core:firebase_core"/>
+    <dependency
+        name="C:\flutter\flutter_projects\punkte_zaehler\android@@:local_auth_android::release"
+        simpleName="io.flutter.plugins.localauth:local_auth_android"/>
+    <dependency
+        name="C:\flutter\flutter_projects\punkte_zaehler\android@@:flutter_plugin_android_lifecycle::release"
+        simpleName="io.flutter.plugins.flutter_plugin_android_lifecycle:flutter_plugin_android_lifecycle"/>
     <dependency
         name="C:\flutter\flutter_projects\punkte_zaehler\android@@:hexcolor::release"
         simpleName="com.ggichure.github.hexcolor:hexcolor"/>
@@ -99,70 +129,120 @@
         name="C:\flutter\flutter_projects\punkte_zaehler\android@@:flutter_keyboard_visibility::release"
         simpleName="com.jrai.flutter_keyboard_visibility:flutter_keyboard_visibility"/>
     <dependency
-        name="io.flutter:flutter_embedding_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar"/>
+        name="io.flutter:flutter_embedding_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar"/>
+    <dependency
+        name="androidx.biometric:biometric:1.1.0@aar"/>
+    <dependency
+        name="com.google.firebase:firebase-auth:21.0.8@aar"/>
+    <dependency
+        name="androidx.appcompat:appcompat:1.2.0@aar"/>
+    <dependency
+        name="com.google.firebase:firebase-auth-interop:20.0.0@aar"/>
+    <dependency
+        name="com.google.firebase:firebase-common:20.1.2@aar"/>
+    <dependency
+        name="com.google.android.gms:play-services-auth-api-phone:17.4.0@aar"/>
+    <dependency
+        name="com.google.android.gms:play-services-safetynet:17.0.0@aar"/>
+    <dependency
+        name="com.google.android.gms:play-services-base:17.1.0@aar"/>
+    <dependency
+        name="com.google.android.gms:play-services-tasks:18.0.1@aar"/>
+    <dependency
+        name="com.google.android.gms:play-services-basement:18.1.0@aar"/>
+    <dependency
+        name="androidx.fragment:fragment:1.5.1@aar"/>
+    <dependency
+        name="androidx.activity:activity:1.5.1@aar"/>
+    <dependency
+        name="androidx.loader:loader:1.0.0@aar"/>
+    <dependency
+        name="androidx.lifecycle:lifecycle-viewmodel:2.5.1@aar"/>
+    <dependency
+        name="androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1@aar"/>
     <dependency
         name="androidx.window:window-java:1.0.0-beta04@aar"/>
     <dependency
         name="androidx.window:window:1.0.0-beta04@aar"/>
     <dependency
-        name="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2@jar"/>
+        name="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.1@jar"/>
     <dependency
-        name="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.2@jar"/>
+        name="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1@jar"/>
     <dependency
         name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10@jar"/>
     <dependency
-        name="io.flutter:armeabi_v7a_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar"/>
+        name="io.flutter:armeabi_v7a_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar"/>
     <dependency
-        name="io.flutter:arm64_v8a_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar"/>
+        name="io.flutter:arm64_v8a_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar"/>
     <dependency
-        name="io.flutter:x86_64_release:1.0.0-e85ea0e79c6d894c120cda4ee8ee10fe6745e187@jar"/>
+        name="io.flutter:x86_64_release:1.0.0-a4ff2c53d84ca78702bc3be6c7ef0788ffca01d3@jar"/>
     <dependency
-        name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10@jar"/>
-    <dependency
-        name="org.jetbrains.kotlin:kotlin-stdlib:1.6.10@jar"/>
-    <dependency
-        name="androidx.lifecycle:lifecycle-common-java8:2.2.0@jar"/>
-    <dependency
-        name="androidx.fragment:fragment:1.1.0@aar"/>
+        name="androidx.core:core-ktx:1.2.0@aar"/>
     <dependency
         name="androidx.viewpager:viewpager:1.0.0@aar"/>
     <dependency
-        name="androidx.loader:loader:1.0.0@aar"/>
+        name="androidx.browser:browser:1.4.0@aar"/>
     <dependency
-        name="androidx.activity:activity:1.0.0@aar"/>
+        name="androidx.appcompat:appcompat-resources:1.2.0@aar"/>
+    <dependency
+        name="androidx.drawerlayout:drawerlayout:1.0.0@aar"/>
     <dependency
         name="androidx.customview:customview:1.0.0@aar"/>
     <dependency
-        name="androidx.core:core:1.6.0@aar"/>
+        name="androidx.vectordrawable:vectordrawable-animated:1.1.0@aar"/>
     <dependency
-        name="androidx.lifecycle:lifecycle-runtime:2.2.0@aar"/>
+        name="androidx.vectordrawable:vectordrawable:1.1.0@aar"/>
     <dependency
-        name="androidx.savedstate:savedstate:1.0.0@aar"/>
-    <dependency
-        name="androidx.lifecycle:lifecycle-livedata:2.0.0@aar"/>
-    <dependency
-        name="androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar"/>
-    <dependency
-        name="androidx.lifecycle:lifecycle-common:2.2.0@jar"/>
+        name="androidx.core:core:1.8.0@aar"/>
     <dependency
         name="androidx.tracing:tracing:1.0.0@aar"/>
     <dependency
-        name="androidx.arch.core:core-runtime:2.0.0@aar"/>
-    <dependency
-        name="androidx.arch.core:core-common:2.1.0@jar"/>
+        name="androidx.concurrent:concurrent-futures:1.0.0@jar"/>
     <dependency
         name="androidx.versionedparcelable:versionedparcelable:1.1.1@aar"/>
     <dependency
         name="androidx.collection:collection:1.1.0@jar"/>
     <dependency
-        name="androidx.lifecycle:lifecycle-viewmodel:2.1.0@aar"/>
+        name="androidx.savedstate:savedstate:1.2.0@aar"/>
+    <dependency
+        name="androidx.localbroadcastmanager:localbroadcastmanager:1.0.0@aar"/>
+    <dependency
+        name="com.google.firebase:firebase-components:17.0.1@aar"/>
+    <dependency
+        name="androidx.lifecycle:lifecycle-livedata:2.0.0@aar"/>
+    <dependency
+        name="androidx.lifecycle:lifecycle-livedata-core:2.5.1@aar"/>
+    <dependency
+        name="androidx.lifecycle:lifecycle-runtime:2.5.1@aar"/>
+    <dependency
+        name="androidx.arch.core:core-runtime:2.1.0@aar"/>
+    <dependency
+        name="androidx.arch.core:core-common:2.1.0@jar"/>
+    <dependency
+        name="androidx.cursoradapter:cursoradapter:1.0.0@aar"/>
+    <dependency
+        name="androidx.lifecycle:lifecycle-common-java8:2.5.1@jar"/>
+    <dependency
+        name="androidx.lifecycle:lifecycle-common:2.5.1@jar"/>
+    <dependency
+        name="androidx.interpolator:interpolator:1.0.0@aar"/>
     <dependency
         name="androidx.annotation:annotation:1.2.0@jar"/>
     <dependency
-        name="org.jetbrains:annotations:13.0@jar"/>
+        name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10@jar"/>
     <dependency
-        name="org.jetbrains.kotlin:kotlin-stdlib-common:1.6.10@jar"/>
+        name="org.jetbrains.kotlin:kotlin-stdlib:1.6.21@jar"/>
     <dependency
         name="androidx.annotation:annotation-experimental:1.1.0@aar"/>
+    <dependency
+        name="com.google.guava:listenablefuture:1.0@jar"/>
+    <dependency
+        name="org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21@jar"/>
+    <dependency
+        name="org.jetbrains:annotations:13.0@jar"/>
+    <dependency
+        name="com.google.firebase:firebase-annotations:16.1.0@jar"/>
+    <dependency
+        name="com.google.errorprone:error_prone_annotations:2.9.0@jar"/>
   </package>
 </dependencies>

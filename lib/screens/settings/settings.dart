@@ -6,6 +6,7 @@ import 'package:punkte_zaehler/models/enums.dart';
 import 'package:punkte_zaehler/screens/settings/edit_activity.dart';
 import 'package:punkte_zaehler/screens/settings/edit_food.dart';
 import 'package:punkte_zaehler/screens/settings/profile.dart';
+import 'package:punkte_zaehler/services/firebase/auth.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/custom_textfield.dart';
@@ -35,22 +36,24 @@ class _SettingsState extends State<Settings> {
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: ListView(
         children: [
+          // GestureDetector(
+          //   child: const ListTile(
+          //     leading: Icon(Icons.account_circle_rounded),
+          //     title: Text(
+          //       'Profil',
+          //     ),
+          //   ),
+          //   onTap: () {
+          //     Navigator.of(context).pushNamed(Profile.routeName);
+          //   },
+          // ),
           GestureDetector(
-            child: const ListTile(
-              leading: Icon(Icons.account_circle_rounded),
-              title: Text(
-                'Profil',
-              ),
-            ),
-            onTap: () {
-              Navigator.of(context).pushNamed(Profile.routeName);
-            },
-          ),
-          GestureDetector(
-            child: const ListTile(
-              leading: Icon(Icons.food_bank),
-              title: Text(
-                'Essen bearbeiten',
+            child: Card(
+              child: const ListTile(
+                leading: Icon(Icons.food_bank),
+                title: Text(
+                  'Essen bearbeiten',
+                ),
               ),
             ),
             onTap: () {
@@ -58,141 +61,147 @@ class _SettingsState extends State<Settings> {
             },
           ),
           GestureDetector(
-            child: const ListTile(
-              leading: Icon(Icons.local_activity),
-              title: Text(
-                'Aktivitäten bearbeiten',
+            child: Card(
+              child: const ListTile(
+                leading: Icon(Icons.local_activity),
+                title: Text(
+                  'Aktivitäten bearbeiten',
+                ),
               ),
             ),
             onTap: () {
               Navigator.of(context).pushNamed(EditActivity.routeName);
             },
           ),
-          ExpansionTile(
-            leading: const Icon(Icons.safety_check),
-            title: const Text(
-              'Punktetresor',
-            ),
-            subtitle: groupValue == PointSafeDelete.withWeigh
-                ? const Text('Löschen bei Eingabe von Wiegedaten')
-                : groupValue == PointSafeDelete.everyMonday
-                    ? const Text('Jeden Montag löschen')
-                    : const Text('Jeden Sonntag löschen'),
-            children: [
-              RadioListTile<PointSafeDelete>(
-                groupValue: groupValue,
-                onChanged: (PointSafeDelete? value) => changeGroupValue(value),
-                value: PointSafeDelete.withWeigh,
-                title: const Text('Eingabe von Wiegedaten'),
+          Card(
+            child: ExpansionTile(
+              leading: const Icon(Icons.safety_check),
+              title: const Text(
+                'Punktetresor',
               ),
-              RadioListTile<PointSafeDelete>(
-                groupValue: groupValue,
-                onChanged: (PointSafeDelete? value) => changeGroupValue(value),
-                value: PointSafeDelete.everyMonday,
-                title: const Text('Jeden Montag'),
-              ),
-              RadioListTile<PointSafeDelete>(
-                groupValue: groupValue,
-                onChanged: (PointSafeDelete? value) => changeGroupValue(value),
-                value: PointSafeDelete.everySunday,
-                title: const Text('Jeden Sonntag'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 30, bottom: 10, top: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Punkte ändern (akt: ${decimalFormat(AllData.profiledata.pointSafe!)}): ',
-                      style: const TextStyle(fontSize: 15),
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 90,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(RegExp(
-                                        r'^(?:-?(?:[0-9]+))?(?:\,[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?')),
-                                  ],
-                                  controller: pointController,
-                                ),
-                              ),
-                              const Text(' Punkte'),
-                            ],
-                          ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.save),
-                          onPressed: () {
-                            if (pointController.text != '') {
-                              AllData.profiledata.pointSafe =
-                                  double.tryParse(pointController.text);
-                              AllData.profiledata.pointSafeDate =
-                                  DateTime.now();
-                              DBHelper.update(
-                                  'Profiledata', AllData.profiledata.toMap());
-                              pointController.text = '';
-
-                              FocusScope.of(context).requestFocus(FocusNode());
-                              setState(() {});
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
+              subtitle: groupValue == PointSafeDelete.withWeigh
+                  ? const Text('Löschen bei Eingabe von Wiegedaten')
+                  : groupValue == PointSafeDelete.everyMonday
+                      ? const Text('Jeden Montag löschen')
+                      : const Text('Jeden Sonntag löschen'),
+              children: [
+                RadioListTile<PointSafeDelete>(
+                  groupValue: groupValue,
+                  onChanged: (PointSafeDelete? value) => changeGroupValue(value),
+                  value: PointSafeDelete.withWeigh,
+                  title: const Text('Eingabe von Wiegedaten'),
                 ),
-              ),
-              // ListTile(
-              //   title: SizedBox(
-              //         width: 90,
-              //         child: Row(
-              //           children: [
-              //             Expanded(
-              //               child: TextField(
-              //                 inputFormatters: [
-              //                   FilteringTextInputFormatter.allow(RegExp(
-              //                       r'^(?:-?(?:[0-9]+))?(?:\,[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?')),
-              //                 ],
-              //                 // controller: weightController,
-              //                 // onChanged: (val) => onWeightChanged(),
-              //               ),
-              //             ),
-              //             const Text(' Punkte'),
-              //           ],
-              //         ),
-              //       ),
-              //   // title: Expanded(
-              //   //     child: TextField(
-              //   //   decoration: InputDecoration(
-              //   //     labelText: 'Punkte im Tresor',
-              //   //     hintText: '${AllData.profiledata.pointSafe}',
-              //   //     border: const OutlineInputBorder(
-              //   //         borderRadius: BorderRadius.all(Radius.circular(10))),
-              //   //   ),
-              //   // )),
-              //   trailing: IconButton(
-              //     icon: Icon(Icons.save),
-              //     onPressed: () {},
-              //   ),
-              // )
-            ],
+                RadioListTile<PointSafeDelete>(
+                  groupValue: groupValue,
+                  onChanged: (PointSafeDelete? value) => changeGroupValue(value),
+                  value: PointSafeDelete.everyMonday,
+                  title: const Text('Jeden Montag'),
+                ),
+                RadioListTile<PointSafeDelete>(
+                  groupValue: groupValue,
+                  onChanged: (PointSafeDelete? value) => changeGroupValue(value),
+                  value: PointSafeDelete.everySunday,
+                  title: const Text('Jeden Sonntag'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30, bottom: 10, top: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Punkte ändern (akt: ${decimalFormat(AllData.profiledata.pointSafe!)}): ',
+                        style: const TextStyle(fontSize: 15),
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 90,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(RegExp(
+                                          r'^(?:-?(?:[0-9]+))?(?:\,[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?')),
+                                    ],
+                                    controller: pointController,
+                                  ),
+                                ),
+                                const Text(' Punkte'),
+                              ],
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.save),
+                            onPressed: () {
+                              if (pointController.text != '') {
+                                AllData.profiledata.pointSafe =
+                                    double.tryParse(pointController.text);
+                                AllData.profiledata.pointSafeDate =
+                                    DateTime.now();
+                                DBHelper.update(
+                                    'Profiledata', AllData.profiledata.toMap());
+                                pointController.text = '';
+          
+                                FocusScope.of(context).requestFocus(FocusNode());
+                                setState(() {});
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                // ListTile(
+                //   title: SizedBox(
+                //         width: 90,
+                //         child: Row(
+                //           children: [
+                //             Expanded(
+                //               child: TextField(
+                //                 inputFormatters: [
+                //                   FilteringTextInputFormatter.allow(RegExp(
+                //                       r'^(?:-?(?:[0-9]+))?(?:\,[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?')),
+                //                 ],
+                //                 // controller: weightController,
+                //                 // onChanged: (val) => onWeightChanged(),
+                //               ),
+                //             ),
+                //             const Text(' Punkte'),
+                //           ],
+                //         ),
+                //       ),
+                //   // title: Expanded(
+                //   //     child: TextField(
+                //   //   decoration: InputDecoration(
+                //   //     labelText: 'Punkte im Tresor',
+                //   //     hintText: '${AllData.profiledata.pointSafe}',
+                //   //     border: const OutlineInputBorder(
+                //   //         borderRadius: BorderRadius.all(Radius.circular(10))),
+                //   //   ),
+                //   // )),
+                //   trailing: IconButton(
+                //     icon: Icon(Icons.save),
+                //     onPressed: () {},
+                //   ),
+                // )
+              ],
+            ),
           ),
           GestureDetector(
-            child: ListTile(
-              leading: const Icon(Icons.calendar_view_day),
-              title: const Text(
-                'Tagespunkte',
-              ),
-              subtitle:
-                  const Text('Automatisch bei Änderung des Gewichts anpassen?'),
-              trailing: Checkbox(
-                value: checkboxValue,
-                onChanged: (val) => checkBoxChanged(val),
+            child: Card(
+              child: ListTile(
+                leading: const Icon(Icons.calendar_view_day),
+                title: const Text(
+                  'Tagespunkte',
+                ),
+                subtitle:
+                    const Text('Automatisch bei Änderung des Gewichts anpassen?'),
+                trailing: Checkbox(
+                  value: checkboxValue,
+                  onChanged: (val) => checkBoxChanged(val),
+                ),
               ),
             ),
             onTap: () {
@@ -206,10 +215,12 @@ class _SettingsState extends State<Settings> {
           //   value: true,
           // ),
           GestureDetector(
-            child: const ListTile(
-              leading: Icon(Icons.my_library_books),
-              title: Text(
-                'Credits',
+            child: Card(
+              child: const ListTile(
+                leading: Icon(Icons.my_library_books),
+                title: Text(
+                  'Credits',
+                ),
               ),
             ),
             onTap: () {
@@ -217,11 +228,13 @@ class _SettingsState extends State<Settings> {
             },
           ),
           GestureDetector(
-              child: const ListTile(
-                leading: Icon(
-                  Icons.description,
+              child: Card(
+                child: const ListTile(
+                  leading: Icon(
+                    Icons.description,
+                  ),
+                  title: Text('Lizensen'),
                 ),
-                title: Text('Lizensen'),
               ),
               onTap: () => showLicensePage(
                     context: context,
@@ -239,10 +252,12 @@ class _SettingsState extends State<Settings> {
                   )),
 
           GestureDetector(
-            child: const ListTile(
-              leading: Icon(Icons.delete_forever),
-              title: Text(
-                'Daten löschen',
+            child: Card(
+              child: const ListTile(
+                leading: Icon(Icons.delete_forever),
+                title: Text(
+                  'Daten löschen',
+                ),
               ),
             ),
             onTap: () {
@@ -250,18 +265,19 @@ class _SettingsState extends State<Settings> {
             },
           ),
 
-          GestureDetector(
-            child: const ListTile(
-              leading: Icon(Icons.logout),
-              title: Text(
-                'Abmelden',
-                style: TextStyle(fontStyle: FontStyle.italic),
-              ),
-            ),
-            onTap: () {
-              // Navigator.of(context).pushNamed(Credits.routeName);
-            },
-          ),
+          // GestureDetector(
+          //   child: const ListTile(
+          //     leading: Icon(Icons.logout),
+          //     title: Text(
+          //       'Abmelden',
+          //       style: TextStyle(fontStyle: FontStyle.italic),
+          //     ),
+          //   ),
+          //   onTap: () {
+          //     // Navigator.of(context).pushNamed(Credits.routeName);
+          //     AuthService().signOut();
+          //   },
+          // ),
         ],
       ),
     );

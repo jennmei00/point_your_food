@@ -74,6 +74,7 @@ class NavigationState extends State<Navigation> {
         onTap: (index) {
           //Handle button tap
           setState(() {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
             _page = index;
           });
         },

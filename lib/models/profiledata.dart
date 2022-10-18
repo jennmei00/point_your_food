@@ -37,24 +37,24 @@ class ProfileData {
 
   ProfileData.forDB();
 
-  static ProfileData getDummyData() {
-    return ProfileData(
-      id: '65465465',
-      name: 'Jenny',
-      email: 'jennmei00@yahoo.de',
-      dailyPoints: 22,
-      pointSafe: 3,
-      startWeight: Weight.getDummyDataStart(),
-      targetWeight: Weight.getDummyDataTarget(),
-      currentWeight: Weight.getDummyDataCurrent(),
-      age: null,
-      gender: null,
-      goal: null,
-      height: null,
-      movement: null,
-      pointSafeDate: null,
-    );
-  }
+  // static ProfileData getDummyData() {
+  //   return ProfileData(
+  //     id: '65465465',
+  //     name: 'Jenny',
+  //     email: 'jennmei00@yahoo.de',
+  //     dailyPoints: 22,
+  //     pointSafe: 3,
+  //     startWeight: Weight.getDummyDataStart(),
+  //     targetWeight: Weight.getDummyDataTarget(),
+  //     currentWeight: Weight.getDummyDataCurrent(),
+  //     age: null,
+  //     gender: null,
+  //     goal: null,
+  //     height: null,
+  //     movement: null,
+  //     pointSafeDate: null,
+  //   );
+  // }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};

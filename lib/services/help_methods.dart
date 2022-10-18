@@ -203,6 +203,8 @@ Future<void> calcDailyRestPoints(
     required double points}) async {
   Diary diary = AllData.diaries.firstWhere((element) => element.id == diaryId);
 
+  diary.actualPointSafe ??= AllData.profiledata.pointSafe;
+
   if (!add) {
     if (Jiffy(diary.date).isBefore(DateTime.now(), Units.DAY)) {
       diary.dailyRestPoints = diary.dailyRestPoints! + points;

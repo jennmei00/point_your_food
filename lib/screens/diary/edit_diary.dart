@@ -36,189 +36,199 @@ class _EditDiaryState extends State<EditDiary> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Essen bearbeiten'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            Row(
-              children: const [
-                Icon(
-                  CommunityMaterialIcons.coffee,
-                  size: 40,
-                ),
-                Text(
-                  '  Frühstück',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-              ],
-            ),
-            Column(
-              children: diary!.breakfast!
-                  .map((e) => ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.only(left: 35),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(e.title!),
-                                Text('${decimalFormat(e.points!)} P.'),
-                              ]),
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(CommunityMaterialIcons.delete),
-                          onPressed: () => deleteCard(e, PointType.breakfast),
-                        ),
-                      ))
-                  .toList(),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: IconButton(
-                  icon:
-                      const Icon(CommunityMaterialIcons.plus_circle, size: 35),
-                  onPressed: () => addCard(PointType.breakfast)),
-            ),
-            const Divider(
-              indent: 15,
-              endIndent: 15,
-              thickness: 2,
-              color: Colors.black,
-            ),
-            Row(
-              children: const [
-                Icon(
-                  CommunityMaterialIcons.baguette,
-                  size: 40,
-                ),
-                Text(
-                  '  Mittag',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-              ],
-            ),
-            Column(
-              children: diary!.lunch!
-                  .map((e) => ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.only(left: 35),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(e.title!),
-                                Text('${decimalFormat(e.points!)} P.'),
-                              ]),
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(CommunityMaterialIcons.delete),
-                          onPressed: () => deleteCard(e, PointType.lunch),
-                        ),
-                      ))
-                  .toList(),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: IconButton(
-                  icon:
-                      const Icon(CommunityMaterialIcons.plus_circle, size: 35),
-                  onPressed: () => addCard(PointType.lunch)),
-            ),
-            const Divider(
-              indent: 15,
-              endIndent: 15,
-              thickness: 2,
-              color: Colors.black,
-            ),
-            Row(
-              children: const [
-                Icon(
-                  CommunityMaterialIcons.noodles,
-                  size: 40,
-                ),
-                Text(
-                  '  Abend',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-              ],
-            ),
-            Column(
-              children: diary!.dinner!
-                  .map((e) => ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.only(left: 35),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(e.title!),
-                                Text('${decimalFormat(e.points!)} P.'),
-                              ]),
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(CommunityMaterialIcons.delete),
-                          onPressed: () => deleteCard(e, PointType.dinner),
-                        ),
-                      ))
-                  .toList(),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: IconButton(
-                  icon:
-                      const Icon(CommunityMaterialIcons.plus_circle, size: 35),
-                  onPressed: () => addCard(PointType.dinner)),
-            ),
-            const Divider(
-              indent: 15,
-              endIndent: 15,
-              thickness: 2,
-              color: Colors.black,
-            ),
-            Row(
-              children: const [
-                Icon(
-                  CommunityMaterialIcons.candycane,
-                  size: 40,
-                ),
-                Text(
-                  '  Snack',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-              ],
-            ),
-            Column(
-              children: diary!.snack!
-                  .map((e) => ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.only(left: 35),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(e.title!),
-                                Text('${decimalFormat(e.points!)} P.'),
-                              ]),
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(CommunityMaterialIcons.delete),
-                          onPressed: () => deleteCard(e, PointType.snack),
-                        ),
-                      ))
-                  .toList(),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: IconButton(
-                  icon:
-                      const Icon(CommunityMaterialIcons.plus_circle, size: 35),
-                  onPressed: () => addCard(PointType.snack)),
-            ),
-          ],
+    return WillPopScope(
+      onWillPop: () async {
+        print('Here');
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Essen bearbeiten'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: [
+              Row(
+                children: const [
+                  Icon(
+                    CommunityMaterialIcons.coffee,
+                    size: 40,
+                  ),
+                  Text(
+                    '  Frühstück',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                ],
+              ),
+              Column(
+                children: diary!.breakfast!
+                    .map((e) => ListTile(
+                          title: Padding(
+                            padding: const EdgeInsets.only(left: 35),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(e.title!),
+                                  Text('${decimalFormat(e.points!)} P.'),
+                                ]),
+                          ),
+                          trailing: IconButton(
+                            icon: const Icon(CommunityMaterialIcons.delete),
+                            onPressed: () => deleteCard(e, PointType.breakfast),
+                          ),
+                        ))
+                    .toList(),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: IconButton(
+                    icon: const Icon(CommunityMaterialIcons.plus_circle,
+                        size: 35),
+                    onPressed: () => addCard(PointType.breakfast)),
+              ),
+              const Divider(
+                indent: 15,
+                endIndent: 15,
+                thickness: 2,
+                color: Colors.black,
+              ),
+              Row(
+                children: const [
+                  Icon(
+                    CommunityMaterialIcons.baguette,
+                    size: 40,
+                  ),
+                  Text(
+                    '  Mittag',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                ],
+              ),
+              Column(
+                children: diary!.lunch!
+                    .map((e) => ListTile(
+                          title: Padding(
+                            padding: const EdgeInsets.only(left: 35),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(e.title!),
+                                  Text('${decimalFormat(e.points!)} P.'),
+                                ]),
+                          ),
+                          trailing: IconButton(
+                            icon: const Icon(CommunityMaterialIcons.delete),
+                            onPressed: () => deleteCard(e, PointType.lunch),
+                          ),
+                        ))
+                    .toList(),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: IconButton(
+                    icon: const Icon(CommunityMaterialIcons.plus_circle,
+                        size: 35),
+                    onPressed: () => addCard(PointType.lunch)),
+              ),
+              const Divider(
+                indent: 15,
+                endIndent: 15,
+                thickness: 2,
+                color: Colors.black,
+              ),
+              Row(
+                children: const [
+                  Icon(
+                    CommunityMaterialIcons.noodles,
+                    size: 40,
+                  ),
+                  Text(
+                    '  Abend',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                ],
+              ),
+              Column(
+                children: diary!.dinner!
+                    .map((e) => ListTile(
+                          title: Padding(
+                            padding: const EdgeInsets.only(left: 35),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(e.title!),
+                                  Text('${decimalFormat(e.points!)} P.'),
+                                ]),
+                          ),
+                          trailing: IconButton(
+                            icon: const Icon(CommunityMaterialIcons.delete),
+                            onPressed: () => deleteCard(e, PointType.dinner),
+                          ),
+                        ))
+                    .toList(),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: IconButton(
+                    icon: const Icon(CommunityMaterialIcons.plus_circle,
+                        size: 35),
+                    onPressed: () => addCard(PointType.dinner)),
+              ),
+              const Divider(
+                indent: 15,
+                endIndent: 15,
+                thickness: 2,
+                color: Colors.black,
+              ),
+              Row(
+                children: const [
+                  Icon(
+                    CommunityMaterialIcons.candycane,
+                    size: 40,
+                  ),
+                  Text(
+                    '  Snack',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                ],
+              ),
+              Column(
+                children: diary!.snack!
+                    .map((e) => ListTile(
+                          title: Padding(
+                            padding: const EdgeInsets.only(left: 35),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(e.title!),
+                                  Text('${decimalFormat(e.points!)} P.'),
+                                ]),
+                          ),
+                          trailing: IconButton(
+                            icon: const Icon(CommunityMaterialIcons.delete),
+                            onPressed: () => deleteCard(e, PointType.snack),
+                          ),
+                        ))
+                    .toList(),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: IconButton(
+                    icon: const Icon(CommunityMaterialIcons.plus_circle,
+                        size: 35),
+                    onPressed: () => addCard(PointType.snack)),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -316,6 +326,7 @@ class _EditDiaryState extends State<EditDiary> {
         content: const Text('Gelöscht'),
         action: SnackBarAction(
           label: 'Rückgängig',
+          // textColor: ,
           onPressed: () async {
             if (type == PointType.breakfast) {
               removed as Breakfast;

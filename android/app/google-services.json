@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "760200443173",
+    "project_id": "pointyourfood-jstudios",
+    "storage_bucket": "pointyourfood-jstudios.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760200443173:android:0fc21a9129e3335b7e16cc",
+        "android_client_info": {
+          "package_name": "com.example.punkte_zaehler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760200443173-jhbo8qdl56vh0pocjpnudt3vibm7d0n6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAWcrRX_6YrLiH86iOqNzcAO9NzGcySb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760200443173-jhbo8qdl56vh0pocjpnudt3vibm7d0n6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "760200443173-0g3r9ag7davjdj97pe4t6ts1j2s14vbh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.punkteZaehler"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

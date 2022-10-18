@@ -51,8 +51,10 @@ class _HomeState extends State<Home> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.elliptical(300, 200),
-                    bottomRight: Radius.elliptical(190, 60)),
+                    bottomLeft: Radius.circular(70),
+                    bottomRight: Radius.circular(70)),
+                    // bottomLeft: Radius.elliptical(300, 200),
+                    // bottomRight: Radius.elliptical(190, 60)),
                 color: Theme.of(context).primaryColor,
               ),
               // color: Theme.of(context).primaryColor,
@@ -74,17 +76,17 @@ class _HomeState extends State<Home> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        AllData.profiledata.name ?? '',
-                        // 'NAME',
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                      Text(
-                        AllData.profiledata.email ?? '',
-                        // '',
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                      const SizedBox(height: 20),
+                      // Text(
+                      //   AllData.profiledata.name ?? '',
+                      //   // 'NAME',
+                      //   style: const TextStyle(color: Colors.white),
+                      // ),
+                      // Text(
+                      //   AllData.profiledata.email ?? '',
+                      //   // '',
+                      //   style: const TextStyle(color: Colors.white),
+                      // ),
+                      // const SizedBox(height: 20),
                       Text(
                         '${decimalFormat(AllData.profiledata.dailyPoints!)} Tagespunkte',
                         style: const TextStyle(

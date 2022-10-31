@@ -3,9 +3,14 @@ import 'package:intl/intl.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class CustomLineChart extends StatelessWidget {
+class CustomLineChart extends StatefulWidget {
   const CustomLineChart({Key? key}) : super(key: key);
 
+  @override
+  State<CustomLineChart> createState() => _CustomLineChartState();
+}
+
+class _CustomLineChartState extends State<CustomLineChart> {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(

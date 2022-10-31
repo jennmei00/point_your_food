@@ -4,7 +4,7 @@
     "type": "MERGED_MANIFESTS",
     "kind": "Directory"
   },
-  "applicationId": "com.example.punkte_zaehler",
+  "applicationId": "com.pointyourfood",
   "variantName": "debug",
   "elements": [
     {

@@ -122,7 +122,7 @@ class _CalcDailypointsSheetState extends State<CalcDailypointsSheet> {
                     controller: heightController,
                     mandatory: true,
                     labelText: 'Größe',
-                    hintText: 'in mm',
+                    hintText: 'in cm',
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

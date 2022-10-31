@@ -36,7 +36,7 @@ class _ScaleState extends State<Scale> {
         child: Card(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
+            children: [
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
@@ -52,12 +52,6 @@ class _ScaleState extends State<Scale> {
           ),
         ),
       ),
-      // const Divider(
-      //   indent: 15,
-      //   endIndent: 15,
-      //   thickness: 2,
-      //   color: Colors.black,
-      // ),
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Card(
@@ -129,9 +123,10 @@ class _ScaleState extends State<Scale> {
                         backgroundColor: MaterialStateProperty.all(
                             // Theme.of(context).primaryColor.withOpacity(0.5)),
                             Colors.white),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)))),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)))),
                     onPressed: () => addData(),
                     child: const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -144,12 +139,6 @@ class _ScaleState extends State<Scale> {
           ),
         ),
       ),
-      // const Divider(
-      //   indent: 15,
-      //   endIndent: 15,
-      //   thickness: 2,
-      //   color: Colors.black,
-      // ),
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Card(
@@ -191,25 +180,31 @@ class _ScaleState extends State<Scale> {
       }
 
       if (AllData.prefs.getBool('autoDailypointChange')!) {
-        double newDaily = calculateDailypoints(
-            gender: AllData.profiledata.gender!.index,
-            weight: doubleCommaToPoint(weightController.text),
-            height: AllData.profiledata.height!,
-            move: AllData.profiledata.movement!.index,
-            purpose: AllData.profiledata.goal!.index,
-            age: AllData.profiledata.age!);
+        if (AllData.profiledata.gender != null &&
+            AllData.profiledata.height != null &&
+            AllData.profiledata.movement != null &&
+            AllData.profiledata.goal != null &&
+            AllData.profiledata.age != null) {
+          double newDaily = calculateDailypoints(
+              gender: AllData.profiledata.gender!.index,
+              weight: doubleCommaToPoint(weightController.text),
+              height: AllData.profiledata.height!,
+              move: AllData.profiledata.movement!.index,
+              purpose: AllData.profiledata.goal!.index,
+              age: AllData.profiledata.age!);
 
-        if (newDaily != AllData.profiledata.dailyPoints) {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            behavior: SnackBarBehavior.floating,
-            margin: const EdgeInsets.all(20),
-            content: Text(
-              'Tagespunkte geändert:   ${decimalFormat(AllData.profiledata.dailyPoints!)} ➟ ${decimalFormat(newDaily)} ',
-              textAlign: TextAlign.center,
-            ),
-          ));
-          AllData.profiledata.dailyPoints = newDaily;
+          if (newDaily != AllData.profiledata.dailyPoints) {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.all(20),
+              content: Text(
+                'Tagespunkte geändert:   ${decimalFormat(AllData.profiledata.dailyPoints!)} ➟ ${decimalFormat(newDaily)} ',
+                textAlign: TextAlign.center,
+              ),
+            ));
+            AllData.profiledata.dailyPoints = newDaily;
+          }
         } else {
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

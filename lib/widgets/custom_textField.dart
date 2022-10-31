@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:punkte_zaehler/models/enums.dart';
 import 'package:validators/validators.dart';
 
@@ -63,12 +62,11 @@ class CustomTextField extends StatelessWidget {
 
           return null;
         },
-        
         decoration: InputDecoration(
           filled: true,
           fillColor: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
-          // fillColor: HexColor('38AECC').withOpacity(0.5),
           labelText: labelText,
+          floatingLabelStyle: TextStyle(backgroundColor: Colors.white),
           hintText: hintText,
           border: const OutlineInputBorder(
             borderSide: BorderSide.none,

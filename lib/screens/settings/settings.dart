@@ -214,19 +214,19 @@ class _SettingsState extends State<Settings> {
           //   onChanged: (val) {},
           //   value: true,
           // ),
-          GestureDetector(
-            child: Card(
-              child: const ListTile(
-                leading: Icon(Icons.my_library_books),
-                title: Text(
-                  'Credits',
-                ),
-              ),
-            ),
-            onTap: () {
-              // Navigator.of(context).pushNamed(Credits.routeName);
-            },
-          ),
+          // GestureDetector(
+          //   child: Card(
+          //     child: const ListTile(
+          //       leading: Icon(Icons.my_library_books),
+          //       title: Text(
+          //         'Credits',
+          //       ),
+          //     ),
+          //   ),
+          //   onTap: () {
+          //     Navigator.of(context).pushNamed(Credits.routeName);
+          //   },
+          // ),
           GestureDetector(
               child: Card(
                 child: const ListTile(
@@ -251,19 +251,19 @@ class _SettingsState extends State<Settings> {
                     // applicationLegalese: 'Copyright My Company'
                   )),
 
-          GestureDetector(
-            child: Card(
-              child: const ListTile(
-                leading: Icon(Icons.delete_forever),
-                title: Text(
-                  'Daten löschen',
-                ),
-              ),
-            ),
-            onTap: () {
-              // Navigator.of(context).pushNamed(Credits.routeName);
-            },
-          ),
+          // GestureDetector(
+          //   child: Card(
+          //     child: const ListTile(
+          //       leading: Icon(Icons.delete_forever),
+          //       title: Text(
+          //         'Daten löschen',
+          //       ),
+          //     ),
+          //   ),
+          //   onTap: () {
+          //     // Navigator.of(context).pushNamed(Credits.routeName);
+          //   },
+          // ),
 
           // GestureDetector(
           //   child: const ListTile(

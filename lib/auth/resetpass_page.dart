@@ -47,7 +47,7 @@
 //             ),
 //             Text(
 //               "Zurücksetzen",
-//               style: themeData.textTheme.headline1!.copyWith(
+//               style: themeData.textTheme.displayLarge!.copyWith(
 //                   fontSize: 50, fontWeight: FontWeight.w500, letterSpacing: 4),
 //             ),
 //             const SizedBox(
@@ -55,7 +55,7 @@
 //             ),
 //             Text(
 //               "E-Mail eingeben und Passwort zurücksetzen",
-//               style: themeData.textTheme.headline1!.copyWith(
+//               style: themeData.textTheme.displayLarge!.copyWith(
 //                   fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 4),
 //             ),
 //             const SizedBox(

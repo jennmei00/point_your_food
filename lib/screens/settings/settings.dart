@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/models/enums.dart';
 import 'package:punkte_zaehler/screens/settings/edit_activity.dart';
 import 'package:punkte_zaehler/screens/settings/edit_food.dart';
-import 'package:punkte_zaehler/screens/settings/profile.dart';
-import 'package:punkte_zaehler/services/firebase/auth.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
-import 'package:punkte_zaehler/widgets/custom_textfield.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);

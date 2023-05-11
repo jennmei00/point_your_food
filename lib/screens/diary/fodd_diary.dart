@@ -2,7 +2,6 @@ import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';

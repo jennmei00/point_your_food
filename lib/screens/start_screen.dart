@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:provider/provider.dart';
-import 'package:punkte_zaehler/auth/user.dart';
 import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/models/diary.dart';
@@ -13,7 +11,6 @@ import 'package:punkte_zaehler/models/weigh.dart';
 import 'package:punkte_zaehler/models/weight.dart';
 import 'package:punkte_zaehler/screens/navigation.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
-import 'package:punkte_zaehler/services/firebase/database.dart';
 import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

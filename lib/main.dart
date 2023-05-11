@@ -2,21 +2,12 @@
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:punkte_zaehler/auth/login.dart';
-import 'package:punkte_zaehler/auth/register.dart';
-import 'package:punkte_zaehler/auth/resetpass.dart';
-import 'package:punkte_zaehler/auth/resetpass_page.dart';
-import 'package:punkte_zaehler/auth/user.dart';
-import 'package:punkte_zaehler/firebase_options.dart';
 import 'package:punkte_zaehler/screens/diary/activities.dart';
 import 'package:punkte_zaehler/screens/diary/edit_diary.dart';
 import 'package:punkte_zaehler/screens/point_calculator.dart';
 import 'package:punkte_zaehler/screens/settings/edit_activity.dart';
 import 'package:punkte_zaehler/screens/settings/edit_food.dart';
 import 'package:punkte_zaehler/screens/settings/profile.dart';
-import 'package:punkte_zaehler/screens/start_screen.dart';
-import 'package:punkte_zaehler/services/firebase/auth.dart';
-import 'package:punkte_zaehler/services/firebase/firebase_help_methods.dart';
 import 'package:punkte_zaehler/services/theme.dart';
 import 'package:punkte_zaehler/services/theme_notifier.dart';
 import 'package:punkte_zaehler/wrapper.dart';
@@ -61,7 +52,7 @@ class _MyAppState extends State<MyApp> {
     //   initialData: UserAuth(uid: 'NULL'),
     //   child: 
       MaterialApp(
-          title: 'Flutter Demo',
+          title: 'PointYourFood',
           theme: themeNotifier.getTheme(),
           home: const Wrapper(),
           // home: const ResetPassword(),

@@ -69,7 +69,7 @@
 //           ),
 //           Text(
 //             "Wilkommen",
-//             style: themeData.textTheme.headline1!.copyWith(
+//             style: themeData.textTheme.displayLarge!.copyWith(
 //                 fontSize: 50, fontWeight: FontWeight.w500, letterSpacing: 4),
 //           ),
 //           const SizedBox(
@@ -77,7 +77,7 @@
 //           ),
 //           Text(
 //             "Bitte registrieren oder anmelden",
-//             style: themeData.textTheme.headline1!.copyWith(
+//             style: themeData.textTheme.displayLarge!.copyWith(
 //                 fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 4),
 //           ),
 //           const SizedBox(

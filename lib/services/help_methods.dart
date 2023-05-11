@@ -1,10 +1,8 @@
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:punkte_zaehler/models/activity.dart';
 import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:punkte_zaehler/models/diary.dart';
-import 'package:punkte_zaehler/models/food.dart';
 import 'package:punkte_zaehler/services/db_helper.dart';
 
 double roundPoints(double points) {

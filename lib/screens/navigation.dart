@@ -41,7 +41,7 @@ class NavigationState extends State<Navigation> {
             ),
       body: _navScreens[_page],
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         color: Theme.of(context).primaryColor,
         items: <Widget>[
           Icon(

@@ -4,8 +4,8 @@ import 'package:hexcolor/hexcolor.dart';
 // import 'package:haushaltsbuch/services/input_theme.dart';
 
 final TextTheme textTheme = TextTheme(
-  headline1: TextStyle(color: Colors.white),
-  // headline1: GoogleFonts.raleway(
+  displayLarge: TextStyle(color: Colors.white),
+  // displayLarge: GoogleFonts.raleway(
   //     fontSize: 97, fontWeight: FontWeight.w300, letterSpacing: -1.5),
   // headline2: GoogleFonts.raleway(
   //     fontSize: 61, fontWeight: FontWeight.w300, letterSpacing: -0.5),
@@ -84,8 +84,8 @@ final lightTheme = ThemeData(
     brightness: colorSchemeLight.brightness,
     scaffoldBackgroundColor: colorSchemeLight.background,
     // appBarTheme: AppBarTheme(backgroundColor: Colors.red[900]),
-    toggleableActiveColor: colorSchemeLight
-        .secondary, //for example: aktiveColor of the Switch-Widget
+    // toggleableActiveColor: colorSchemeLight
+    //     .secondary, //for example: aktiveColor of the Switch-Widget  //DEPRECATED
     indicatorColor: Colors.white, //for example: of the TabBar
     //floatingActionButtonTheme: FloatingActionButtonThemeData(extendedTextStyle: TextStyle(color: colorSchemeLight.onSecondary)),
     //splashColor: Color(0xffbc477b),
@@ -120,6 +120,6 @@ final darkTheme = ThemeData(
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: colorSchemeDark.secondary,
     ),
-    toggleableActiveColor: colorSchemeDark.secondary,
+    // toggleableActiveColor: colorSchemeDark.secondary, //DEPRECATED
     // inputDecorationTheme: InputTheme().theme(colorSchemeDark),
     indicatorColor: colorSchemeDark.secondary);

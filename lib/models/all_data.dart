@@ -1,4 +1,3 @@
-import 'package:punkte_zaehler/auth/user.dart';
 import 'package:punkte_zaehler/models/food.dart';
 import 'package:punkte_zaehler/models/foods.dart';
 import 'package:punkte_zaehler/models/profiledata.dart';

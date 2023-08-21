@@ -40,7 +40,6 @@ class _EditDiaryState extends State<EditDiary> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        print('Here');
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         return true;
       },
@@ -53,8 +52,8 @@ class _EditDiaryState extends State<EditDiary> {
           child: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Icon(
                     CommunityMaterialIcons.coffee,
                     size: 40,
@@ -98,8 +97,8 @@ class _EditDiaryState extends State<EditDiary> {
                 thickness: 2,
                 color: Colors.black,
               ),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Icon(
                     CommunityMaterialIcons.baguette,
                     size: 40,
@@ -143,8 +142,8 @@ class _EditDiaryState extends State<EditDiary> {
                 thickness: 2,
                 color: Colors.black,
               ),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Icon(
                     CommunityMaterialIcons.noodles,
                     size: 40,
@@ -188,8 +187,8 @@ class _EditDiaryState extends State<EditDiary> {
                 thickness: 2,
                 color: Colors.black,
               ),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Icon(
                     CommunityMaterialIcons.candycane,
                     size: 40,

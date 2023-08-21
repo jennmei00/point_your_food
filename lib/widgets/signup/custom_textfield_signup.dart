@@ -29,7 +29,7 @@ class CustomTextFieldSignUp extends StatelessWidget {
           floatingLabelStyle: const TextStyle(color: Colors.white),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
                 // color: Theme.of(context).colorScheme.secondary,
                 color: Colors.white),
           ),

@@ -242,7 +242,8 @@ class _CalcDailypointsSheetState extends State<CalcDailypointsSheet> {
   void calcTodayDiaryRestPoints() {
     Diary? d;
     d = AllData.diaries.firstWhere(
-        (element) => Jiffy(element.date).isSame(DateTime.now(), Units.DAY),
+        (element) => Jiffy.parseFromDateTime(element.date!)
+            .isSame(Jiffy.parseFromDateTime(DateTime.now()), unit: Unit.day),
         orElse: () => Diary(
             id: 'NULL',
             date: null,
@@ -272,17 +273,18 @@ class _CalcDailypointsSheetState extends State<CalcDailypointsSheet> {
         restpoints += element.points!;
       }
       AllData.diaries
-          .firstWhere((element) =>
-              Jiffy(element.date).isSame(DateTime.now(), Units.DAY))
+          .firstWhere((element) => Jiffy.parseFromDateTime(element.date!)
+              .isSame(Jiffy.parseFromDateTime(DateTime.now()), unit: Unit.day))
           .dailyRestPoints = restpoints;
       DBHelper.update(
           'Diary',
           AllData.diaries
-              .firstWhere((element) =>
-                  Jiffy(element.date).isSame(DateTime.now(), Units.DAY))
+              .firstWhere((element) => Jiffy.parseFromDateTime(element.date!)
+                  .isSame(Jiffy.parseFromDateTime(DateTime.now()),
+                      unit: Unit.day))
               .toMap(),
           where:
-              'ID = "${AllData.diaries.firstWhere((element) => Jiffy(element.date).isSame(DateTime.now(), Units.DAY)).id}"');
+              'ID = "${AllData.diaries.firstWhere((element) => Jiffy.parseFromDateTime(element.date!).isSame(Jiffy.parseFromDateTime(DateTime.now()), unit: Unit.day)).id}"');
     }
   }
 }

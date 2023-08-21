@@ -62,27 +62,27 @@ double doubleCommaToPoint(String num) {
 DateTime getMondayOfWeek(DateTime date) {
   DateTime monday;
 
-  switch (Jiffy(date).day) {
+  switch (Jiffy.parseFromDateTime(date).dayOfWeek) {
     case 1:
-      monday = Jiffy(date).subtract(days: 6).dateTime;
+      monday = Jiffy.parseFromDateTime(date).subtract(days: 6).dateTime;
       break;
     case 2:
       monday = date;
       break;
     case 3:
-      monday = Jiffy(date).subtract(days: 1).dateTime;
+      monday = Jiffy.parseFromDateTime(date).subtract(days: 1).dateTime;
       break;
     case 4:
-      monday = Jiffy(date).subtract(days: 2).dateTime;
+      monday = Jiffy.parseFromDateTime(date).subtract(days: 2).dateTime;
       break;
     case 5:
-      monday = Jiffy(date).subtract(days: 3).dateTime;
+      monday = Jiffy.parseFromDateTime(date).subtract(days: 3).dateTime;
       break;
     case 6:
-      monday = Jiffy(date).subtract(days: 4).dateTime;
+      monday = Jiffy.parseFromDateTime(date).subtract(days: 4).dateTime;
       break;
     case 7:
-      monday = Jiffy(date).subtract(days: 5).dateTime;
+      monday = Jiffy.parseFromDateTime(date).subtract(days: 5).dateTime;
       break;
     default:
       monday = date;
@@ -93,27 +93,27 @@ DateTime getMondayOfWeek(DateTime date) {
 DateTime getSundayOfWeek(DateTime date) {
   DateTime sunday;
 
-  switch (Jiffy(date).day) {
+  switch (Jiffy.parseFromDateTime(date).dayOfWeek) {
     case 1:
       sunday = date;
       break;
     case 2:
-      sunday = Jiffy(date).subtract(days: 1).dateTime;
+      sunday = Jiffy.parseFromDateTime(date).subtract(days: 1).dateTime;
       break;
     case 3:
-      sunday = Jiffy(date).subtract(days: 2).dateTime;
+      sunday = Jiffy.parseFromDateTime(date).subtract(days: 2).dateTime;
       break;
     case 4:
-      sunday = Jiffy(date).subtract(days: 3).dateTime;
+      sunday = Jiffy.parseFromDateTime(date).subtract(days: 3).dateTime;
       break;
     case 5:
-      sunday = Jiffy(date).subtract(days: 4).dateTime;
+      sunday = Jiffy.parseFromDateTime(date).subtract(days: 4).dateTime;
       break;
     case 6:
-      sunday = Jiffy(date).subtract(days: 5).dateTime;
+      sunday = Jiffy.parseFromDateTime(date).subtract(days: 5).dateTime;
       break;
     case 7:
-      sunday = Jiffy(date).subtract(days: 6).dateTime;
+      sunday = Jiffy.parseFromDateTime(date).subtract(days: 6).dateTime;
       break;
     default:
       sunday = date;
@@ -204,7 +204,7 @@ Future<void> calcDailyRestPoints(
   diary.actualPointSafe ??= AllData.profiledata.pointSafe;
 
   if (!add) {
-    if (Jiffy(diary.date).isBefore(DateTime.now(), Units.DAY)) {
+    if (Jiffy.parseFromDateTime(diary.date!).isBefore(Jiffy.parseFromDateTime(DateTime.now()), unit: Unit.day)) {
       diary.dailyRestPoints = diary.dailyRestPoints! + points;
     } else {
       diary.dailyRestPoints = diary.dailyRestPoints! + points;
@@ -224,7 +224,7 @@ Future<void> calcDailyRestPoints(
       }
     }
   } else {
-    if (Jiffy(diary.date).isBefore(DateTime.now(), Units.DAY)) {
+    if (Jiffy.parseFromDateTime(diary.date!).isBefore(Jiffy.parseFromDateTime(DateTime.now()), unit: Unit.day)) {
       diary.dailyRestPoints = diary.dailyRestPoints! - points;
     } else {
       if (diary.dailyRestPoints! < points) {

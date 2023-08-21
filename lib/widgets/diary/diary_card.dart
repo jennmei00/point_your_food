@@ -124,8 +124,8 @@ class DiaryCard extends StatelessWidget {
                       const SizedBox(),
                       OutlinedButton(
                           onPressed: () => onPressed(),
-                          child: Row(
-                            children: const [
+                          child: const Row(
+                            children: [
                               Icon(Icons.edit),
                               Text('Bearbeiten'),
                             ],

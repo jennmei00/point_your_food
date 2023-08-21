@@ -1,4 +1,5 @@
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
 import 'package:uuid/uuid.dart';
@@ -243,13 +244,14 @@ class DBHelper {
     // ab Version 2
     if (oldVersion < 2) {
       try {
-        print('Upgrade table');
         await db.execute('ALTER TABLE Diary ADD ActualPointSafe REAL');
         // await db.execute('ALTER TABLE StandingOrder ADD FOREIGN KEY(AccountToID) REFERENCES Account(ID)');
       } catch (ex) {
         // FileHelper()
         //     .writeAppLog(AppLog(ex.toString(), 'Upgrade Tables Version 2'));
-        print('DBHelper $ex');
+        if (kDebugMode) {
+          print('DBHelper $ex');
+        }
       }
     }
   }

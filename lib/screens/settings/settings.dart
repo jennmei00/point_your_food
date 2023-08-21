@@ -44,8 +44,8 @@ class _SettingsState extends State<Settings> {
           //   },
           // ),
           GestureDetector(
-            child: Card(
-              child: const ListTile(
+            child: const Card(
+              child: ListTile(
                 leading: Icon(Icons.food_bank),
                 title: Text(
                   'Essen bearbeiten',
@@ -57,8 +57,8 @@ class _SettingsState extends State<Settings> {
             },
           ),
           GestureDetector(
-            child: Card(
-              child: const ListTile(
+            child: const Card(
+              child: ListTile(
                 leading: Icon(Icons.local_activity),
                 title: Text(
                   'Aktivitäten bearbeiten',
@@ -224,8 +224,8 @@ class _SettingsState extends State<Settings> {
           //   },
           // ),
           GestureDetector(
-              child: Card(
-                child: const ListTile(
+              child: const Card(
+                child: ListTile(
                   leading: Icon(
                     Icons.description,
                   ),

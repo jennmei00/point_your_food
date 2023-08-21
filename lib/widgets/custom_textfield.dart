@@ -66,7 +66,7 @@ class CustomTextField extends StatelessWidget {
           filled: true,
           fillColor: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
           labelText: labelText,
-          floatingLabelStyle: TextStyle(backgroundColor: Colors.white),
+          floatingLabelStyle: const TextStyle(backgroundColor: Colors.white),
           hintText: hintText,
           border: const OutlineInputBorder(
             borderSide: BorderSide.none,

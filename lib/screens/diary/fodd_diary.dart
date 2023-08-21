@@ -65,8 +65,8 @@ class _FoodDiaryState extends State<FoodDiary> {
       children: [
         CalendarTimeline(
           initialDate: initDate,
-          firstDate: Jiffy(DateTime.now()).subtract(years: 1).dateTime,
-          lastDate: Jiffy(DateTime.now()).add(months: 1).dateTime,
+          firstDate: Jiffy.parseFromDateTime(DateTime.now()).subtract(years: 1).dateTime,
+          lastDate: Jiffy.parseFromDateTime(DateTime.now()).add(months: 1).dateTime,
           onDateSelected: (date) => onDateSelected(date),
           leftMargin: 20,
           // dayColor: calenderDayColor,
@@ -117,8 +117,8 @@ class _FoodDiaryState extends State<FoodDiary> {
                         //     ? null
                         //     :
                         () => onEditPressed(0, initDate, context, diary),
-                    child: Row(
-                      children: const [
+                    child: const Row(
+                      children: [
                         Text('Bearbeiten',
                             style: TextStyle(
                                 fontStyle: FontStyle.italic,

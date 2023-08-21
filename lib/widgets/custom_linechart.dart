@@ -42,8 +42,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
       xValueMapper: (_ChartData data, _) => data.x,
       yValueMapper: (_ChartData data, _) => data.y,
     ));
-
-    if (AllData.profiledata.startWeight!.weight != null) {
+    if (AllData.profiledata.startWeight!.weight != null && AllData.weighs.isNotEmpty) {
       list.add(LineSeries<_ChartData, DateTime>(
           dataSource: [
             _ChartData(AllData.weighs.last.date!,
@@ -58,7 +57,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
           name: 'Startgewicht'));
     }
 
-    if (AllData.profiledata.targetWeight!.weight != null) {
+    if (AllData.profiledata.targetWeight!.weight != null && AllData.weighs.isNotEmpty) {
       list.add(LineSeries<_ChartData, DateTime>(
           dataSource: [
             _ChartData(AllData.weighs.last.date!,

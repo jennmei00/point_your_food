@@ -30,8 +30,8 @@ class _ScaleState extends State<Scale> {
     AllData.weighs.sort((obj, obj2) => obj2.date!.compareTo(obj.date!));
 
     return ListView(children: [
-      Padding(
-        padding: const EdgeInsets.all(8.0),
+      const Padding(
+        padding: EdgeInsets.all(8.0),
         child: Card(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

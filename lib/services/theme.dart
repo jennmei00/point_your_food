@@ -3,7 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:haushaltsbuch/services/input_theme.dart';
 
-final TextTheme textTheme = TextTheme(
+const TextTheme textTheme = TextTheme(
   displayLarge: TextStyle(color: Colors.white),
   // displayLarge: GoogleFonts.raleway(
   //     fontSize: 97, fontWeight: FontWeight.w300, letterSpacing: -1.5),

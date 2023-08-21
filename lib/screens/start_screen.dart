@@ -131,21 +131,26 @@ class _StartScreenState extends State<StartScreen> {
   }
 
   Future<void> checkPointSafe() async {
-    if (Jiffy(AllData.profiledata.pointSafeDate)
-        .isBefore(DateTime.now(), Units.DAY)) {
-      double points = 0;
-      AllData.diaries
-          .where((element) =>
-              Jiffy(element.date).isBefore(DateTime.now(), Units.DAY) &&
-              Jiffy(element.date)
-                  .isSameOrAfter(AllData.profiledata.pointSafeDate, Units.DAY))
-          .forEach((element) {
-        points += element.dailyRestPoints! > 4 ? 4 : element.dailyRestPoints!;
-      });
-      AllData.profiledata.pointSafe = AllData.profiledata.pointSafe! + points;
-      AllData.profiledata.pointSafeDate = DateTime.now();
+    if (AllData.profiledata.pointSafeDate != null) {
+      if (Jiffy.parseFromDateTime(AllData.profiledata.pointSafeDate!)
+          .isBefore(Jiffy.parseFromDateTime(DateTime.now()), unit: Unit.day)) {
+        double points = 0;
+        AllData.diaries
+            .where((element) =>
+                Jiffy.parseFromDateTime(element.date!).isBefore(
+                    Jiffy.parseFromDateTime(DateTime.now()),
+                    unit: Unit.day) &&
+                Jiffy.parseFromDateTime(element.date!).isSameOrAfter(
+                    Jiffy.parseFromDateTime(AllData.profiledata.pointSafeDate!),
+                    unit: Unit.day))
+            .forEach((element) {
+          points += element.dailyRestPoints! > 4 ? 4 : element.dailyRestPoints!;
+        });
+        AllData.profiledata.pointSafe = AllData.profiledata.pointSafe! + points;
+        AllData.profiledata.pointSafeDate = DateTime.now();
 
-      await DBHelper.update('Profiledata', AllData.profiledata.toMap());
+        await DBHelper.update('Profiledata', AllData.profiledata.toMap());
+      }
     }
 
     if (AllData.prefs.getInt('deletePointsafeDay') ==
@@ -153,8 +158,9 @@ class _StartScreenState extends State<StartScreen> {
       if (DateTime.now().weekday == 1) {
         AllData.profiledata.pointSafeDate == DateTime.now();
         AllData.profiledata.pointSafe = 0;
-      } else if (Jiffy(AllData.profiledata.pointSafe)
-          .isBefore(getMondayOfWeek(DateTime.now()), Units.DAY)) {
+      } else if (Jiffy.parseFromDateTime(AllData.profiledata.pointSafeDate!)
+          .isBefore(Jiffy.parseFromDateTime(getMondayOfWeek(DateTime.now())),
+              unit: Unit.day)) {
         AllData.profiledata.pointSafeDate == DateTime.now();
         AllData.profiledata.pointSafe = 0;
       }
@@ -163,8 +169,9 @@ class _StartScreenState extends State<StartScreen> {
       if (DateTime.now().weekday == 7) {
         AllData.profiledata.pointSafeDate == DateTime.now();
         AllData.profiledata.pointSafe = 0;
-      } else if (Jiffy(AllData.profiledata.pointSafeDate!)
-          .isBefore(getSundayOfWeek(DateTime.now()), Units.DAY)) {
+      } else if (Jiffy.parseFromDateTime(AllData.profiledata.pointSafeDate!)
+          .isBefore(Jiffy.parseFromDateTime(getSundayOfWeek(DateTime.now())),
+              unit: Unit.day)) {
         AllData.profiledata.pointSafeDate == DateTime.now();
         AllData.profiledata.pointSafe = 0;
       }

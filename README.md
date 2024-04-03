@@ -5,7 +5,9 @@ Developed with Flutter/Dart. This app is only developed for Android Devices and 
 The database is stored locally on the device using sqflite.
 
 ## Short Overview
-Count points / keep a food diary / graph about weight The ideal app to get an overview of your diet by counting points.
+Count points / keep a food diary / graph about weight
+
+The ideal app to get an overview of your diet by counting points.
 
 ### <ins> Views
 ### Home

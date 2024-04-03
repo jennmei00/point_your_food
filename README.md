@@ -5,26 +5,20 @@ Developed with Flutter/Dart. This app is only developed for Android Devices and 
 The database is stored locally on the device using sqflite.
 
 ## Short Overview
-
 Count points / keep a food diary / graph about weight The ideal app to get an overview of your diet by counting points.
 
-## Views
-### <ins>Home
-
+### <ins> Views
+### Home
 Enter starting weight, target weight and current weight. Calculate daily points.
 
-### <ins>Points calculator
-
+### Points calculator
 Easily calculate points by entering calories, fat and grams.
 
-### <ins>Diary
-
+### Diary
 Enter food (breakfast, lunch, dinner, snacks) and fit points. You can see how many points are left for the day and what is in the points vault.
 
-### <ins>Weighing data
- 
+### Weighing data
 By regularly entering the weighing weight, a clear graphic of the weight progression is created.
 
-### <ins>Settings
-
+### Settings
 Add/edit food. Add/edit activities. Customize your points safe.

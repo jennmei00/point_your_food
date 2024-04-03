@@ -1,16 +1,28 @@
-# punkte_zaehler
+PointYourFood
 
-A new Flutter project.
+Developed with Flutter/Dart.
+This app is only developed for Android Devices and currently published in the PlayStore: https://play.google.com/store/apps/details?id=com.pointyourfood
 
-## Getting Started
+The database is stored locally on the device using sqflite.
 
-This project is a starting point for a Flutter application.
+Short Overview:
+Count points / keep a food diary / graph about weight
+The ideal app to get an overview of your diet by counting points.
 
-A few resources to get you started if this is your first Flutter project:
+Home:
+    Enter starting weight, target weight and current weight.
+    Calculate daily points.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Points calculator:
+Easily calculate points by entering calories, fat and grams.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Diary:
+Enter food (breakfast, lunch, dinner, snacks) and fit points. You can see how many points are left for the day and what is in the points vault.
+
+Weighing data:
+By regularly entering the weighing weight, a clear graphic of the weight progression is created.
+
+Settings:
+    Add/edit food.
+    Add/edit activities.
+    Customize your points safe.

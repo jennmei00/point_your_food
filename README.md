@@ -24,3 +24,10 @@ By regularly entering the weighing weight, a clear graphic of the weight progres
 
 ### Settings
 Add/edit food. Add/edit activities. Customize your points safe.
+
+<p>
+  <img width="380" alt="DailyPoints" src="https://github.com/jennmei00/point_your_food/assets/47886905/0397850d-845c-497e-a807-bec67f24f079">
+  <img width="380" alt="Calculator" src="https://github.com/jennmei00/point_your_food/assets/47886905/3e4de4b2-8565-47bf-b238-d7d39244e90d">
+  <img width="380" alt="Diary" src="https://github.com/jennmei00/point_your_food/assets/47886905/50ef08ae-22d5-47ee-bd39-78ec9ded5b45">
+  <img width="380" alt="Statistic" src="https://github.com/jennmei00/point_your_food/assets/47886905/fde20fb8-0c66-4b34-bd0e-e2e40336936f1">
+</p>

@@ -148,11 +148,11 @@ class _ActivitiesState extends State<Activities> {
                       OutlinedButton(
                         onPressed: () => addFitpoint(a),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
+                            backgroundColor: WidgetStateProperty.all(
                                 Theme.of(context)
                                     .primaryColor
                                     .withOpacity(0.5)),
-                            shape: MaterialStateProperty.all<
+                            shape: WidgetStateProperty.all<
                                     RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20)))),

@@ -15,11 +15,11 @@ class CustomButtonSignup extends StatelessWidget {
     return ElevatedButton(
       onPressed: () => onPressed(),
       style: ButtonStyle(
-        textStyle: MaterialStateTextStyle.resolveWith(
+        textStyle: WidgetStateProperty.resolveWith(
             (states) => const TextStyle(letterSpacing: 5)),
         foregroundColor:
-            MaterialStateColor.resolveWith((states) => Colors.black),
-        backgroundColor: MaterialStateColor.resolveWith(
+            WidgetStateProperty.resolveWith((states) => Colors.black),
+        backgroundColor: WidgetStateProperty.resolveWith(
           (states) =>
               // Theme.of(context).colorScheme.secondary
               const Color.fromRGBO(74, 217, 217, 1),

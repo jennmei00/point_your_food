@@ -132,10 +132,10 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(8.0),
                 child: OutlinedButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: WidgetStateProperty.all(
                           // Theme.of(context).primaryColor.withOpacity(0.5)),
                           Colors.white),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20)))),
                   onPressed: () {

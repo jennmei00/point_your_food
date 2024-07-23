@@ -68,7 +68,7 @@
 //     projectId: 'pointyourfood-jstudios',
 //     storageBucket: 'pointyourfood-jstudios.appspot.com',
 //     iosClientId: '760200443173-0g3r9ag7davjdj97pe4t6ts1j2s14vbh.apps.googleusercontent.com',
-//     iosBundleId: 'com.example.punkteZaehler',
+//     iosBundleId: 'com.pointyourfood',
 //   );
 
 //   static const FirebaseOptions macos = FirebaseOptions(
@@ -78,6 +78,6 @@
 //     projectId: 'pointyourfood-jstudios',
 //     storageBucket: 'pointyourfood-jstudios.appspot.com',
 //     iosClientId: '760200443173-0g3r9ag7davjdj97pe4t6ts1j2s14vbh.apps.googleusercontent.com',
-//     iosBundleId: 'com.example.punkteZaehler',
+//     iosBundleId: 'com.pointyourfood',
 //   );
 // }

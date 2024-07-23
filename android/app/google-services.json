@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:760200443173:android:0fc21a9129e3335b7e16cc",
         "android_client_info": {
-          "package_name": "com.example.punkte_zaehler"
+          "package_name": "com.pointyourfood"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "760200443173-0g3r9ag7davjdj97pe4t6ts1j2s14vbh.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.punkteZaehler"
+                "bundle_id": "com.pointyourfood"
               }
             }
           ]

@@ -63,7 +63,7 @@ ColorScheme colorSchemeLight = ColorScheme.light(
   primary: HexColor('#183446'),
   // secondary: Color.fromARGB(200, 4, 58, 82),
   secondary: HexColor('38AECC'),
-  background: Colors.white, //(0xffFCE4EC),
+  surface: Colors.white, //(0xffFCE4EC),
   onSecondary: Colors.black,
   onPrimary: Colors.white,
   //surface: //for example backgroundcolor of the snackbar
@@ -82,7 +82,7 @@ final lightTheme = ThemeData(
     primaryColorDark: colorSchemeLight.primary,
     primarySwatch: Colors.grey,
     brightness: colorSchemeLight.brightness,
-    scaffoldBackgroundColor: colorSchemeLight.background,
+    scaffoldBackgroundColor: colorSchemeLight.surface,
     // appBarTheme: AppBarTheme(backgroundColor: Colors.red[900]),
     // toggleableActiveColor: colorSchemeLight
     //     .secondary, //for example: aktiveColor of the Switch-Widget  //DEPRECATED

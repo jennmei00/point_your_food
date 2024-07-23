@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.punkteZaehler</string>
+	<string>com.pointyourfood</string>
 	<key>PROJECT_ID</key>
 	<string>point-your-food</string>
 	<key>STORAGE_BUCKET</key>

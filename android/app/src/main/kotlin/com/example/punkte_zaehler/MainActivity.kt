@@ -1,4 +1,4 @@
-package com.example.punkte_zaehler
+package com.pointyourfood
 
 import io.flutter.embedding.android.FlutterActivity
 

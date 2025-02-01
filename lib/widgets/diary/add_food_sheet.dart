@@ -16,11 +16,11 @@ class AddFoodSheet extends StatefulWidget {
   final String diaryId;
   final Function onPressed;
   const AddFoodSheet({
-    Key? key,
+    super.key,
     required this.type,
     required this.diaryId,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<AddFoodSheet> createState() => _AddFoodSheetState();

@@ -10,51 +10,54 @@ class CustomTypeAheadFormField extends StatelessWidget {
   final String hintText;
   final Function onSelected;
   const CustomTypeAheadFormField(
-      {Key? key,
+      {super.key,
       required this.controller,
       required this.labelText,
       required this.hintText,
-      required this.onSelected})
-      : super(key: key);
+      required this.onSelected});
 
   @override
   Widget build(BuildContext context) {
-    return TypeAheadFormField<Food>(
-      hideSuggestionsOnKeyboardHide: true,
-      debounceDuration: const Duration(milliseconds: 500),
-      // animationDuration: Duration(milliseconds: 100),
-      suggestionsCallback: (textEditingValue) {
-        if (textEditingValue == '') {
-          return [];
-        }
-        return AllData.foods
-            .where((Food option) => option.title!.startsWith(textEditingValue));
-      },
-      hideOnEmpty: true,
-      validator: (value) {
-        if ((value == null || value.isEmpty || value == '')) {
-          return 'Das ist ein Pflichtfeld';
-        }
-
-        return null;
-      },
+    return TypeAheadField<Food>(
       itemBuilder: (context, Food suggestion) {
         return ListTile(
           title: Text(suggestion.title!),
           trailing: Text('${decimalFormat(suggestion.points!)} P.'),
         );
       },
-      textFieldConfiguration: TextFieldConfiguration(
-        controller: controller,
-        decoration: InputDecoration(
-          labelText: labelText,
-          hintText: hintText,
-          border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10))),
-        ),
-        textInputAction: TextInputAction.next,
-      ),
-      onSuggestionSelected: (val) => onSelected(val),
+      onSelected: (val) => onSelected(val),
+      suggestionsCallback: (textEditingValue) {
+        if (textEditingValue == '') {
+          return [];
+        }
+        return AllData.foods
+            .where((Food food) => food.title!.toLowerCase().startsWith((textEditingValue.toLowerCase())))
+            .toList();
+      },
+      debounceDuration: const Duration(milliseconds: 500),
+      hideWithKeyboard: true,
+      hideOnEmpty: true,
+      builder: (context, controller, focusNode) {
+        return TextFormField(
+          focusNode: focusNode,
+          controller: controller,
+          decoration: InputDecoration(
+            labelText: labelText,
+            hintText: hintText,
+            border: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+          ),
+          textInputAction: TextInputAction.next,
+          validator: (value) {
+            if ((value == null || value.isEmpty || value == '')) {
+              return 'Das ist ein Pflichtfeld';
+            }
+
+            return null;
+          },
+          onChanged: (value) => this.controller.text = value,
+        );
+      },
     );
   }
 }

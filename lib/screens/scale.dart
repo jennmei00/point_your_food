@@ -9,7 +9,7 @@ import 'package:punkte_zaehler/widgets/custom_linechart.dart';
 import 'package:uuid/uuid.dart';
 
 class Scale extends StatefulWidget {
-  const Scale({Key? key}) : super(key: key);
+  const Scale({super.key});
 
   @override
   State<Scale> createState() => _ScaleState();
@@ -120,7 +120,7 @@ class _ScaleState extends State<Scale> {
                   OutlinedButton(
                     style: ButtonStyle(
                         backgroundColor: WidgetStateProperty.all(
-                            // Theme.of(context).primaryColor.withOpacity(0.5)),
+                            // Theme.of(context).primaryColor.withValues(alpha:0.5)),
                             Colors.white),
                         shape:
                             WidgetStateProperty.all<RoundedRectangleBorder>(

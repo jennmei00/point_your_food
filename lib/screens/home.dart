@@ -6,7 +6,7 @@ import 'package:punkte_zaehler/widgets/home/calc_dailypoints_sheet.dart';
 import 'package:punkte_zaehler/widgets/home/home_card.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -133,7 +133,7 @@ class _HomeState extends State<Home> {
                 child: OutlinedButton(
                   style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(
-                          // Theme.of(context).primaryColor.withOpacity(0.5)),
+                          // Theme.of(context).primaryColor.withValues(alpha:0.5)),
                           Colors.white),
                       shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(

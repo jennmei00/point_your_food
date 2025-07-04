@@ -16,7 +16,7 @@ class FoodCard extends StatelessWidget {
   final GlobalKey<FlipCardState> cardKey;
 
   const FoodCard(
-      {Key? key,
+      {super.key,
       required this.diary,
       required this.type,
       required this.title,
@@ -24,8 +24,7 @@ class FoodCard extends StatelessWidget {
       required this.food,
       required this.color,
       required this.onAddPressed,
-      required this.cardKey})
-      : super(key: key);
+      required this.cardKey});
 
   @override
   Widget build(BuildContext context) {

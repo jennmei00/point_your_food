@@ -11,7 +11,7 @@ import 'package:uuid/uuid.dart';
 class Activities extends StatefulWidget {
   final String diaryId;
 
-  const Activities({Key? key, required this.diaryId}) : super(key: key);
+  const Activities({super.key, required this.diaryId});
   static const routeName = '/activities';
 
   @override
@@ -51,7 +51,7 @@ class _ActivitiesState extends State<Activities> {
             Container(
               decoration: BoxDecoration(boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
+                  color: Colors.grey.withValues(alpha:0.5),
                   spreadRadius: 5,
                   blurRadius: 7,
                   offset: const Offset(0, 3),
@@ -151,7 +151,7 @@ class _ActivitiesState extends State<Activities> {
                             backgroundColor: WidgetStateProperty.all(
                                 Theme.of(context)
                                     .primaryColor
-                                    .withOpacity(0.5)),
+                                    .withValues(alpha:0.5)),
                             shape: WidgetStateProperty.all<
                                     RoundedRectangleBorder>(
                                 RoundedRectangleBorder(

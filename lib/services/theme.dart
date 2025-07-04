@@ -37,39 +37,37 @@ const TextTheme textTheme = TextTheme(
 // const Color calenderActiveBackgroundDayColor = Color.fromARGB(255, 107, 16, 7);
 // const Color calenderDotsColor = Color.fromARGB(255, 58, 66, 82);
 
-Color calenderDayColor = HexColor('#052A5C').withOpacity(0.4);
-Color calenderActiveDayColor = HexColor('#052A5C').withOpacity(0.4);
+Color calenderDayColor = HexColor('#052A5C').withValues(alpha: 0.4);
+Color calenderActiveDayColor = HexColor('#052A5C').withValues(alpha: 0.4);
 const Color calenderActiveBackgroundDayColor = Color.fromARGB(200, 4, 58, 82);
 //  Color.fromRGBO(7, 17, 69, 27);
 const Color calenderDotsColor = Color.fromARGB(255, 58, 66, 82);
 
 //Colors for the card in the diary
 //RED
-// Color activityCardColor = HexColor('#A60505').withOpacity(0.4);
-// Color activityAddCardColor = HexColor('#591D1D').withOpacity(0.5);
-// Color breakfastCardColor = HexColor('#A60505').withOpacity(0.4);
-// Color lunchCardColor = HexColor('#591D1D').withOpacity(0.5);
-// Color dinnerCardColor = HexColor('#D90707').withOpacity(0.5);
-// Color snackCardColor = HexColor('##EE4F4F').withOpacity(0.2);
+// Color activityCardColor = HexColor('#A60505').withValues(alpha:0.4);
+// Color activityAddCardColor = HexColor('#591D1D').withValues(alpha:0.5);
+// Color breakfastCardColor = HexColor('#A60505').withValues(alpha:0.4);
+// Color lunchCardColor = HexColor('#591D1D').withValues(alpha:0.5);
+// Color dinnerCardColor = HexColor('#D90707').withValues(alpha:0.5);
+// Color snackCardColor = HexColor('##EE4F4F').withValues(alpha:0.2);
 //BLUE
-Color activityCardColor = HexColor('#052A5C').withOpacity(0.4);
-Color activityAddCardColor = HexColor('#043A52').withOpacity(0.5);
-Color breakfastCardColor = HexColor('#052A5C').withOpacity(0.4);
-Color lunchCardColor = HexColor('#043A52').withOpacity(0.5);
-Color dinnerCardColor = HexColor('#0D055C').withOpacity(0.5);
-Color snackCardColor = HexColor('#210452').withOpacity(0.2);
+Color activityCardColor = HexColor('#052A5C').withValues(alpha: 0.4);
+Color activityAddCardColor = HexColor('#043A52').withValues(alpha: 0.5);
+Color breakfastCardColor = HexColor('#052A5C').withValues(alpha: 0.4);
+Color lunchCardColor = HexColor('#043A52').withValues(alpha: 0.5);
+Color dinnerCardColor = HexColor('#0D055C').withValues(alpha: 0.5);
+Color snackCardColor = HexColor('#210452').withValues(alpha: 0.2);
 
 ColorScheme colorSchemeLight = ColorScheme.light(
   primary: HexColor('#183446'),
-  // secondary: Color.fromARGB(200, 4, 58, 82),
   secondary: HexColor('38AECC'),
-  surface: Colors.white, //(0xffFCE4EC),
+  surface: Colors.white,
   onSecondary: Colors.black,
   onPrimary: Colors.white,
-  //surface: //for example backgroundcolor of the snackbar
 );
 
-CardTheme cardThemeLight = CardTheme(
+CardThemeData cardThemeLight = CardThemeData(
   color: HexColor('#D9D9D9'),
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
 );
@@ -83,43 +81,28 @@ final lightTheme = ThemeData(
     primarySwatch: Colors.grey,
     brightness: colorSchemeLight.brightness,
     scaffoldBackgroundColor: colorSchemeLight.surface,
-    // appBarTheme: AppBarTheme(backgroundColor: Colors.red[900]),
-    // toggleableActiveColor: colorSchemeLight
-    //     .secondary, //for example: aktiveColor of the Switch-Widget  //DEPRECATED
-    indicatorColor: Colors.white, //for example: of the TabBar
-    //floatingActionButtonTheme: FloatingActionButtonThemeData(extendedTextStyle: TextStyle(color: colorSchemeLight.onSecondary)),
-    //splashColor: Color(0xffbc477b),
-    // cardTheme: CardTheme(
-    //   color: Color(0xffeeeeee),
-    // ),
-    // inputDecorationTheme: InputTheme().theme(colorSchemeLight),
+    tabBarTheme: TabBarThemeData(indicatorColor: Colors.white),
     snackBarTheme: const SnackBarThemeData(
         actionTextColor: Color.fromARGB(199, 88, 170, 206)),
     cardTheme: cardThemeLight);
 
 const ColorScheme colorSchemeDark = ColorScheme.dark(
-  primary: Color(0xff7cc0d8), //Color(0xffc5e1a5),
+  primary: Color(0xff7cc0d8),
   secondary: Color(0xff3ba1c5),
   onPrimary: Colors.black,
   onSecondary: Colors.black,
-  // primary: Color(0xff78AD68),
-  // primaryVariant: Color(0xffa8df97),
-  // secondaryVariant: Color(0xffbc477b),
-  // secondary: Color(0xff560027),
 );
 
 final darkTheme = ThemeData(
-    primaryColor: colorSchemeDark.secondary,
-    primaryColorDark: const Color(0xff1a6985), //Color(0xff94af76),
-    //textTheme: textTheme,
-    colorScheme: colorSchemeDark,
-    scaffoldBackgroundColor: Colors.grey.shade900,
-    iconTheme: IconThemeData(
-      color: Colors.grey.shade500,
-    ),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: colorSchemeDark.secondary,
-    ),
-    // toggleableActiveColor: colorSchemeDark.secondary, //DEPRECATED
-    // inputDecorationTheme: InputTheme().theme(colorSchemeDark),
-    indicatorColor: colorSchemeDark.secondary);
+  primaryColor: colorSchemeDark.secondary,
+  primaryColorDark: const Color(0xff1a6985),
+  colorScheme: colorSchemeDark,
+  scaffoldBackgroundColor: Colors.grey.shade900,
+  iconTheme: IconThemeData(
+    color: Colors.grey.shade500,
+  ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: colorSchemeDark.secondary,
+  ),
+  tabBarTheme: TabBarThemeData(indicatorColor: colorSchemeDark.secondary),
+);

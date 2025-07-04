@@ -10,8 +10,7 @@ import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/diary/add_food_sheet.dart';
 
 class EditDiary extends StatefulWidget {
-  const EditDiary({Key? key, required this.date, required this.diaryId})
-      : super(key: key);
+  const EditDiary({super.key, required this.date, required this.diaryId});
   static const routeName = '/edit_diary';
   // final PointType type;
   final DateTime date;
@@ -38,10 +37,11 @@ class _EditDiaryState extends State<EditDiary> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        return true;
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) async {
+        if (!didPop) {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        }
       },
       child: Scaffold(
         appBar: AppBar(

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:punkte_zaehler/screens/start_screen.dart';
 
 class Wrapper extends StatefulWidget {
-  const Wrapper({Key? key}) : super(key: key);
+  const Wrapper({super.key});
 
   @override
   State<Wrapper> createState() => _WrapperState();

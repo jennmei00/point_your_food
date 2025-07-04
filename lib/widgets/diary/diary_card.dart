@@ -4,14 +4,14 @@ import 'package:punkte_zaehler/models/food.dart';
 
 class DiaryCard extends StatelessWidget {
   const DiaryCard({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.title,
     required this.icon,
     required this.food,
     required this.activity,
     required this.isFood,
-  }) : super(key: key);
+  });
 
   final Function onPressed;
   final String title;

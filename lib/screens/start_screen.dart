@@ -15,7 +15,7 @@ import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StartScreen extends StatefulWidget {
-  const StartScreen({Key? key}) : super(key: key);
+  const StartScreen({super.key});
 
   @override
   State<StartScreen> createState() => _StartScreenState();

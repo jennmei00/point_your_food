@@ -8,8 +8,8 @@ import 'package:punkte_zaehler/widgets/custom_textfield.dart';
 class EditWeightsSheet extends StatefulWidget {
   final BuildContext ctx;
   final Function onPressed;
-  const EditWeightsSheet({Key? key, required this.ctx, required this.onPressed})
-      : super(key: key);
+  const EditWeightsSheet(
+      {super.key, required this.ctx, required this.onPressed});
 
   @override
   State<EditWeightsSheet> createState() => _EditWeightsSheetState();
@@ -173,8 +173,8 @@ class _EditWeightsSheetState extends State<EditWeightsSheet> {
                       child: const Text('Abbrechen')),
                   OutlinedButton(
                       onPressed: () async {
-                        await updateWeights()
-                            .then((value) => Navigator.of(context).pop());
+                          await updateWeights()
+                              .then((value) => Navigator.of(context).pop());
 
                         widget.onPressed();
                       },

@@ -11,8 +11,7 @@ class CalcDailypointsSheet extends StatefulWidget {
   final BuildContext ctx;
   final Function onPressed;
   const CalcDailypointsSheet(
-      {Key? key, required this.ctx, required this.onPressed})
-      : super(key: key);
+      {super.key, required this.ctx, required this.onPressed});
 
   @override
   State<CalcDailypointsSheet> createState() => _CalcDailypointsSheetState();

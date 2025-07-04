@@ -8,7 +8,7 @@ import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/diary/add_food_sheet.dart';
 
 class EditFood extends StatefulWidget {
-  const EditFood({Key? key}) : super(key: key);
+  const EditFood({super.key});
   static const routeName = '/editFood';
 
   @override

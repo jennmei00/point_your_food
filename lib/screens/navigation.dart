@@ -8,7 +8,7 @@ import 'package:punkte_zaehler/screens/scale.dart';
 import 'package:punkte_zaehler/screens/settings/settings.dart';
 
 class Navigation extends StatefulWidget {
-  const Navigation({Key? key}) : super(key: key);
+  const Navigation({super.key});
 
   @override
   State<Navigation> createState() => NavigationState();

@@ -4,7 +4,7 @@ import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:punkte_zaehler/widgets/custom_textfield.dart';
 
 class PointCalculator extends StatefulWidget {
-  const PointCalculator({Key? key, required this.fromSheet}) : super(key: key);
+  const PointCalculator({super.key, required this.fromSheet});
   static const routeName = '/point_calculator';
   final bool fromSheet;
 

@@ -4,7 +4,7 @@ import 'package:punkte_zaehler/models/all_data.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class CustomLineChart extends StatefulWidget {
-  const CustomLineChart({Key? key}) : super(key: key);
+  const CustomLineChart({super.key});
 
   @override
   State<CustomLineChart> createState() => _CustomLineChartState();

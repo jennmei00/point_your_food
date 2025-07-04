@@ -18,7 +18,7 @@ import 'package:punkte_zaehler/widgets/diary/food_card.dart';
 import 'package:uuid/uuid.dart';
 
 class FoodDiary extends StatefulWidget {
-  const FoodDiary({Key? key}) : super(key: key);
+  const FoodDiary({super.key});
 
   @override
   State<FoodDiary> createState() => _FoodDiaryState();

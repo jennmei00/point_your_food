@@ -8,13 +8,13 @@ class CustomTextFieldSignUp extends StatelessWidget {
   final bool obscureText;
 
   const CustomTextFieldSignUp({
-    Key? key,
+    super.key,
     this.labelText = '',
     this.hintText = '',
     required this.controller,
     required this.validator,
     required this.obscureText,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,7 +35,7 @@ class CustomTextFieldSignUp extends StatelessWidget {
           ),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.white.withOpacity(0.3))),
+              borderSide: BorderSide(color: Colors.white.withValues(alpha:0.3))),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
           ),

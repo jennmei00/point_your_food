@@ -8,7 +8,7 @@ import 'package:punkte_zaehler/services/help_methods.dart';
 import 'package:uuid/uuid.dart';
 
 class EditActivity extends StatefulWidget {
-  const EditActivity({Key? key}) : super(key: key);
+  const EditActivity({super.key});
   static const routeName = '/editActivity';
 
   @override
@@ -168,7 +168,7 @@ class _EditActivityState extends State<EditActivity> {
           Container(
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
+                color: Colors.grey.withValues(alpha:0.5),
                 spreadRadius: 5,
                 blurRadius: 7,
                 offset: const Offset(0, 3),

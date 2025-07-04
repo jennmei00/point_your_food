@@ -10,14 +10,13 @@ class HomeCard extends StatelessWidget {
   final Function onWeightChanged;
   final TextEditingController weightController;
   const HomeCard(
-      {Key? key,
+      {super.key,
       required this.date,
       // required this.weight,
       required this.onDateChanged,
       required this.onWeightChanged,
       required this.title,
-      required this.weightController})
-      : super(key: key);
+      required this.weightController});
 
   @override
   Widget build(BuildContext context) {

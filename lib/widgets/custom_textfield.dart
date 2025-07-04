@@ -16,7 +16,7 @@ class CustomTextField extends StatelessWidget {
   // final bool noDecimal;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     this.labelText = '',
     this.hintText = '',
     this.keyboardType = TextInputType.text,
@@ -27,7 +27,7 @@ class CustomTextField extends StatelessWidget {
     required this.type,
     // required this.fieldname,
     // this.noDecimal = false,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -64,7 +64,7 @@ class CustomTextField extends StatelessWidget {
         },
         decoration: InputDecoration(
           filled: true,
-          fillColor: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+          fillColor: Theme.of(context).colorScheme.secondary.withValues(alpha:0.5),
           labelText: labelText,
           floatingLabelStyle: const TextStyle(backgroundColor: Colors.white),
           hintText: hintText,

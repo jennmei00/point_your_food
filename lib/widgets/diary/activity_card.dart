@@ -13,7 +13,7 @@ class ActivityCard extends StatelessWidget {
   final Function? onRemovePressed;
 
   const ActivityCard({
-    Key? key,
+    super.key,
     required this.cardKey,
     required this.color,
     required this.icon,
@@ -22,7 +22,7 @@ class ActivityCard extends StatelessWidget {
     required this.addField,
     required this.onAddPressed,
     required this.onRemovePressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
